@@ -1,1 +1,3 @@
-this is for the other you do is the main thing you do 
+git add .
+git commit -m "Describe what you changed"
+git push
