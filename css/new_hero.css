@@ -1,0 +1,235 @@
+/* CSS from new.html for Homepage Hero Integration */
+
+:root {
+    --ivory: #f6f2ec;
+    --ivory-soft: #fbf9f5;
+    --deep-red: #4a0404;
+    --deep-red-hover: #630606;
+    --gold: #b38b59;
+}
+
+/* HERO BG - Fixed position behind everything */
+.hero-bg {
+    position: fixed;
+    inset: 0;
+    background: url("../bg.png") center -80px / cover no-repeat;
+    z-index: -1;
+    filter: blur(0px);
+    transition: filter .5s cubic-bezier(.22,.61,.36,1);
+}
+
+/* HERO SECTION - Height 100vh, transparent to show bg */
+.hero {
+    height: 100vh; /* Fallback */
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    position: relative;
+    background: transparent !important; /* Override index.css gradient */
+    display: block !important;          /* Override index.css flex */
+    padding: 0 !important;              /* Override index.css padding */
+    margin: 0 !important;
+}
+
+/* NAVBAR - Hero State */
+#header.hero-state {
+    background: linear-gradient(to bottom, var(--ivory-soft), rgba(251,249,245,.85));
+    box-shadow: 0 12px 26px rgba(0,0,0,.08);
+}
+
+#header.scrolled-new {
+    background: var(--ivory);
+    box-shadow: 0 10px 22px rgba(0,0,0,.1);
+}
+
+/* HERO CONTENT */
+.content {
+    position: absolute;
+    left: 8vw;
+    top: calc(28vh + 70px);
+    max-width: 520px;
+}
+
+.meta {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 18px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif; /* Or var(--serif) if matched */
+    font-size: 52px;
+    line-height: 1.15;
+    color: var(--deep-red);
+    margin-bottom: 22px;
+}
+
+.hero .sub {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #3f3f3f;
+    margin-bottom: 36px;
+}
+
+/* CTA – SILK HOVER */
+.btn-silk {
+    position: relative;
+    padding: 16px 38px;
+    background: var(--deep-red);
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size: 14px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.btn-silk::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 120%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+    transition: .8s cubic-bezier(.22,.61,.36,1);
+}
+
+.btn-silk:hover::before {
+    left: 120%;
+}
+
+/* PREMIUM MICRO COPY */
+.editorial-note {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.editorial-line {
+    width: 64px;
+    height: 1px;
+    background: var(--gold);
+    opacity: .7;
+}
+
+.editorial-text {
+    font-size: 13px;
+    font-style: italic;
+    color: #6b5f50;
+    line-height: 1.4;
+    max-width: 380px;
+}
+
+/* SOFT TEXT REVEAL */
+.reveal-hero {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+        opacity 1.1s cubic-bezier(.22,.61,.36,1),
+        transform 1.1s cubic-bezier(.22,.61,.36,1);
+}
+
+.reveal-hero.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* HERO WORD */
+.hero-word {
+    position: absolute;
+    right: -40px;
+    bottom: 120px;
+    font-size: 180px;
+    letter-spacing: 8px;
+    color: rgba(74,4,4,.05);
+    font-family: 'Playfair Display', serif;
+    pointer-events: none;
+}
+
+/* PAGE 2 / SECTION 2 - Transition Logic */
+.page-2 {
+    margin-top: 70vh; /* Creates the gap/transition space */
+    padding: 120px;
+    background: linear-gradient(
+        to bottom,
+        rgba(246,242,236,0),
+        rgba(246,242,236,.85),
+        var(--ivory)
+    );
+    border-radius: 48px 48px 0 0;
+    position: relative;
+    z-index: 5;
+}
+
+/* MOBILE RESPONSIVE */
+/* MOBILE RESPONSIVE PRESETS */
+@media(max-width: 1024px) {
+    .hero-bg { 
+        position: fixed; /* Keep fixed for parallax if smooth, or absolute if laggy. Sticking to fixed for premium feel as per request */
+        background-attachment: scroll; /* Fix for some mobile browsers to prevent jitter */
+    }
+    
+    .content {
+        position: relative;
+        left: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0 30px;
+        margin-top: 0; /* Centered visually */
+        max-width: 100%;
+        z-index: 10;
+        text-align: center; /* Center align for mobile usually looks more premium/balanced */
+    }
+    
+    .meta {
+        font-size: 10px;
+        margin-bottom: 12px;
+    }
+
+    .hero h1 { 
+        font-size: 38px; 
+        line-height: 1.1;
+        margin-bottom: 16px;
+    }
+    
+    .hero .sub { 
+        font-size: 15px;
+        margin-bottom: 24px;
+        padding: 0 10px;
+    }
+
+    .hero-word {
+        font-size: 60px;
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 80px;
+        opacity: 0.03; /* Subtler on mobile */
+        white-space: nowrap;
+    }
+
+    /* Page 2 overlaps earlier on mobile */
+    .page-2 {
+        padding: 60px 24px;
+        height: auto;
+        margin-top: 85vh; /* Push it down so full hero is visible first */
+        border-radius: 32px 32px 0 0;
+    }
+
+    .editorial-note {
+        justify-content: center; /* Center align editorial note */
+        margin-top: 32px;
+    }
+}
+
+@media(max-width: 480px) {
+    .hero h1 { font-size: 32px; }
+    .hero-word { font-size: 40px; bottom: 60px; }
+    .page-2 { margin-top: 80vh; }
+}

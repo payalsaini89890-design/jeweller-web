@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Atelier — Fine Jewellery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --ivory:#f6f2ec;
+    --ivory-soft:#fbf9f5;
+    --deep-red:#4a0404;
+    --deep-red-hover:#630606;
+    --gold:#b38b59;
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Playfair Display', serif;
+    background:var(--ivory);
+    overflow-x:hidden;
+}
+
+/* HERO BG */
+.hero-bg{
+    position:fixed;
+    inset:0;
+    background:url("bg.png") center -80px / cover no-repeat;
+    z-index:-1;
+    filter:blur(0px);
+    transition:filter .5s cubic-bezier(.22,.61,.36,1);
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    position:relative;
+}
+
+/* NAVBAR */
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:10;
+    transition:.35s ease;
+}
+
+.navbar.hero-state{
+    background:linear-gradient(to bottom,var(--ivory-soft),rgba(251,249,245,.85));
+    box-shadow:0 12px 26px rgba(0,0,0,.08);
+}
+
+.navbar.scrolled{
+    background:var(--ivory);
+    box-shadow:0 10px 22px rgba(0,0,0,.1);
+}
+
+.nav-inner{
+    max-width:1400px;
+    margin:auto;
+    padding:24px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    cursor:pointer;
+}
+
+.brand-line{
+    width:56px;
+    height:1px;
+    background:var(--gold);
+}
+
+.brand-name{
+    font-size:15px;
+    letter-spacing:3.5px;
+    color:var(--deep-red);
+    font-weight:600;
+}
+
+/* NAV MENU */
+.nav-menu{
+    display:flex;
+    gap:48px;
+}
+
+.nav-menu a{
+    font-size:13px;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:#7a6a55;
+    position:relative;
+}
+
+.nav-menu a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0;
+    height:1px;
+    background:var(--gold);
+    transition:.35s ease;
+}
+
+.nav-menu a:hover::after{width:100%;}
+
+/* HERO CONTENT */
+.content{
+    position:absolute;
+    left:8vw;
+    top:calc(28vh + 70px);
+    max-width:520px;
+}
+
+.meta{
+    font-size:12px;
+    letter-spacing:3px;
+    color:var(--gold);
+    margin-bottom:18px;
+}
+
+h1{
+    font-size:52px;
+    line-height:1.15;
+    color:var(--deep-red);
+    margin-bottom:22px;
+}
+
+.sub{
+    font-size:18px;
+    color:#3f3f3f;
+    margin-bottom:36px;
+}
+
+/* CTA – SILK HOVER */
+.btn{
+    position:relative;
+    padding:16px 38px;
+    background:var(--deep-red);
+    color:#fff;
+    text-decoration:none;
+    letter-spacing:2px;
+    font-size:14px;
+    overflow:hidden;
+}
+
+.btn::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:120%;
+    height:100%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+    transition:.8s cubic-bezier(.22,.61,.36,1);
+}
+
+.btn:hover::before{
+    left:120%;
+}
+
+/* PREMIUM MICRO COPY */
+.editorial-note{
+    margin-top:28px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.editorial-line{
+    width:64px;
+    height:1px;
+    background:var(--gold);
+    opacity:.7;
+}
+
+.editorial-text{
+    font-size:13px;
+    font-style:italic;
+    color:#6b5f50;
+    line-height:1.4;
+    max-width:380px;
+}
+
+/* SOFT TEXT REVEAL */
+.reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:
+        opacity 1.1s cubic-bezier(.22,.61,.36,1),
+        transform 1.1s cubic-bezier(.22,.61,.36,1);
+}
+
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* HERO WORD */
+.hero-word{
+    position:absolute;
+    right:-40px;
+    bottom:120px;
+    font-size:180px;
+    letter-spacing:8px;
+    color:rgba(74,4,4,.05);
+}
+
+/* SECTIONS */
+.section{height:100vh;}
+
+.page-2{
+    margin-top:70vh;
+    padding:120px;
+    background:linear-gradient(
+        to bottom,
+        rgba(246,242,236,0),
+        rgba(246,242,236,.85),
+        var(--ivory)
+    );
+    border-radius:48px 48px 0 0;
+}
+
+.page{
+    padding:120px;
+    background:var(--ivory);
+}
+
+/* MOBILE */
+@media(max-width:1024px){
+
+    .hero-bg{position:absolute;}
+    .nav-menu{display:none;}
+
+    .content{
+        position:relative;
+        left:auto;
+        top:auto;
+        padding:0 24px;
+        margin-top:160px;
+        max-width:100%;
+    }
+
+    h1{font-size:34px;}
+    .sub{font-size:16px;}
+
+    .hero-word{
+        font-size:88px;
+        right:-20px;
+        bottom:80px;
+    }
+
+    .page,
+    .page-2{
+        padding:80px 24px;
+        height:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero-bg" id="heroBg"></div>
+
+<nav class="navbar hero-state" id="navbar">
+    <div class="nav-inner">
+        <div class="brand" id="brandTop">
+            <div class="brand-line"></div>
+            <div class="brand-name">THE ATELIER</div>
+        </div>
+        <div class="nav-menu">
+            <a href="#">Home</a>
+            <a href="#">Heritage</a>
+            <a href="#">Gold</a>
+            <a href="#">Platinum</a>
+            <a href="#">Boutique</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero section">
+    <div class="content">
+        <div class="meta reveal">EST. 1980 • FLAGSHIP CITY</div>
+
+        <h1 class="reveal">
+            Crafting Regality<br>for the Modern Bride
+        </h1>
+
+        <div class="sub reveal">
+            Where Royal Heritage Meets Haute Couture
+        </div>
+
+        <a href="#" class="btn reveal">DISCOVER COLLECTIONS</a>
+
+        <div class="editorial-note reveal">
+            <div class="editorial-line"></div>
+            <div class="editorial-text">
+                An atelier where each piece is composed, not produced
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-word">ATELIER</div>
+</section>
+
+<section class="page-2 section"></section>
+<section class="page section"></section>
+<section class="page section"></section>
+
+<script>
+const heroBg = document.getElementById('heroBg');
+const navbar = document.getElementById('navbar');
+const brandTop = document.getElementById('brandTop');
+
+/* TEXT REVEAL */
+window.addEventListener('load',()=>{
+    document.querySelectorAll('.reveal').forEach((el,i)=>{
+        setTimeout(()=>el.classList.add('show'), i * 120);
+    });
+});
+
+/* PERFECT BLUR LOGIC (NO IMAGE MOVEMENT) */
+let currentBlur = 0;
+let targetBlur = 0;
+
+function animateBlur(){
+    currentBlur += (targetBlur - currentBlur) * 0.08;
+    heroBg.style.filter = `blur(${currentBlur.toFixed(2)}px)`;
+    requestAnimationFrame(animateBlur);
+}
+
+window.addEventListener('scroll',()=>{
+    const y = window.scrollY;
+    const h = window.innerHeight;
+
+    /* 🔑 No blur inside hero */
+    if(y <= h){
+        targetBlur = 0;
+    }else{
+        targetBlur = Math.min(((y - h) / h) * 10, 10);
+    }
+
+    if(y > h * 0.6){
+        navbar.classList.add('scrolled');
+        navbar.classList.remove('hero-state');
+    }else{
+        navbar.classList.add('hero-state');
+        navbar.classList.remove('scrolled');
+    }
+});
+
+/* START BLUR LOOP */
+animateBlur();
+
+/* BRAND CLICK → SCROLL TO TOP */
+brandTop.addEventListener('click',()=>{
+    window.scrollTo({top:0, behavior:'smooth'});
+});
+</script>
+
+</body>
+</html>

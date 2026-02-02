@@ -1,0 +1,238 @@
+/* Contact page specific variables (Refined for light theme) */
+:root {
+    --bg-light: var(--cream-light);
+    --charcoal: #2d2d2d;
+    /* Used for text in light theme */
+    --deep-grey: #f7f3ed;
+    --warm-grey: #666666;
+}
+
+.contact-section {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    font-family: var(--sans);
+    padding: 220px 0 160px;
+    /* Increased top padding to avoid header overlap */
+    /* Adjusted for fixed header */
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* --- 1. Section Header --- */
+.contact-header {
+    text-align: center;
+    margin-bottom: 100px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition);
+}
+
+.contact-label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--gold-muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.contact-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    /* Slightly reduced to avoid massive overlap on smaller heights */
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.contact-subheading {
+    font-size: 1rem;
+    color: var(--warm-grey);
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* --- 2. Layout --- */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: flex-start;
+}
+
+/* --- Left Side: Details --- */
+.contact-details {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: var(--transition);
+}
+
+.brand-name {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--gold-muted);
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.info-block {
+    margin-bottom: 45px;
+}
+
+.info-block h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-grey);
+    margin-bottom: 15px;
+}
+
+.info-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    font-weight: 300;
+    color: var(--text-dark);
+    text-decoration: none;
+    display: block;
+}
+
+.divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold-muted);
+    margin: 30px 0;
+    opacity: 0.5;
+}
+
+/* --- Right Side: Form --- */
+.contact-form-wrapper {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: var(--transition);
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    color: var(--text-dark);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    transition: 0.4s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-bottom: 1px solid var(--gold-muted);
+}
+
+.form-label {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    color: var(--warm-grey);
+    font-size: 0.85rem;
+    pointer-events: none;
+    transition: 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.form-input:focus+.form-label,
+.form-input:not(:placeholder-shown)+.form-label {
+    top: -15px;
+    font-size: 0.65rem;
+    color: var(--gold-muted);
+}
+
+.submit-btn {
+    background: var(--deep-red);
+    color: white;
+    border: 1px solid var(--deep-red);
+    padding: 18px 45px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    cursor: pointer;
+    transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background: #630606;
+    color: white;
+    letter-spacing: 0.4em;
+}
+
+/* Success State */
+.success-message {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    color: var(--gold-muted);
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* --- 3. Map Placeholder --- */
+.map-frame {
+    margin-top: 100px;
+    height: 300px;
+    background: #fdfcf9;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.map-frame span {
+    color: var(--warm-grey);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 80px;
+    }
+
+    .contact-header {
+        margin-bottom: 60px;
+    }
+
+    .contact-section {
+        padding: 80px 0;
+    }
+}

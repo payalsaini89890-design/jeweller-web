@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Platinum Suite | Rare & Eternal | The Atelier</title>
+    <meta name="description" content="The Platinum Suite at The Jewellery Atelier. Discover the rarest precious metal, crafted for understated brilliance and eternal strength.">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Platinum Suite | Rare & Eternal | The Atelier">
+    <meta property="og:description" content=" अंडरस्टैड ब्रिलिएंस (Understated brilliance) defined in rare Pt 950 platinum.">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/collections.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/gallery.css">
+    <link rel="stylesheet" href="../css/filters.css">
+    <link rel="stylesheet" href="../css/mobile-menu.css">
+    <link rel="stylesheet" href="../css/dossier.css">
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Configuration and Supabase -->
+    <script src="../js/env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/ticker.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div style="position:absolute; top:30px; right:30px; cursor:pointer; font-size:1rem; letter-spacing:2px;" onclick="toggleMobileMenu()">CLOSE</div>
+        <a href="../index.html">Home</a>
+        <a href="../heritage.html">The Heritage</a>
+        <a href="gold.html">Gold</a>
+        <a href="platinum.html">Platinum</a>
+        <a href="../ai.html">AI Concierge</a>
+        <a href="../wishlist.html">Wishlist</a>
+        <a href="../contact.html">Visit</a>
+    </div>
+
+    <header id="header">
+        <a href="../index.html" class="logo">THE ATELIER</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../heritage.html">The Heritage</a></li>
+                <li><a href="gold.html">Gold Collection</a></li>
+                <li><a href="platinum.html" class="active" style="color: var(--crimson);">Platinum Collection</a></li>
+                <li><a href="../contact.html">Visit Store</a></li>
+                <li><a href="../ai.html">AI Concierge</a></li>
+                <li><a href="../wishlist.html" title="Wishlist" style="position: relative; font-size: 1.2rem;">♥ <span id="wishlist-count" style="display: none;">0</span></a></li>
+            </ul>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
+        </nav>
+    </header>
+
+    <main class="platinum-content" style="padding-top: 100px;">
+        <div class="section-intro">
+            <span class="platinum-label">Pt 950 • Rare & Eternal</span>
+            <h1 style="font-family: var(--serif); font-weight: 400; font-size: 3rem; margin-top: 20px;">The Platinum Suite</h1>
+            <p style="color: #2c3e50; max-width: 500px; margin: 20px auto; font-weight: 300;">Discover the rarest of all
+                precious metals. Crafted for those who seek understated brilliance and eternal strength.</p>
+        </div>
+
+        <div id="filterContainer" style="margin-bottom: 30px;"></div>
+
+        <div class="platinum-grid" id="platinum-grid">
+            <!-- Products will be loaded dynamically from Supabase -->
+            <div class="loading-state" style="text-align: center; width: 100%; color: var(--text-muted);">
+                Exquisite platinum arriving soon...
+            </div>
+        </div>
+    </main>
+
+    <div id="dossier-root"></div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <span class="logo">THE JEWELLERY ATELIER</span>
+                <p>Your destination for the rarest metals on earth.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Platinum Suite</h4>
+                <p>Men's Platinum</p>
+                <p>Engagement Rings</p>
+                <p>Platinum Evara</p>
+            </div>
+            <div class="footer-col">
+                <h4>Assurance</h4>
+                <p>PGI Certification</p>
+                <p>Custom Engraving</p>
+                <p>Visit Atelier</p>
+            </div>
+            <div class="footer-col">
+                <h4>The Store</h4>
+                <p>123 Royale Avenue, Diamond District,<br>Flagship City, 000001</p>
+                <p>+91 00000 00000</p>
+            </div>
+        </div>
+        <div class="copyright">© 2026 The Jewellery Atelier. Platinum Guild International Member.</div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/gallery.js"></script>
+    <script src="../js/filters.js"></script>
+    <script src="../js/wishlist.js"></script>
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/dossier.js"></script>
+    <script>
+        let allItems = [];
+        let filterManager = null;
+
+        async function loadJewellery() {
+            const grid = document.getElementById('platinum-grid');
+
+            if (!window.env?.TEXT_SUPABASE_URL || !window.env?.TEXT_SUPABASE_ANON_KEY) {
+                grid.innerHTML = `<p style="text-align: center; width: 100%; color: var(--crimson);">Configuration Missing!</p>`;
+                return;
+            }
+
+            try {
+                const { data, error } = await window.supabaseText
+                    .from('jewellery')
+                    .select('*')
+                    .eq('category', 'platinum')
+                    .eq('is_active', true);
+
+                if (error) throw error;
+                allItems = data || [];
+
+                if (!filterManager) {
+                    filterManager = new ProductFilter('platinum', (filters) => renderGrid(filters));
+                }
+
+                renderGrid();
+            } catch (err) {
+                console.error('Error loading jewellery:', err);
+                grid.innerHTML = '<p style="text-align: center; width: 100%;">Failed to load collection.</p>';
+            }
+        }
+
+        function renderGrid(filters = null) {
+            const grid = document.getElementById('platinum-grid');
+            let filtered = [...allItems];
+
+            if (filters) {
+                if (filters.search) {
+                    filtered = filtered.filter(it => it.name.toLowerCase().includes(filters.search) || it.description?.toLowerCase().includes(filters.search));
+                }
+                if (filters.jewelryType.length > 0) {
+                    filtered = filtered.filter(it => filters.jewelryType.includes(it.jewelry_type));
+                }
+                if (filters.purity.length > 0) {
+                    filtered = filtered.filter(it => filters.purity.includes(it.gold_purity));
+                }
+                filtered = filtered.filter(it => {
+                    const priceNum = parseInt(String(it.price).replace(/[^0-9]/g, '')) || 0;
+                    return priceNum <= filters.priceRange || filters.priceRange === 500000;
+                });
+            }
+
+            grid.innerHTML = '';
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; width: 100%;">No items match your criteria.</p>';
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'platinum-card';
+                const isLiked = wishlistManager?.isInWishlist(item.id);
+                card.innerHTML = `
+                    <div class="img-box" onclick="openProductDetail('${item.id}')">
+                        <img src="${item.image_url}" alt="${item.name}">
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:start; margin-top:15px;">
+                        <h3 onclick="openProductDetail('${item.id}')" style="margin:0; cursor:pointer;">${item.name}</h3>
+                        <button class="wishlist-btn ${isLiked ? 'wishlisted' : ''}" data-wishlist-id="${item.id}" onclick="event.stopPropagation(); toggleWishlist('${item.id}')">${isLiked ? '♥' : '♡'}</button>
+                    </div>
+                    <span class="platinum-price">${item.price}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', loadJewellery);
+
+        async function handleEnquiry() {
+            const item = allItems.find(it => it.id === dossier.productId);
+            openEnquiryModal(item);
+        }
+
+        /* Mobile Menu Logic */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            if(menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+        /* Mobile Menu Logic */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            if(menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+    </script>
+</body>
+
+</html>

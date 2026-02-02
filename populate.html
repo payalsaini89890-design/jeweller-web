@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Populate Feedback - The Jewellery Atelier</title>
+    <script src="js/env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 50px; text-align: center; background: #fdfcf9; color: #5e0b0b; }
+        .btn { padding: 20px 40px; background: #5e0b0b; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.2rem; }
+        .btn:disabled { background: #ccc; }
+        #status { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Feedback System Activator</h1>
+    <p>This tool will inject the premium dummy data directly into your Supabase database from your browser.</p>
+    <button id="runBtn" class="btn" onclick="populate()">Inject Dummy Data Now</button>
+    <div id="status"></div>
+
+    <script>
+        async function populate() {
+            const btn = document.getElementById('runBtn');
+            const status = document.getElementById('status');
+            btn.disabled = true;
+            status.innerText = "Connecting to The Atelier Cloud...";
+
+            const dummyData = [
+                { name: "Sophia L.", message: "The AI suggested a Choker that matched my grandmother's wedding set perfectly.", rating: 5, is_published: true },
+                { name: "Arjun M.", message: "The 24K gold work is heavy, authentic, and carries the scent of heritage.", rating: 5, is_published: true },
+                { name: "Marcus V.", message: "A seamless digital-to-physical luxury experience.", rating: 4, is_published: true },
+                { name: "Vikram S.", message: "Exceptional Polki work. The detail is unmatched in this city.", rating: 5, is_published: true },
+                { name: "Elena R.", message: "The private consultation was so quiet and professional. Felt like royalty.", rating: 5, is_published: false },
+                { name: "Sarah K.", message: "The AI concierge is surprisingly helpful for finding gift ideas.", rating: 4, is_published: false }
+            ];
+
+            try {
+                const { error } = await window.supabaseText.from('feedback').insert(dummyData);
+                if (error) throw error;
+                status.style.color = "green";
+                status.innerText = "✓ Success! Dummy data is now in your database.";
+                setTimeout(() => {
+                    alert("Data Injected. You can now refresh your Homepage and Admin Panel!");
+                    window.close();
+                }, 1000);
+            } catch (err) {
+                status.style.color = "red";
+                status.innerText = "Error: " + err.message;
+                console.error(err);
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

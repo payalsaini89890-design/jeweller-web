@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dossier: The Nizam Imperial | The Atelier</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Montserrat:wght@100;300;500&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+:root{
+    --gold:#b38b59;
+    --gold-hover:#967348;
+    --oxblood:#3d0a0a;
+    --oxblood-hover:#2a0707;
+    --paper:#fcfaf7;
+    --ink:#2a2a2a;
+    --serif:"Cormorant Garamond",serif;
+    --sans:"Montserrat",sans-serif;
+}
+
+/* Lenis CSS */
+html.lenis, html.lenis body { height: auto; }
+.lenis-smooth { scroll-behavior: auto !important; }
+.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis-stopped { overflow: hidden; }
+.lenis-scrolling iframe { pointer-events: none; }
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height: 1.6;
+}
+
+/* --- GLOBAL MOTION --- */
+/* We will handle reveals via GSAP now for smoother performance */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* --- SPLIT HERO --- */
+.split-view{
+    display:flex;
+    min-height:100vh;
+    background:var(--paper);
+}
+
+.media-shrine{
+    flex:1;
+    position:sticky;
+    top:0;
+    height:100vh;
+    background:#f1eee9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.main-artifact{
+    width:80%;
+    height:80%;
+    object-fit:contain;
+    filter:drop-shadow(0 40px 70px rgba(0,0,0,.18));
+    transition: opacity .6s ease;
+    cursor: zoom-in;
+    will-change: transform; /* Optimization for Parallax */
+}
+
+/* image switch */
+.image-switch{
+    position:absolute;
+    bottom:40px;
+    display:flex;
+    gap:16px;
+    z-index: 10;
+}
+.thumb{
+    width:56px;
+    height:56px;
+    border:1px solid var(--gold);
+    padding:4px;
+    background:#fff;
+    cursor:pointer;
+    opacity:.55;
+    transition:.4s;
+}
+.thumb.active,
+.thumb:hover{opacity:1}
+.thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.info-flow{
+    flex:1;
+    padding:90px 6% 160px;
+    border-left:1px solid rgba(179,139,89,.25);
+    background: var(--paper);
+    z-index: 2;
+}
+
+/* --- TYPOGRAPHY --- */
+.serial-no{
+    font-size:.6rem;
+    letter-spacing:5px;
+    color:var(--gold);
+    margin-bottom:14px;
+    display:block;
+}
+
+.masterpiece-title{
+    font-family:var(--serif);
+    font-size:4.6rem;
+    line-height:.92;
+    font-weight:300;
+    margin-bottom:60px;
+}
+.masterpiece-title i{color:var(--gold);font-weight:200;}
+
+.prose-block{
+    font-size:1.15rem;
+    line-height:2.25;
+    color:#444;
+    font-weight:300;
+    margin-bottom:80px;
+}
+.prose-block::first-letter{
+    font-family:var(--serif);
+    font-size:4.2rem;
+    float:left;
+    margin-right:14px;
+    color:var(--gold);
+    line-height:1;
+}
+
+.section-label{
+    font-size:.7rem;
+    letter-spacing:6px;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:90px 0 30px;
+    display:block;
+}
+
+/* --- ANATOMY --- */
+.anatomy-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:rgba(179,139,89,.25);
+}
+.anatomy-item{
+    background:var(--paper);
+    padding:34px;
+}
+.anatomy-item h4{
+    font-size:.6rem;
+    letter-spacing:3px;
+    color:#999;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+.anatomy-item p{
+    font-family:var(--serif);
+    font-size:1.5rem;
+}
+
+/* --- MATERIAL INTELLIGENCE --- */
+.material-note{
+    font-family:var(--serif);
+    font-size:1.3rem;
+    line-height:1.9;
+    color:#333;
+    border-left:3px solid var(--gold);
+    padding-left:28px;
+    margin-top:60px;
+}
+
+/* --- MASTER ARTISAN --- */
+.atelier{
+    margin-top:120px;
+    padding:70px;
+    border:1px solid rgba(179,139,89,.35);
+    background:#fff;
+}
+.atelier h3{
+    font-family:var(--serif);
+    font-size:2.4rem;
+    margin-bottom:14px;
+}
+.atelier p{
+    font-size:1rem;
+    line-height:2;
+    color:#555;
+}
+.atelier blockquote{
+    margin-top:30px;
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--gold);
+    font-size:1.4rem;
+}
+
+/* --- PROVENANCE TIMELINE --- */
+.timeline{
+    margin:140px 0;
+    border-left:1px solid var(--gold);
+    padding-left:40px;
+}
+.timeline-item{
+    margin-bottom:60px;
+}
+.timeline-item span{
+    font-size:.65rem;
+    letter-spacing:4px;
+    color:var(--gold);
+}
+.timeline-item h4{
+    font-family:var(--serif);
+    font-size:1.8rem;
+    margin:8px 0;
+}
+
+/* --- COMMISSION RITUAL --- */
+.ritual-wrap{
+    position:relative;
+    background:var(--oxblood);
+    overflow: hidden;
+}
+.ritual-wrap svg{
+    position:absolute;
+    top:-120px;
+    left:0;
+    width:100%;
+    height:120px;
+    fill:var(--oxblood);
+}
+
+.ritual{
+    background:var(--oxblood);
+    color:#fff;
+    padding:140px 6%;
+    text-align:center;
+}
+.ritual h2{
+    font-family:var(--serif);
+    font-size:3rem;
+    font-weight:300;
+    margin-bottom:60px;
+}
+.ritual-steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:40px;
+}
+.ritual-step{
+    border-top:1px solid rgba(255,255,255,.25);
+    padding-top:30px;
+}
+.ritual-step span{
+    font-size:.6rem;
+    letter-spacing:4px;
+    color:var(--gold);
+}
+.ritual-step p{
+    font-family:var(--serif);
+    font-size:1.3rem;
+    margin-top:14px;
+}
+
+/* --- TRUST --- */
+.trust{
+    text-align:center;
+    padding:90px 6%;
+    font-size:.75rem;
+    letter-spacing:4px;
+    color:#777;
+}
+
+/* --- ENSEMBLE --- */
+.ensemble{
+    padding:140px 6%;
+    background:#fff;
+}
+.ensemble-title{
+    font-family:var(--serif);
+    font-size:2.6rem;
+    font-weight:300;
+    text-align:center;
+    margin-bottom:80px;
+}
+.ensemble-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:80px;
+    max-width:1000px;
+    margin:0 auto;
+}
+.ensemble-item{
+    text-align:center;
+    cursor:pointer;
+    overflow: hidden;
+}
+.ensemble-item img{
+    width:100%;
+    height:400px;
+    object-fit:cover;
+    transition: 1.5s cubic-bezier(.16,1,.3,1);
+}
+.ensemble-item:hover img{
+    transform: scale(1.05);
+}
+.ensemble-item h4{
+    font-family:var(--serif);
+    font-size:1.6rem;
+    font-weight:300;
+    margin-top:26px;
+}
+
+/* --- CTA --- */
+.action-bar{
+    position:fixed;
+    bottom:40px;
+    right:40px;
+    display:flex;
+    gap:20px;
+    z-index:2000;
+}
+.btn{
+    padding:20px 44px;
+    border:none;
+    font-size:.7rem;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition: 0.5s cubic-bezier(.16,1,.3,1);
+}
+.btn-gold{background:var(--gold);color:#fff;}
+.btn-gold:hover{
+    background:var(--gold-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(179,139,89,0.2);
+}
+
+.btn-dark{background:var(--oxblood);color:#fff;border:1px solid var(--gold);}
+.btn-dark:hover{
+    background:var(--oxblood-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* --- FULLSCREEN OVERLAY --- */
+#overlay-fs{
+    position:fixed;
+    inset:0;
+    background:rgba(10,5,5,0.98);
+    z-index:9999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    cursor:zoom-out;
+    opacity:0;
+    transition: opacity 0.6s ease;
+}
+#overlay-fs img{
+    max-width:90%;
+    max-height:90%;
+    object-fit:contain;
+}
+
+/* --- RESPONSIVE --- */
+@media(max-width:1000px){
+    .split-view{flex-direction:column;}
+    .media-shrine{height:60vh;position:relative;}
+    .ritual-steps{grid-template-columns:1fr;}
+    .ensemble-grid{grid-template-columns:1fr;}
+    .masterpiece-title{font-size: 3rem;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="overlay-fs" onclick="closeFS()">
+    <img id="fs-img" src="" alt="Full View">
+</div>
+
+<div id="scroll-wrapper">
+
+<section class="split-view">
+    <div class="media-shrine">
+        <span class="serial-no" style="position:absolute;top:40px;left:40px;">REF. AT-2026-091</span>
+
+        <img class="main-artifact" id="artifact"
+        src="https://images.pexels.com/photos/10976653/pexels-photo-10976653.jpeg" 
+        onclick="openFS(this.src)"/>
+
+        <div class="image-switch">
+            <div class="thumb active" onclick="swapImg(this,'https://images.pexels.com/photos/8891951/pexels-photo-8891951.jpeg')">
+                <img src="https://images.pexels.com/photos/8891951/pexels-photo-8891951.jpeg">
+            </div>
+            <div class="thumb" onclick="swapImg(this,'https://images.pexels.com/photos/10976653/pexels-photo-10976653.jpeg')">
+                <img src="https://images.pexels.com/photos/10976653/pexels-photo-10976653.jpeg">
+            </div>
+        </div>
+    </div>
+
+    <div class="info-flow">
+        <span class="serial-no reveal">THE NIZAM COLLECTION</span>
+        <h1 class="masterpiece-title reveal">Imperial <i>Polki</i><br>Choker Archival</h1>
+
+        <div class="prose-block reveal">
+            This choker follows the anatomical curvature of the collarbone, not fashion trends.
+            Crafted using flat-cut Polki, the light does not sparkle — it breathes.
+        </div>
+
+        <span class="section-label reveal">Technical Anatomy</span>
+        <div class="anatomy-grid reveal">
+            <div class="anatomy-item"><h4>Metal</h4><p>22KT Heritage Gold</p></div>
+            <div class="anatomy-item"><h4>Gross Mass</h4><p>64.820 g</p></div>
+            <div class="anatomy-item"><h4>Gold Weight</h4><p>58.200 g</p></div>
+            <div class="anatomy-item"><h4>Setting</h4><p>Hand-Pressed Jadau</p></div>
+        </div>
+
+        <div class="material-note reveal">
+            22KT gold is chosen for its warmer hue and malleability — allowing Polki to sit flush,
+            reducing stress points and ensuring longevity across generations.
+        </div>
+
+        <div class="atelier reveal">
+            <h3>Atelier Supervision</h3>
+            <p>
+                Handcrafted under the guidance of <b>Ustad Rahim Khan</b>,
+                Master Jadau Artisan with over <b>32 years</b> of royal workshop experience in Jaipur.
+            </p>
+            <blockquote>“Gold must breathe. Stones must listen.”</blockquote>
+        </div>
+
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <span>1748</span>
+                <h4>Royal Workshop Origins</h4>
+            </div>
+            <div class="timeline-item">
+                <span>1821</span>
+                <h4>Polki Refinement Era</h4>
+            </div>
+            <div class="timeline-item">
+                <span>2026</span>
+                <h4>Archival Revival</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ritual-wrap">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,120 Q720,0 1440,120 L1440,120 L0,120 Z"></path>
+    </svg>
+
+    <div class="ritual">
+        <h2 class="reveal">The Commissioning Ritual</h2>
+        <div class="ritual-steps">
+            <div class="ritual-step reveal"><span>STEP I</span><p>Private Viewing</p></div>
+            <div class="ritual-step reveal"><span>STEP II</span><p>Atelier Allocation</p></div>
+            <div class="ritual-step reveal"><span>STEP III</span><p>Craft Confirmation</p></div>
+            <div class="ritual-step reveal"><span>STEP IV</span><p>Legacy Delivery</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="trust reveal">
+    INSURED TRANSIT • WHITE-GLOVE DELIVERY • DISCREET PACKAGING • GLOBAL LOGISTICS
+</div>
+
+<section class="ensemble reveal">
+    <h3 class="ensemble-title">Complete the Ensemble</h3>
+    <div class="ensemble-grid">
+        <div class="ensemble-item"
+             onclick="focusPiece('https://plus.unsplash.com/premium_photo-1709033404514-c3953af680b4?w=1200')">
+            <img src="https://plus.unsplash.com/premium_photo-1709033404514-c3953af680b4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8amV3ZWxyeXxlbnwwfHwwfHx8MA%3D%3D">
+            <h4>Nizam Drop Earrings</h4>
+        </div>
+        <div class="ensemble-item"
+             onclick="focusPiece('https://images.pexels.com/photos/6689396/pexels-photo-6689396.jpeg')">
+            <img src="https://images.pexels.com/photos/6689396/pexels-photo-6689396.jpeg">
+            <h4>Imperial Polki Ring</h4>
+        </div>
+    </div>
+</section>
+
+</div> <div class="action-bar">
+    <button class="btn btn-gold">Request Valuation</button>
+    <button class="btn btn-dark">Arrange Private Appointment</button>
+</div>
+
+<script>
+// 1. Initialize Lenis Smooth Scroll
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+});
+
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// 2. Integration with GSAP ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+
+// 3. Parallax Effect for the Main Artifact
+gsap.to("#artifact", {
+    y: 100, // Moves slightly down as you scroll
+    scale: 1.1,
+    ease: "none",
+    scrollTrigger: {
+        trigger: ".split-view",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+    }
+});
+
+// 4. Smooth Reveal Animations for all .reveal elements
+const revealElements = document.querySelectorAll(".reveal");
+revealElements.forEach((el) => {
+    gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
+        ease: "power4.out",
+        scrollTrigger: {
+            trigger: el,
+            start: "top 85%", // Starts when element is 85% from top
+            toggleActions: "play none none none"
+        }
+    });
+});
+
+// 5. Parallax for Ensemble Images
+const ensembleImages = document.querySelectorAll(".ensemble-item img");
+ensembleImages.forEach((img) => {
+    gsap.fromTo(img, 
+        { y: -20 },
+        { 
+            y: 20,
+            scrollTrigger: {
+                trigger: img,
+                scrub: true
+            }
+        }
+    );
+});
+
+// FIXED IMAGE SWAP
+function swapImg(el,url){
+    document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    const artifact = document.getElementById("artifact");
+    artifact.style.opacity=0;
+    setTimeout(()=>{
+        artifact.src=url;
+        artifact.style.opacity=1;
+    },300);
+}
+
+function focusPiece(url){
+    const artifact = document.getElementById("artifact");
+    artifact.style.opacity=0;
+    lenis.scrollTo(0, { lerp: 0.05 });
+    setTimeout(()=>{
+        artifact.src=url;
+        artifact.style.opacity=1;
+    },500);
+}
+
+// FULLSCREEN LOGIC
+const overlay = document.getElementById("overlay-fs");
+const fsImg = document.getElementById("fs-img");
+
+function openFS(url) {
+    fsImg.src = url;
+    overlay.style.display = "flex";
+    setTimeout(() => { overlay.style.opacity = "1"; }, 10);
+    lenis.stop(); // Stop scrolling when zoomed
+}
+function closeFS() {
+    overlay.style.opacity = "0";
+    setTimeout(() => { 
+        overlay.style.display = "none"; 
+        lenis.start(); // Resume scrolling
+    }, 600);
+}
+</script>
+
+</body>
+</html>

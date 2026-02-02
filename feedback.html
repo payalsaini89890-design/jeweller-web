@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE ATELIER | Patron Chronicles</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;200;300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Supabase Library -->
+    <script src="js/env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+
+    <style>
+        :root {
+            --gold: #b38b4d;
+            --gold-light: #f1e5d1;
+            --ivory: #fdfcf9;
+            --deep-red: #5e0b0b;
+            --serif: 'Playfair Display', serif;
+            --sans: 'Montserrat', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--ivory); font-family: var(--sans); color: var(--deep-red); overflow-x: hidden; }
+
+        /* --- FEEDBACK SECTION --- */
+        .feedback-section { padding: 120px 0; background: #fff; overflow: hidden; border-top: 1px solid var(--gold-light); }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: var(--serif); font-size: 3.5rem; }
+
+        /* INFINITE MARQUEE */
+        .marquee-container { 
+            display: flex; 
+            overflow: hidden; 
+            user-select: none; 
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
+            margin-bottom: 100px;
+        }
+        
+        .marquee { 
+            display: flex; 
+            flex-shrink: 0; 
+            align-items: center; 
+            animation: scroll-infinite 40s linear infinite; 
+        }
+
+        .feedback-box { 
+            flex: 0 0 400px; 
+            margin: 0 25px; 
+            padding: 40px; 
+            background: var(--ivory); 
+            border: 1px solid var(--gold-light); 
+            height: 280px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+        }
+
+        .stars-display { color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; }
+        .feedback-box p { font-style: italic; line-height: 1.6; margin-bottom: 20px; color: #444; }
+        .feedback-box strong { letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; }
+
+        @keyframes scroll-infinite { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* NAVIGATION */
+        .feedback-nav { position: fixed; top: 0; width: 100%; padding: 30px 8%; z-index: 100; display: flex; justify-content: space-between; }
+        .feedback-nav a { color: var(--deep-red); text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+
+        /* FEEDBACK FORM */
+        .feedback-form { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            padding: 60px; 
+            border: 1px solid var(--gold); 
+            background: var(--ivory); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+        }
+
+        .feedback-form h3 { font-family: var(--serif); font-size: 2rem; margin-bottom: 20px; }
+
+        .star-rating { font-size: 2.5rem; color: #ddd; cursor: pointer; margin-bottom: 20px; }
+        .star-rating span { transition: 0.3s; }
+        .star-rating span.active { color: var(--gold); }
+
+        input, textarea { 
+            width: 100%; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--gold-light); 
+            background: white; 
+            font-family: var(--sans); 
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus { border-color: var(--gold); }
+
+        .btn-gold { 
+            padding: 22px 60px; 
+            background: var(--deep-red); 
+            color: white; 
+            border: none; 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.4s; 
+            width: 100%;
+        }
+
+        .btn-gold:hover { background: #3d0707; letter-spacing: 6px; }
+
+        /* GSAP Reveal Class */
+        .reveal { opacity: 0; transform: translateY(50px); }
+    </style>
+</head>
+    <nav class="feedback-nav">
+        <a href="index.html" class="logo">THE ATELIER</a>
+        <a href="index.html">← Back to Home</a>
+    </nav>
+
+    <section class="feedback-section">
+        <div class="section-title reveal" style="opacity: 1; transform: translateY(0);">
+            <span style="font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 10px;">Guestbook</span>
+            <h2>Patron Chronicles</h2>
+            <p style="max-width: 500px; margin: 20px auto; color: #666;">Your stories become part of our heritage. Share your experience at The Atelier.</p>
+        </div>
+
+        <div class="feedback-form reveal">
+            <h3>Share Your Legacy</h3>
+            <div class="star-rating" id="starInput">
+                <span onclick="setRate(1)">★</span><span onclick="setRate(2)">★</span><span onclick="setRate(3)">★</span><span onclick="setRate(4)">★</span><span onclick="setRate(5)">★</span>
+            </div>
+            <input type="text" id="pName" placeholder="Full Name">
+            <textarea id="pMsg" rows="5" placeholder="Your Experience..."></textarea>
+            <button class="btn-gold" onclick="submitExperience()">Submit Archive</button>
+        </div>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveals on Scroll
+        gsap.utils.toArray('.reveal').forEach(el => {
+            gsap.to(el, { 
+                scrollTrigger: { 
+                    trigger: el, 
+                    start: "top 90%" 
+                }, 
+                y: 0, 
+                opacity: 1, 
+                duration: 1.5,
+                ease: "power2.out"
+            });
+        });
+
+        // Interactive Star Rating Logic
+        let userRate = 0;
+        function setRate(n) {
+            userRate = n;
+            const stars = document.querySelectorAll('#starInput span');
+            stars.forEach((s, i) => {
+                s.classList.toggle('active', i < n);
+            });
+        }
+
+        // Form Submit Function
+        async function submitExperience() {
+            const name = document.getElementById('pName').value.trim();
+            const message = document.getElementById('pMsg').value.trim();
+            const btn = document.querySelector('.btn-gold');
+
+            if(!name || !message || userRate === 0) {
+                alert("Please share your name, experience, and a rating.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "Archiving...";
+
+            try {
+                const { error } = await window.supabaseText
+                    .from('feedback')
+                    .insert([
+                        { 
+                            name: name, 
+                            message: message, 
+                            rating: userRate,
+                            is_published: false 
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                alert(`Thank you, ${name}. Your story has been submitted for review by our curators.`);
+                window.location.href = 'index.html';
+            } catch (err) {
+                alert("Submission failed: " + err.message);
+                btn.disabled = false;
+                btn.innerText = "Submit Archive";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Sophia L.",
+    "message": "The AI suggested a Choker that matched my grandmother's wedding set perfectly.",
+    "rating": 5,
+    "is_published": true
+  },
+  {
+    "name": "Arjun M.",
+    "message": "The 24K gold work is heavy, authentic, and carries the scent of heritage.",
+    "rating": 5,
+    "is_published": true
+  },
+  {
+    "name": "Marcus V.",
+    "message": "A seamless digital-to-physical luxury experience.",
+    "rating": 4,
+    "is_published": true
+  },
+  {
+    "name": "Vikram S.",
+    "message": "Exceptional Polki work. The detail is unmatched in this city.",
+    "rating": 5,
+    "is_published": true
+  },
+  {
+    "name": "Elena R.",
+    "message": "The private consultation was so quiet and professional. Felt like royalty.",
+    "rating": 5,
+    "is_published": false
+  },
+  {
+    "name": "Sarah K.",
+    "message": "The AI concierge is surprisingly helpful for finding gift ideas.",
+    "rating": 4,
+    "is_published": false
+  }
+]

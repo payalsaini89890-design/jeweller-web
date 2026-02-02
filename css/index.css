@@ -1,0 +1,146 @@
+/* --- Hero --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    background: linear-gradient(to right, #fdfcf9 40%, #f7f3ed 100%);
+    margin-top: 0;
+    /* Override any defaults if needed */
+}
+
+.hero-content {
+    flex: 1;
+    z-index: 2;
+}
+
+.hero-tagline {
+    color: var(--gold-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-size: 0.8rem;
+    margin-bottom: 25px;
+    display: block;
+}
+
+.hero h1 {
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--deep-red);
+    margin-bottom: 30px;
+}
+
+.hero-image-box {
+    flex: 1.2;
+    height: 80vh;
+    position: relative;
+    clip-path: inset(0 0 0 0);
+    /* For reveal effect */
+}
+
+.hero-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(20%);
+}
+
+/* --- Collections Grid (Home Specific) --- */
+.section-padding {
+    padding: 120px 10%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-title h2 {
+    font-size: 3.5rem;
+    color: var(--deep-red);
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.item-card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #f0ece6;
+    transition: var(--transition-slow);
+}
+
+.item-card:hover {
+    transform: translateY(-15px);
+    border-color: var(--deep-red);
+}
+
+.item-img {
+    height: 450px;
+    background-size: cover;
+    background-position: center;
+    transition: 2s var(--transition-slow);
+    width: 100%;
+}
+
+.item-card:hover .item-img {
+    transform: scale(1.05);
+}
+
+.item-info {
+    padding: 30px;
+    text-align: center;
+}
+
+.item-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.item-info span {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-muted);
+    text-transform: uppercase;
+}
+
+/* --- Heritage Banner --- */
+.heritage-banner {
+    background: var(--deep-red);
+    color: var(--cream-light);
+    padding: 150px 20%;
+    text-align: center;
+}
+
+.heritage-banner p {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        padding: 100px 5% 50px;
+        height: auto;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .hero-image-box {
+        width: 100%;
+        height: 50vh;
+        margin-top: 40px;
+    }
+
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+}

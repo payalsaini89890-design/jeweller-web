@@ -1,0 +1,188 @@
+/* --- Page Layouts --- */
+.page-section {
+    padding: 120px 8%;
+    min-height: 100vh;
+}
+
+.section-intro {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-intro h2 {
+    font-family: var(--serif);
+    font-size: 3rem;
+    color: var(--deep-red);
+}
+
+.gold-label,
+.platinum-label {
+    color: var(--gold-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Platinum overrides */
+.platinum-label {
+    color: var(--gold-muted);
+    /* Consistent with gold label */
+}
+
+.platinum-content {
+    padding: 140px 8%;
+}
+
+.platinum-content .section-intro h2 {
+    color: var(--deep-red);
+}
+
+/* --- Refined Product Grid (Gold) --- */
+.jewelry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px 30px;
+}
+
+.product-card {
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition-slow);
+}
+
+.image-container {
+    width: 100%;
+    height: 320px;
+    background: #f7f3ed;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.5s var(--transition-slow);
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+.product-card h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--deep-red);
+    margin-bottom: 5px;
+}
+
+.price-tag {
+    font-size: 0.9rem;
+    color: var(--gold-muted);
+    letter-spacing: 0.1em;
+}
+
+/* --- Platinum Grid --- */
+.platinum-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.platinum-card {
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition-slow);
+    background: white;
+    padding-bottom: 30px;
+    border: 1px solid transparent;
+}
+
+.platinum-card:hover {
+    border-color: #e0e0e0;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+    transform: translateY(-10px);
+}
+
+.img-box {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background: #f0f1f2;
+    margin-bottom: 25px;
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+    transition: var(--transition-slow);
+}
+
+.platinum-card:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+.platinum-card h3 {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--deep-red);
+    margin-bottom: 8px;
+}
+
+.platinum-price {
+    font-size: 0.9rem;
+    color: var(--deep-red);
+    letter-spacing: 0.1em;
+    font-weight: 500;
+}
+
+
+/* --- Detail Panel --- (Gold & Platinum) */
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 35%;
+    height: 100vh;
+    background: #fff;
+    z-index: 2000;
+    box-shadow: -10px 0 50px rgba(0, 0, 0, 0.1);
+    transition: var(--transition-slow);
+    padding: 80px 50px;
+}
+
+.side-panel.active {
+    right: 0;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 1500;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* --- Mobile --- */
+@media (max-width: 900px) {
+
+    .jewelry-grid,
+    .platinum-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .side-panel {
+        width: 100%;
+    }
+}
