@@ -59,22 +59,136 @@
         </nav>
     </header>
 
-    <main class="platinum-content" style="padding-top: 100px;">
-        <div class="section-intro">
-            <span class="platinum-label">Pt 950 • Rare & Eternal</span>
-            <h1 style="font-family: var(--serif); font-weight: 400; font-size: 3rem; margin-top: 20px;">The Platinum Suite</h1>
-            <p style="color: #2c3e50; max-width: 500px; margin: 20px auto; font-weight: 300;">Discover the rarest of all
-                precious metals. Crafted for those who seek understated brilliance and eternal strength.</p>
-        </div>
+    <main class="collection-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero">
+            <div>
+                <h1>The Platinum<br/>Suite</h1>
+                <p>
+                    Discover the rarest of all precious metals. Crafted for those who seek understated brilliance and eternal strength.
+                    Naturally white, effectively eternal.
+                </p>
 
-        <div id="filterContainer" style="margin-bottom: 30px;"></div>
+                <div class="ctaRow">
+                    <a class="btn-hero" href="#collections">
+                        Explore Platinum
+                        <span>→</span>
+                    </a>
+                </div>
 
-        <div class="platinum-grid" id="platinum-grid">
-            <!-- Products will be loaded dynamically from Supabase -->
-            <div class="loading-state" style="text-align: center; width: 100%; color: var(--text-muted);">
-                Exquisite platinum arriving soon...
+                <div style="margin-top:25px; display:flex; gap:15px; flex-wrap:wrap;">
+                    <div class="pill">
+                        <span class="dotIcon" style="background: #a9a9a9;"></span>
+                        <div>
+                            <b>Pt 950 Pure</b>
+                            <small>95% pure platinum for unmatched durability.</small>
+                        </div>
+                    </div>
+                    <div class="pill">
+                        <span class="dotIcon" style="background: #a9a9a9;"></span>
+                        <div>
+                            <b>Eternal White</b>
+                            <small>Naturally white, never fades or tarnishes.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="heroCard">
+                <div class="heroMedia">
+                    <div class="frame" style="background: radial-gradient(1200px 400px at 70% 10%, rgba(255, 255, 255, .18), transparent 45%), linear-gradient(145deg, #2e2e2e, #1a1a1a);">
+                        <span>Featured: Platinum Love Bands</span>
+                    </div>
+                </div>
+                <div class="heroMeta">
+                    <div class="pill">
+                        <span class="dotIcon" style="background: #a9a9a9;"></span>
+                        <div>
+                            <b>Rare & Precious</b>
+                            <small>30x rarer than gold.</small>
+                        </div>
+                    </div>
+                    <div class="pill">
+                        <span class="dotIcon" style="background: #a9a9a9;"></span>
+                        <div>
+                            <b>Hypoallergenic</b>
+                            <small>Perfect for sensitive skin.</small>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- 2. GRID SECTION -->
+        <div id="collections" class="grid-header">
+            <div>
+                <h2>Explore Platinum</h2>
+                <p style="color: var(--text-muted); margin-top: 5px;">Subtle, sophisticated, and strong.</p>
             </div>
         </div>
+
+        <div id="filterContainer" style="margin-bottom: 40px; text-align: center;"></div>
+
+        <div class="jewelry-grid" id="platinum-grid">
+            <div class="loading-state" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                Loading Collection...
+            </div>
+        </div>
+        
+        <div class="view-more-container">
+            <button id="viewMoreBtn" class="btn-view-more" onclick="loadMoreItems()">View More Jewellery</button>
+        </div>
+
+        <!-- 3. TRUST STRIP -->
+        <section class="trustStrip" id="trust">
+            <div class="trustItem">
+                <span class="badge" style="color: #666; background: rgba(0,0,0,0.05);">PGI</span>
+                <div>
+                    <b>PGI Certified</b>
+                    <small>Official Platinum Guild International Member.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge" style="color: #666; background: rgba(0,0,0,0.05);">Pt</span>
+                <div>
+                    <b>Pt 950</b>
+                    <small>The standard of purity.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge" style="color: #666; background: rgba(0,0,0,0.05);">∞</span>
+                <div>
+                    <b>Lifetime Care</b>
+                    <small>Cleaning & maintenance support.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge" style="color: #666; background: rgba(0,0,0,0.05);">🔒</span>
+                <div>
+                    <b>Secure</b>
+                    <small>Protected checkout & safe delivery.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TESTIMONIAL -->
+        <section class="testimonial" style="background: #333;">
+            <div class="quote">
+                <h3 style="color: #eee;">Modern Sophistication</h3>
+                <p style="color: #ccc;">
+                    “I love the weight and feel of platinum. It feels substantial, real, and forever. 
+                    The Atelier’s designs are perfectly understated.”
+                </p>
+                <div class="name" style="color: #fff;">
+                    <span style="width:10px;height:10px;border-radius:50%;background:white; margin-right:8px;"></span>
+                    Vikram S.
+                </div>
+            </div>
+            <div class="model" style="background: #222;">
+                <div class="portrait" style="color: #666;">Platinum World</div>
+            </div>
+        </section>
+
     </main>
 
     <div id="dossier-root"></div>
@@ -115,13 +229,15 @@
     <script src="../js/dossier.js"></script>
     <script>
         let allItems = [];
+        let filteredItems = [];
+        let visibleCount = 9;
         let filterManager = null;
 
         async function loadJewellery() {
             const grid = document.getElementById('platinum-grid');
 
-            if (!window.env?.TEXT_SUPABASE_URL || !window.env?.TEXT_SUPABASE_ANON_KEY) {
-                grid.innerHTML = `<p style="text-align: center; width: 100%; color: var(--crimson);">Configuration Missing!</p>`;
+            if (!window.env?.TEXT_SUPABASE_URL) {
+                grid.innerHTML = `<p style="text-align: center; width: 100%;">Config Missing</p>`;
                 return;
             }
 
@@ -136,88 +252,110 @@
                 allItems = data || [];
 
                 if (!filterManager) {
-                    filterManager = new ProductFilter('platinum', (filters) => renderGrid(filters));
+                    filterManager = new ProductFilter('platinum', (filters) => {
+                        visibleCount = 9; 
+                        renderGrid(filters);
+                    });
                 }
 
                 renderGrid();
             } catch (err) {
-                console.error('Error loading jewellery:', err);
+                console.error('Error loading:', err);
                 grid.innerHTML = '<p style="text-align: center; width: 100%;">Failed to load collection.</p>';
             }
         }
 
         function renderGrid(filters = null) {
             const grid = document.getElementById('platinum-grid');
-            let filtered = [...allItems];
-
+            const viewMoreBtn = document.getElementById('viewMoreBtn');
+            
+            // 1. Apply Filters
+            filteredItems = [...allItems];
             if (filters) {
-                if (filters.search) {
-                    filtered = filtered.filter(it => it.name.toLowerCase().includes(filters.search) || it.description?.toLowerCase().includes(filters.search));
-                }
-                if (filters.jewelryType.length > 0) {
-                    filtered = filtered.filter(it => filters.jewelryType.includes(it.jewelry_type));
-                }
-                if (filters.purity.length > 0) {
-                    filtered = filtered.filter(it => filters.purity.includes(it.gold_purity));
-                }
-                filtered = filtered.filter(it => {
+                if (filters.search) filteredItems = filteredItems.filter(it => it.name.toLowerCase().includes(filters.search));
+                if (filters.jewelryType.length > 0) filteredItems = filteredItems.filter(it => filters.jewelryType.includes(it.jewelry_type));
+                if (filters.purity.length > 0) filteredItems = filteredItems.filter(it => filters.purity.includes(it.gold_purity));
+                filteredItems = filteredItems.filter(it => {
                     const priceNum = parseInt(String(it.price).replace(/[^0-9]/g, '')) || 0;
                     return priceNum <= filters.priceRange || filters.priceRange === 500000;
                 });
             }
 
+            // 2. Pagination
+            const visibleItems = filteredItems.slice(0, visibleCount);
+
+            // 3. Render
             grid.innerHTML = '';
-            if (filtered.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; width: 100%;">No items match your criteria.</p>';
+            if (visibleItems.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; width: 100%;">No items match.</p>';
+                if(viewMoreBtn) viewMoreBtn.style.display = 'none';
                 return;
             }
 
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'platinum-card';
+            visibleItems.forEach(item => {
                 const isLiked = wishlistManager?.isInWishlist(item.id);
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => openProductDetail(item.id);
+
                 card.innerHTML = `
-                    <div class="img-box" onclick="openProductDetail('${item.id}')">
-                        <img src="${item.image_url}" alt="${item.name}">
+                    <div class="image-container">
+                        <img src="${item.image_url}" alt="${item.name}" loading="lazy">
+                        <span>${item.jewelry_type || 'Jewellery'}</span>
+                        <button class="wishlist-icon ${isLiked ? 'wishlisted' : ''}" 
+                                onclick="event.stopPropagation(); toggleWishlist('${item.id}', this)">
+                            ${isLiked ? '♥' : '♡'}
+                        </button>
                     </div>
-                    <div style="display:flex; justify-content:space-between; align-items:start; margin-top:15px;">
-                        <h3 onclick="openProductDetail('${item.id}')" style="margin:0; cursor:pointer;">${item.name}</h3>
-                        <button class="wishlist-btn ${isLiked ? 'wishlisted' : ''}" data-wishlist-id="${item.id}" onclick="event.stopPropagation(); toggleWishlist('${item.id}')">${isLiked ? '♥' : '♡'}</button>
+                    <div class="card-body">
+                        <h3>${item.name}</h3>
+                        <p>${item.price}</p>
+                        <button class="btn-view-details">View Details</button>
                     </div>
-                    <span class="platinum-price">${item.price}</span>
                 `;
                 grid.appendChild(card);
             });
+
+            // 4. View More State
+            if (viewMoreBtn) {
+                viewMoreBtn.style.display = (filteredItems.length > visibleCount) ? 'inline-block' : 'none';
+            }
+            
+            _lastFilters = filters;
         }
 
-        window.addEventListener('DOMContentLoaded', loadJewellery);
+        let _lastFilters = null;
+        function loadMoreItems() {
+            visibleCount += 9;
+            renderGrid(_lastFilters);
+        }
+
+        function toggleWishlist(id, btn) {
+            if(window.wishlistManager) {
+                window.wishlistManager.toggle(id);
+                if(btn.classList.contains('wishlisted')) {
+                    btn.classList.remove('wishlisted');
+                    btn.innerText = '♡';
+                } else {
+                    btn.classList.add('wishlisted');
+                    btn.innerText = '♥';
+                }
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
 
         async function handleEnquiry() {
             const item = allItems.find(it => it.id === dossier.productId);
             openEnquiryModal(item);
         }
 
-        /* Mobile Menu Logic */
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-            if(menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-        /* Mobile Menu Logic */
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-            if(menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
+        window.addEventListener('DOMContentLoaded', loadJewellery);
     </script>
-</body>
 
+</body>
 </html>
