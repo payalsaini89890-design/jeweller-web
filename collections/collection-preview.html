@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview: Signature Collection (New UI)</title>
+    
+    <!-- Y: Fonts & Theme -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/gallery.css">
+    <link rel="stylesheet" href="../css/filters.css">
+    <link rel="stylesheet" href="../css/mobile-menu.css">
+    <link rel="stylesheet" href="../css/dossier.css">
+
+    <!-- Z: Hybrid Styles (Inlined for Preview) -->
+    <style>
+        :root {
+            /* Variables mapped to Y theme */
+            --radius: 18px;
+            --shadow-soft: 0 10px 30px rgba(179, 139, 89, .10); /* Gold shadow */
+            --wine: var(--deep-red);
+            --accent-gold: #b38b59; /* Explicit Gold */
+        }
+
+        body {
+            background-color: var(--cream-light);
+        }
+
+        .preview-container {
+            padding: 120px 2%; /* Minimal side padding */
+            min-height: 100vh;
+            max-width: 100%; 
+            margin: 0 auto;
+        }
+
+        /* --- 1. HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 34px;
+            padding: 26px 0 80px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: clamp(40px, 4.6vw, 68px);
+            line-height: 1.02;
+            letter-spacing: -0.03em;
+            margin: 0 0 14px;
+            color: var(--deep-red);
+        }
+
+        .hero p {
+            margin: 0 0 25px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.65;
+            max-width: 44ch;
+        }
+
+        .ctaRow {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        /* Gold Theme Button */
+        .btn-hero {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 40px;
+            border-radius: 14px;
+            border: 1px solid var(--accent-gold);
+            background: linear-gradient(135deg, var(--accent-gold), #9e7b4f);
+            color: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            box-shadow: 0 14px 30px rgba(179, 139, 89, 0.25);
+            transition: .3s ease;
+            text-decoration: none;
+        }
+        .btn-hero:hover {
+            background: #8e6e45;
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(179, 139, 89, 0.35);
+        }
+
+        /* Hero Card */
+        .heroCard {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(179, 139, 89, .2); /* Gold border */
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .heroMedia .frame {
+            border-radius: calc(var(--radius) - 6px);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .35);
+            box-shadow: 0 18px 40px rgba(179, 139, 89, .15);
+            background:
+                radial-gradient(1200px 400px at 70% 10%, rgba(255, 255, 255, .18), transparent 45%),
+                linear-gradient(145deg, rgba(74, 4, 4, .95), rgba(40, 10, 14, .95)); 
+            min-height: 300px;
+            display: grid;
+            place-items: center;
+        }
+
+        .heroMedia .frame span {
+            font-family: var(--serif);
+            color: rgba(255, 255, 255, .92);
+            font-size: 1.5rem;
+            letter-spacing: .02em;
+        }
+
+        /* Hero Meta Pills */
+        .heroMeta {
+            display: flex;
+            gap: 10px;
+            padding: 0 16px 16px;
+        }
+        
+        /* Pills */
+        .pill {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(179, 139, 89, .15);
+            border-radius: 14px;
+            padding: 12px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .pill b {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--deep-red);
+            margin-bottom: 2px;
+        }
+
+        .pill small {
+            color: var(--text-muted);
+            line-height: 1.35;
+            font-size: 0.75rem;
+        }
+
+        .dotIcon {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: var(--deep-red);
+            margin-top: 4px;
+            flex: 0 0 auto;
+            opacity: 0.8;
+        }
+
+        /* --- 2. GRID SECTION --- */
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px; /* Increased margin for filter spacing */
+            padding-top: 80px; /* Pushed down as requested */
+            border-top: 1px solid rgba(179, 139, 89, 0.2);
+        }
+        .grid-header h2 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--deep-red);
+        }
+
+        .jewelry-grid-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .preview-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: white;
+            border: 1px solid rgba(179, 139, 89, .15); /* Soft Gold Border */
+            box-shadow: var(--shadow-soft);
+            transition: .3s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 22px 55px rgba(179, 139, 89, .2);
+        }
+
+        .preview-thumb {
+            height: 320px;
+            background: #f7f3ed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s ease;
+        }
+
+        .preview-card:hover .preview-thumb img {
+            transform: scale(1.05);
+        }
+
+        .preview-thumb span {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .card-body-preview h3 {
+            color: var(--deep-red);
+        }
+        
+        .card-body-preview p {
+            color: var(--accent-gold); /* Gold Price */
+        }
+
+        /* Gold Outline Button */
+        .btn-preview-small {
+            margin-top: 15px;
+            width: fit-content;
+            padding: 10px 20px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            transition: 0.3s;
+            font-weight: 600;
+        }
+        .preview-card:hover .btn-preview-small {
+            background: var(--accent-gold);
+            color: white;
+        }
+
+        .wishlist-icon.wishlisted { color: var(--accent-gold); }
+
+        /* View More Button */
+        .view-more-container {
+            text-align: center;
+            margin-top: 60px;
+            grid-column: 1 / -1;
+        }
+        .btn-view-more {
+            padding: 15px 50px;
+            background: transparent;
+            border: 1px solid var(--deep-red);
+            color: var(--deep-red);
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: none; /* Hidden by default */
+        }
+        .btn-view-more:hover {
+            background: var(--deep-red);
+            color: white;
+        }
+
+        /* --- 3. TRUST STRIP (From X) --- */
+        .trustStrip {
+            margin: 80px 0;
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(90, 60, 55, .1);
+            background: white;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .trustItem {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(74, 4, 4, 0.05);
+            display: grid;
+            place-items: center;
+            color: var(--deep-red);
+            font-weight: bold;
+            flex: 0 0 auto;
+        }
+        
+        .trustItem b {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--deep-red);
+            font-family: var(--serif);
+            margin-bottom: 4px;
+        }
+        .trustItem small {
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-size: 0.8rem;
+            display: block;
+        }
+
+        /* --- 4. TESTIMONIAL (From X) --- */
+        .testimonial {
+            margin: 0 0 40px;
+            border-radius: calc(var(--radius) + 2px);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.25fr .75fr;
+            background: var(--deep-red); 
+            color: white;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .quote {
+            padding: 60px;
+            position: relative;
+        }
+
+        .quote h3 {
+            margin: 0 0 15px;
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            color: var(--gold-muted);
+        }
+
+        .quote p {
+            margin: 0 0 20px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: var(--serif);
+            font-style: italic;
+        }
+
+        .quote .name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .model {
+            background: #2a0202; /* Darker red */
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+        .model .portrait {
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-family: var(--serif);
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { margin: 0 auto 20px; }
+            .ctaRow { justify-content: center; }
+            .heroCard { display: none; /* Hide featured on mobile if needed, or stack */ }
+            
+            .jewelry-grid-preview, .trustStrip, .testimonial {
+                grid-template-columns: 1fr;
+            }
+            .trustStrip { gap: 40px; }
+            .preview-container { padding: 100px 20px; }
+        }
+    </style>
+
+    <!-- Essential Scripts from Y -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="../js/env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+</head>
+
+<body>
+
+    <!-- Header (Y) -->
+    <header id="header">
+        <a href="../index.html" class="logo">THE ATELIER</a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../heritage.html">The Heritage</a></li>
+                <li><a href="gold.html" class="active">Gold Collection</a></li>
+                <li><a href="platinum.html">Platinum Collection</a></li>
+                <li><a href="../contact.html">Visit Store</a></li>
+                <li><a href="../ai.html">AI Concierge</a></li>
+                <li><a href="../wishlist.html" title="Wishlist" style="position: relative; font-size: 1.2rem;">♥ <span id="wishlist-count" style="display: none;">0</span></a></li>
+            </ul>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div style="position:absolute; top:30px; right:30px; cursor:pointer; font-size:1rem; letter-spacing:2px;" onclick="toggleMobileMenu()">CLOSE</div>
+        <a href="../index.html">Home</a>
+        <a href="gold.html">Gold</a>
+        <a href="platinum.html">Platinum</a>
+        <a href="../contact.html">Visit</a>
+    </div>
+
+    <main class="preview-container">
+        
+        <!-- 1. HERO SECTION (From X Layout, Y Theme) -->
+        <section class="hero">
+            <div>
+                <h1>Our Exquisite<br/>Collections</h1>
+                <p>
+                    Discover timeless elegance—crafted with certified metals and responsibly sourced stones. 
+                    Built to last, designed to be remembered.
+                </p>
+
+                <div class="ctaRow">
+                    <a class="btn-hero" href="#collections">
+                        Explore Collections
+                        <span>→</span>
+                    </a>
+                </div>
+
+                <div style="margin-top:25px; display:flex; gap:15px; flex-wrap:wrap;">
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>Certified & Hallmarked</b>
+                            <small>Transparent purity and authentic craftsmanship.</small>
+                        </div>
+                    </div>
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>Lifetime Care</b>
+                            <small>Cleaning & servicing to keep your shine forever.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Card (Requested from X) -->
+            <aside class="heroCard">
+                <div class="heroMedia">
+                    <div class="frame">
+                        <span>Featured: Diamond Statement Set</span>
+                    </div>
+                </div>
+                <div class="heroMeta">
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>Trust-first buying</b>
+                            <small>Clear pricing, secure payments, and verified authenticity.</small>
+                        </div>
+                    </div>
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>White-glove support</b>
+                            <small>Guidance from selection to aftercare.</small>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- 2. GRID SECTION -->
+        <div id="collections" class="grid-header">
+            <div>
+                <h2>Explore Our Collections</h2>
+                <p style="color: var(--text-muted); margin-top: 5px;">Premium confidence, clarity, and detail you can feel.</p>
+            </div>
+            <!-- Filter logic injects here invisibly or we can add manual filters -->
+        </div>
+
+        <!-- Filter Container (Preserved from Y) -->
+        <div id="filterContainer" style="margin-bottom: 40px; text-align: center;"></div>
+
+        <div class="jewelry-grid-preview" id="gold-grid">
+            <div class="loading-state" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                Loading Collection Preview...
+            </div>
+        </div>
+        
+        <div class="view-more-container">
+            <button id="viewMoreBtn" class="btn-view-more" onclick="loadMoreItems()">View More Jewellery</button>
+        </div>
+
+        <!-- 3. TRUST STRIP (From X) -->
+        <section class="trustStrip" id="trust">
+            <div class="trustItem">
+                <span class="badge">25+</span>
+                <div>
+                    <b>25+ Years</b>
+                    <small>Heritage craftsmanship & trusted service.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge">✓</span>
+                <div>
+                    <b>Certified</b>
+                    <small>Hallmarked metals & verified stones.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge">∞</span>
+                <div>
+                    <b>Lifetime Care</b>
+                    <small>Cleaning & maintenance support.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge">🔒</span>
+                <div>
+                    <b>Secure Payments</b>
+                    <small>Protected checkout & safe delivery.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TESTIMONIAL (From X) -->
+        <section class="testimonial">
+            <div class="quote">
+                <h3>What Our Clients Say</h3>
+                <p>
+                    “Absolutely stunning jewelry and outstanding service. 
+                    I felt confident at every step—from authenticity to delivery.”
+                </p>
+                <div class="name">
+                    <span style="width:10px;height:10px;border-radius:50%;background:white; margin-right:8px;"></span>
+                    Emily R.
+                </div>
+            </div>
+            <div class="model">
+                <div class="portrait">Premium Visual Space</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Y) -->
+    <footer>
+        <div class="footer-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;">
+            <div class="footer-brand">
+                <span class="logo" style="font-size: 1.5rem;">THE ATELIER</span>
+                <p>Trusted craftsmanship.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Collections</h4>
+                <p>Bridal Sets</p>
+                <p>Polki & Jadau</p>
+            </div>
+            <div class="footer-col">
+                <h4>Visit Us</h4>
+                <p>Flagship City</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>+91 00000 00000</p>
+            </div>
+        </div>
+        <div class="copyright" style="margin-top: 40px;">© 2026 The Jewellery Atelier. Preview Mode.</div>
+    </footer>
+
+    <!-- Dossier Root for Modal -->
+    <div id="dossier-root"></div>
+
+    <!-- Scripts -->
+    <script src="../js/app.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/gallery.js"></script>
+    <script src="../js/filters.js"></script>
+    <script src="../js/wishlist.js"></script>
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/dossier.js"></script>
+
+    <!-- INLINE LOGIC -->
+    <!-- INLINE LOGIC -->
+    <script>
+        // --- Page Logic ---
+        let allItems = [];
+        let filteredItems = []; // Store filtered result for pagination
+        let visibleCount = 9; // 3 rows * 3 items
+        let filterManager = null;
+
+        async function loadJewellery() {
+            const grid = document.getElementById('gold-grid');
+
+            if (!window.env?.TEXT_SUPABASE_URL) {
+                grid.innerHTML = `<p style="text-align: center; width: 100%;">Config Missing</p>`;
+                return;
+            }
+
+            try {
+                // Fetching only Gold for this preview
+                const { data, error } = await window.supabaseText
+                    .from('jewellery')
+                    .select('*')
+                    .eq('category', 'gold') 
+                    .eq('is_active', true);
+
+                if (error) throw error;
+                allItems = data || [];
+
+                if (!filterManager) {
+                    filterManager = new ProductFilter('gold', (filters) => {
+                        visibleCount = 9; // Reset pagination on filter change
+                        renderGrid(filters);
+                    });
+                }
+
+                renderGrid();
+            } catch (err) {
+                console.error('Error loading:', err);
+                grid.innerHTML = '<p style="text-align: center; width: 100%;">Failed to load collection.</p>';
+            }
+        }
+
+        function renderGrid(filters = null) {
+            const grid = document.getElementById('gold-grid');
+            const viewMoreBtn = document.getElementById('viewMoreBtn');
+            
+            // 1. Filter Logic
+            filteredItems = [...allItems];
+            if (filters) {
+                if (filters.search) filteredItems = filteredItems.filter(it => it.name.toLowerCase().includes(filters.search));
+                if (filters.jewelryType.length > 0) filteredItems = filteredItems.filter(it => filters.jewelryType.includes(it.jewelry_type));
+                if (filters.purity.length > 0) filteredItems = filteredItems.filter(it => filters.purity.includes(it.gold_purity));
+                filteredItems = filteredItems.filter(it => {
+                    const priceNum = parseInt(String(it.price).replace(/[^0-9]/g, '')) || 0;
+                    return priceNum <= filters.priceRange || filters.priceRange === 500000;
+                });
+            }
+
+            // 2. Pagination Logic
+            const visibleItems = filteredItems.slice(0, visibleCount);
+
+            // 3. Render
+            grid.innerHTML = '';
+            if (visibleItems.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; width: 100%;">No items match.</p>';
+                if(viewMoreBtn) viewMoreBtn.style.display = 'none';
+                return;
+            }
+
+            visibleItems.forEach(item => {
+                const isLiked = wishlistManager?.isInWishlist(item.id);
+                
+                const card = document.createElement('div');
+                card.className = 'preview-card';
+                card.onclick = () => openProductDetail(item.id); 
+
+                card.innerHTML = `
+                    <div class="preview-thumb">
+                        <img src="${item.image_url}" alt="${item.name}" loading="lazy">
+                        <span>${item.jewelry_type || 'Jewellery'}</span>
+                        <button class="wishlist-icon ${isLiked ? 'wishlisted' : ''}" 
+                                onclick="event.stopPropagation(); toggleWishlist('${item.id}', this)">
+                            ${isLiked ? '♥' : '♡'}
+                        </button>
+                    </div>
+                    <div class="card-body-preview">
+                        <h3>${item.name}</h3>
+                        <p>${item.price}</p>
+                        <button class="btn-preview-small">View Details</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // 4. Update View More Button
+            if (viewMoreBtn) {
+                if (filteredItems.length > visibleCount) {
+                    viewMoreBtn.style.display = 'inline-block';
+                } else {
+                    viewMoreBtn.style.display = 'none';
+                }
+            }
+        }
+
+        function loadMoreItems() {
+            visibleCount += 9; // Load next 3 rows
+            renderGrid(getLastFilters()); // Re-render with current filters
+        }
+
+        // Helper to retrieve current filter state
+        let _lastFilters = null;
+        const _originalRender = renderGrid;
+        
+        /* Hook into render calls to cache filters */
+        /* Redefining renderGrid not easy due to scope, so we just use closure state _lastFilters updated inside renderGrid if we passed it */
+        /* Actually clearer: Update filters logic to store _lastFilters inside renderGrid */
+        /* But renderGrid is called by FilterManager callback. */
+        
+        // Simpler: Just rely on the closure variable if FilterManager invokes the callback.
+        // We need to capture the filters passed from FilterManager.
+        // Let's modify the FilterManager callback in loadJewellery
+        
+        /* See loadJewellery modification above:
+           filterManager = new ProductFilter('gold', (filters) => {
+               _lastFilters = filters; // Capture state
+               visibleCount = 9; 
+               renderGrid(filters);
+           });
+        */
+        
+        function getLastFilters() { return _lastFilters; }
+
+        function toggleWishlist(id, btn) {
+            if(window.wishlistManager) {
+                window.wishlistManager.toggle(id);
+                if(btn.classList.contains('wishlisted')) {
+                    btn.classList.remove('wishlisted');
+                    btn.innerText = '♡';
+                } else {
+                    btn.classList.add('wishlisted');
+                    btn.innerText = '♥';
+                }
+            }
+        }
+
+        async function handleEnquiry() {
+            const item = allItems.find(it => it.id === dossier.productId);
+            openEnquiryModal(item);
+        }
+
+        window.addEventListener('DOMContentLoaded', loadJewellery);
+    </script>
+</body>
+</html>

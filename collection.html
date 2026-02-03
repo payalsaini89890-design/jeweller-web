@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Collections — Aurelia Jewels</title>
+  <meta name="description" content="Explore premium jewelry collections with certified quality, lifetime service, and secure payments." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Premium-feeling serif + clean sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300,400,500,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/universal-nav.css">
+
+  <style>
+    :root{
+      /* Cream + deep wine red theme */
+      --bg: #F7F2EB;
+      --panel: #FBF6EF;
+      --ink: #1F1A18;
+      --muted: #6C5F5A;
+      --wine: #6A0F1B;        /* dark red */
+      --wine-2: #7E1624;
+      --wine-3: #4F0A12;
+      --border: rgba(90, 60, 55, .18);
+      --shadow: 0 18px 45px rgba(36, 18, 18, .14);
+      --shadow-soft: 0 10px 30px rgba(36, 18, 18, .10);
+      --radius: 18px;
+      --radius-sm: 14px;
+
+      --serif: "Fraunces", ui-serif, Georgia, serif;
+      --sans: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      --container: 1160px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(900px 320px at 20% 18%, rgba(106,15,27,.08), transparent 60%),
+        radial-gradient(700px 300px at 80% 12%, rgba(106,15,27,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg), #F3EDE6);
+      letter-spacing: -0.01em;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    .container{
+      width: min(var(--container), calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+
+    /* Breadcrumb */
+    .crumbs{
+      padding: 18px 0 0;
+      font-size: 12px;
+      color: rgba(108,95,90,.92);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .crumbs a{ color: rgba(108,95,90,.92); }
+    .crumbs a:hover{ color: var(--wine); }
+    .dot{
+      width: 4px; height: 4px;
+      border-radius: 999px;
+      background: rgba(108,95,90,.6);
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      padding: 26px 0 26px;
+      align-items: center;
+    }
+    .hero h1{
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(40px, 4.6vw, 68px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px;
+      color: rgba(106,15,27,.95);
+    }
+    .hero p{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 44ch;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top: 18px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(106,15,27,.20);
+      background: linear-gradient(180deg, var(--wine), var(--wine-3));
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      box-shadow: 0 14px 30px rgba(106,15,27,.22);
+      transition: .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn.secondary{
+      background: rgba(251,246,239,.85);
+      color: var(--wine);
+      box-shadow: 0 10px 22px rgba(36,18,18,.07);
+    }
+
+    .heroCard{
+      background: rgba(251,246,239,.70);
+      border: 1px solid rgba(90,60,55,.14);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+    }
+    .heroCard::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(800px 260px at 20% 10%, rgba(106,15,27,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .heroMedia{
+      position: relative;
+      padding: 16px;
+    }
+    .heroMedia .frame{
+      border-radius: calc(var(--radius) - 6px);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.35);
+      box-shadow: 0 18px 40px rgba(36,18,18,.20);
+      background:
+        radial-gradient(1200px 400px at 70% 10%, rgba(255,255,255,.18), transparent 45%),
+        linear-gradient(145deg, rgba(106,15,27,.85), rgba(40,10,14,.95));
+      min-height: 260px;
+      display:grid;
+      place-items:center;
+    }
+    .heroMedia .frame span{
+      font-family: var(--serif);
+      color: rgba(255,255,255,.92);
+      font-size: 18px;
+      letter-spacing: .02em;
+    }
+    .heroMeta{
+      display:flex;
+      gap: 10px;
+      padding: 0 16px 16px;
+    }
+    .pill{
+      flex: 1;
+      background: rgba(247,242,235,.65);
+      border: 1px solid rgba(90,60,55,.14);
+      border-radius: 14px;
+      padding: 10px 10px;
+      font-size: 12px;
+      color: rgba(31,26,24,.84);
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+      box-shadow: 0 12px 24px rgba(36,18,18,.06);
+    }
+    .pill b{
+      display:block;
+      font-size: 12px;
+      color: rgba(106,15,27,.95);
+      margin-bottom: 2px;
+    }
+    .pill small{ color: rgba(108,95,90,.9); line-height:1.35; }
+    .dotIcon{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(106,15,27,.9);
+      margin-top: 4px;
+      box-shadow: 0 0 0 4px rgba(106,15,27,.12);
+      flex: 0 0 auto;
+    }
+
+    /* Section headings */
+    .sectionTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      margin: 18px 0 14px;
+    }
+    .sectionTitle h2{
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      font-size: 26px;
+      color: rgba(31,26,24,.92);
+    }
+    .sectionTitle p{
+      margin: 0;
+      color: rgba(108,95,90,.92);
+      font-size: 13px;
+      max-width: 58ch;
+    }
+
+    /* Collections grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .card{
+      border-radius: var(--radius);
+      overflow:hidden;
+      background: rgba(251,246,239,.76);
+      border: 1px solid rgba(90,60,55,.14);
+      box-shadow: var(--shadow-soft);
+      transition: .25s ease;
+      position:relative;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(106,15,27,.22);
+      box-shadow: 0 22px 55px rgba(36,18,18,.14);
+    }
+    .thumb{
+      height: 210px;
+      background:
+        radial-gradient(900px 260px at 30% 20%, rgba(255,255,255,.14), transparent 60%),
+        linear-gradient(145deg, rgba(106,15,27,.9), rgba(32,9,12,.98));
+      display:grid;
+      place-items:center;
+      position:relative;
+    }
+    .thumb span{
+      font-family: var(--serif);
+      color: rgba(255,255,255,.92);
+      letter-spacing: .02em;
+    }
+    .cardBody{
+      padding: 14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      background: linear-gradient(180deg, rgba(251,246,239,.86), rgba(247,242,235,.86));
+    }
+    .cardBody h3{
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      font-size: 18px;
+      color: rgba(31,26,24,.92);
+    }
+    .cardBody p{
+      margin: 0;
+      font-size: 12.5px;
+      color: rgba(108,95,90,.95);
+      line-height: 1.55;
+    }
+    .cardBody .btnSmall{
+      margin-top: 6px;
+      width: fit-content;
+      padding: 10px 12px;
+      border-radius: 13px;
+      font-size: 12px;
+    }
+
+    /* Trust strip */
+    .trustStrip{
+      margin: 18px 0 6px;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(90,60,55,.14);
+      background: rgba(251,246,239,.72);
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      box-shadow: 0 18px 45px rgba(36,18,18,.10);
+    }
+    .trustItem{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 10px 10px;
+      border-radius: 14px;
+      background: rgba(247,242,235,.70);
+      border: 1px solid rgba(90,60,55,.10);
+    }
+    .badge{
+      width: 34px; height: 34px;
+      border-radius: 14px;
+      background: rgba(106,15,27,.10);
+      border: 1px solid rgba(106,15,27,.18);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+    }
+    .badge svg{ width: 18px; height: 18px; stroke: rgba(106,15,27,.88); }
+    .trustItem b{
+      display:block;
+      font-size: 12.5px;
+      color: rgba(31,26,24,.92);
+      margin-bottom: 2px;
+    }
+    .trustItem small{
+      color: rgba(108,95,90,.92);
+      font-size: 11.5px;
+      line-height: 1.35;
+    }
+
+    /* Testimonial band */
+    .testimonial{
+      margin: 22px 0 0;
+      border-radius: calc(var(--radius) + 2px);
+      overflow:hidden;
+      border: 1px solid rgba(90,60,55,.16);
+      box-shadow: var(--shadow);
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      background:
+        radial-gradient(900px 260px at 20% 20%, rgba(255,255,255,.12), transparent 55%),
+        linear-gradient(145deg, rgba(106,15,27,.92), rgba(36,10,14,.98));
+    }
+    .quote{
+      padding: 26px 26px;
+      color: rgba(255,255,255,.92);
+      position:relative;
+    }
+    .quote h3{
+      margin:0 0 10px;
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing:-0.02em;
+      font-size: 22px;
+    }
+    .quote p{
+      margin: 0 0 14px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.86);
+      max-width: 60ch;
+    }
+    .quote .name{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      font-weight: 600;
+      letter-spacing:.01em;
+    }
+    .quoteMark{
+      position:absolute;
+      top: 18px;
+      right: 18px;
+      font-family: var(--serif);
+      font-size: 54px;
+      line-height: 1;
+      opacity: .16;
+    }
+    .model{
+      padding: 16px;
+      display:grid;
+      place-items:center;
+      border-left: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(700px 260px at 60% 10%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.12));
+    }
+    .model .portrait{
+      width: 100%;
+      height: 100%;
+      min-height: 210px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(700px 300px at 30% 20%, rgba(255,255,255,.18), transparent 60%),
+        linear-gradient(145deg, rgba(255,255,255,.06), rgba(0,0,0,.18));
+      display:grid;
+      place-items:center;
+      color: rgba(255,255,255,.86);
+      font-family: var(--serif);
+      letter-spacing:.02em;
+    }
+
+    /* Why choose */
+    .why{
+      margin: 18px 0 0;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(90,60,55,.14);
+      background: rgba(251,246,239,.74);
+      box-shadow: 0 18px 45px rgba(36,18,18,.10);
+    }
+    .whyGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .whyItem{
+      padding: 16px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(90,60,55,.12);
+      background: rgba(247,242,235,.70);
+    }
+    .whyItem b{
+      display:block;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: rgba(31,26,24,.92);
+    }
+    .whyItem p{
+      margin:0;
+      color: rgba(108,95,90,.92);
+      font-size: 12.8px;
+      line-height:1.6;
+    }
+
+    /* Footer */
+    footer{
+      margin: 26px 0 28px;
+      padding: 18px 0 0;
+      border-top: 1px solid rgba(90,60,55,.12);
+      color: rgba(108,95,90,.92);
+      font-size: 12px;
+    }
+    .footerGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items:center;
+      padding: 14px 0;
+    }
+    .newsletter{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .field{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(90,60,55,.14);
+      background: rgba(251,246,239,.78);
+      min-width: 280px;
+    }
+    .field input{
+      border:0;
+      outline:0;
+      background: transparent;
+      width: 100%;
+      font-size: 13px;
+      color: rgba(31,26,24,.92);
+    }
+    .field input::placeholder{ color: rgba(108,95,90,.75); }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .trustStrip{ grid-template-columns: repeat(2, 1fr); }
+      .testimonial{ grid-template-columns: 1fr; }
+      .model{ border-left:0; border-top: 1px solid rgba(255,255,255,.08); }
+      .whyGrid{ grid-template-columns: 1fr; }
+      .sectionTitle{ flex-direction:column; align-items:flex-start; }
+    }
+    @media (max-width: 520px){
+      .navlinks{ display:none; }
+      .grid{ grid-template-columns: 1fr; }
+      .trustStrip{ grid-template-columns: 1fr; }
+      .field{ min-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+    <div class="crumbs" aria-label="Breadcrumb">
+      <a href="#">Home</a>
+      <span class="dot" aria-hidden="true"></span>
+      <span style="color: rgba(106,15,27,.92); font-weight:600;">Collections</span>
+    </div>
+
+    <section class="hero" aria-label="Collections hero">
+      <div>
+        <h1>Our Exquisite<br/>Collections</h1>
+        <p>
+          Discover timeless elegance—crafted with certified metals and responsibly sourced stones.
+          Built to last, designed to be remembered.
+        </p>
+
+        <div class="ctaRow">
+          <a class="btn" href="#collections">
+            Explore Collections
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="btn secondary" href="#trust">
+            Why Trust Us
+          </a>
+        </div>
+
+        <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+          <div class="pill">
+            <span class="dotIcon" aria-hidden="true"></span>
+            <div>
+              <b>Certified &amp; Hallmarked</b>
+              <small>Transparent purity and authentic craftsmanship.</small>
+            </div>
+          </div>
+          <div class="pill">
+            <span class="dotIcon" aria-hidden="true"></span>
+            <div>
+              <b>Lifetime Care</b>
+              <small>Cleaning &amp; servicing to keep your shine forever.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="heroCard" aria-label="Featured">
+        <div class="heroMedia">
+          <div class="frame">
+            <span>Featured: Diamond Statement Set</span>
+          </div>
+        </div>
+        <div class="heroMeta">
+          <div class="pill">
+            <span class="dotIcon" aria-hidden="true"></span>
+            <div>
+              <b>Trust-first buying</b>
+              <small>Clear pricing, secure payments, and verified authenticity.</small>
+            </div>
+          </div>
+          <div class="pill">
+            <span class="dotIcon" aria-hidden="true"></span>
+            <div>
+              <b>White-glove support</b>
+              <small>Guidance from selection to aftercare.</small>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="sectionTitle" id="collections">
+      <div>
+        <h2>Explore Our Collections</h2>
+        <p>Premium is not “more items”—it’s confidence, clarity, and detail you can feel.</p>
+      </div>
+      <a class="btn secondary" href="#" style="padding:10px 12px; font-size:12px;">View All Items</a>
+    </div>
+
+    <section class="grid" aria-label="Collection categories">
+      <a class="card" href="#">
+        <div class="thumb"><span>Engagement Rings</span></div>
+        <div class="cardBody">
+          <h3>Engagement Rings</h3>
+          <p>Classic solitaires to modern halos—crafted for lifetime wear.</p>
+          <span class="btn btnSmall">Explore</span>
+        </div>
+      </a>
+
+      <a class="card" href="#">
+        <div class="thumb" style="background: radial-gradient(900px 260px at 30% 20%, rgba(255,255,255,.14), transparent 60%), linear-gradient(145deg, rgba(126,22,36,.92), rgba(32,9,12,.98));">
+          <span>Necklaces</span>
+        </div>
+        <div class="cardBody">
+          <h3>Necklaces</h3>
+          <p>Signature layers and statement pieces in a refined finish.</p>
+          <span class="btn btnSmall">Explore</span>
+        </div>
+      </a>
+
+      <a class="card" href="#">
+        <div class="thumb" style="background: radial-gradient(900px 260px at 30% 20%, rgba(255,255,255,.14), transparent 60%), linear-gradient(145deg, rgba(90,10,18,.92), rgba(25,8,10,.98));">
+          <span>Earrings</span>
+        </div>
+        <div class="cardBody">
+          <h3>Earrings</h3>
+          <p>Elegant drops, studs, and hoops—balanced and luminous.</p>
+          <span class="btn btnSmall">Explore</span>
+        </div>
+      </a>
+
+      <a class="card" href="#">
+        <div class="thumb" style="background: radial-gradient(900px 260px at 30% 20%, rgba(255,255,255,.14), transparent 60%), linear-gradient(145deg, rgba(106,15,27,.92), rgba(18,6,8,.98));">
+          <span>Bracelets</span>
+        </div>
+        <div class="cardBody">
+          <h3>Bracelets</h3>
+          <p>Delicate tennis lines and bold cuffs—made to move with you.</p>
+          <span class="btn btnSmall">Explore</span>
+        </div>
+      </a>
+    </section>
+
+    <section class="trustStrip" id="trust" aria-label="Trust badges">
+      <div class="trustItem">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z"/><path d="M9 12l2 2 4-5"/></svg>
+        </span>
+        <div>
+          <b>25+ Years</b>
+          <small>Heritage craftsmanship &amp; trusted service.</small>
+        </div>
+      </div>
+
+      <div class="trustItem">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z"/></svg>
+        </span>
+        <div>
+          <b>Certified</b>
+          <small>Hallmarked metals &amp; verified stones.</small>
+        </div>
+      </div>
+
+      <div class="trustItem">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M20 7h-9a4 4 0 1 0 0 8h7"/><path d="M20 7v6a4 4 0 0 1-4 4H8"/><path d="M20 7l-3-3"/><path d="M20 7l-3 3"/></svg>
+        </span>
+        <div>
+          <b>Lifetime Care</b>
+          <small>Cleaning &amp; maintenance support.</small>
+        </div>
+      </div>
+
+      <div class="trustItem">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 10h16"/><path d="M6 7h12"/><path d="M8 13h8"/><path d="M6 17h12"/></svg>
+        </span>
+        <div>
+          <b>Secure Payments</b>
+          <small>Protected checkout &amp; safe delivery.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial" aria-label="Testimonial">
+      <div class="quote">
+        <div class="quoteMark" aria-hidden="true">“</div>
+        <h3>What Our Clients Say</h3>
+        <p>
+          “Absolutely stunning jewelry and outstanding service.
+          I felt confident at every step—from authenticity to delivery.”
+        </p>
+        <div class="name">
+          <span style="width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.85);display:inline-block;"></span>
+          Emily R.
+        </div>
+      </div>
+      <div class="model">
+        <div class="portrait">Premium Visual Space</div>
+      </div>
+    </section>
+
+    <section class="why" aria-label="Why choose us">
+      <div class="sectionTitle" style="margin:0;">
+        <div>
+          <h2>Why Choose Us?</h2>
+          <p>Trust signals that matter—quality, transparency, and ethical sourcing.</p>
+        </div>
+      </div>
+
+      <div class="whyGrid">
+        <div class="whyItem">
+          <b>Exceptional Quality</b>
+          <p>Every piece is crafted with precision finishing and inspection.</p>
+        </div>
+        <div class="whyItem">
+          <b>Trusted &amp; Reliable</b>
+          <p>Clear certifications and customer-first policies—no surprises.</p>
+        </div>
+        <div class="whyItem">
+          <b>Ethically Sourced</b>
+          <p>Responsibly sourced stones and transparent supply standards.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footerGrid">
+        <div>
+          <div style="font-family:var(--serif); font-size:16px; color: rgba(31,26,24,.92); margin-bottom:6px;">
+            Stay close to new drops
+          </div>
+          <div class="newsletter">
+            <div class="field" role="group" aria-label="Newsletter signup">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+              <input type="email" placeholder="Enter your email address" />
+            </div>
+            <a class="btn" href="#" style="padding:10px 14px; font-size:12px;">Subscribe</a>
+          </div>
+        </div>
+
+        <div style="text-align:right;">
+          <div style="color: rgba(108,95,90,.92); line-height:1.6;">
+            © <span id="y"></span> Aurelia Jewels · Crafted with care<br/>
+            Privacy · Terms · Returns
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</script>
+<script src="js/universal-nav.js"></script>
+</html>

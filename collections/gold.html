@@ -59,31 +59,138 @@
         </nav>
     </header>
 
-    <main id="main-content" style="padding-top: 100px;">
-        <section id="home" class="page-section active">
-            <div class="section-intro">
-                <span class="gold-label">Est. 1980 • Flagship City</span>
-                <h1 style="font-family: var(--serif); font-weight: 400; font-size: 3rem; margin-top: 20px;">The Signature Collection</h1>
-                <p style="max-width: 600px; margin: 20px auto; color: var(--text-muted); font-weight: 300;">Explore our
-                    curated selection of fine jewellery, where every piece tells a story of Marwari regality.</p>
+    <main class="collection-container">
+        <!-- 1. HERO SECTION -->
+        <section class="hero">
+            <div>
+                <h1>Our Exquisite<br/>Collections</h1>
+                <p>
+                    Discover timeless elegance—crafted with certified metals and responsibly sourced stones. 
+                    Built to last, designed to be remembered.
+                </p>
+
+                <div class="ctaRow">
+                    <a class="btn-hero" href="#collections">
+                        Explore Collections
+                        <span>→</span>
+                    </a>
+                </div>
+
+                <div style="margin-top:25px; display:flex; gap:15px; flex-wrap:wrap;">
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>Certified & Hallmarked</b>
+                            <small>Transparent purity and authentic craftsmanship.</small>
+                        </div>
+                    </div>
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>Lifetime Care</b>
+                            <small>Cleaning & servicing to keep your shine forever.</small>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="filterContainer" style="margin-bottom: 30px;"></div>
+            <aside class="heroCard">
+                <div class="heroMedia">
+                    <div class="frame">
+                        <span>Featured: Diamond Statement Set</span>
+                    </div>
+                </div>
+                <div class="heroMeta">
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>Trust-first buying</b>
+                            <small>Clear pricing, secure payments, and verified authenticity.</small>
+                        </div>
+                    </div>
+                    <div class="pill">
+                        <span class="dotIcon"></span>
+                        <div>
+                            <b>White-glove support</b>
+                            <small>Guidance from selection to aftercare.</small>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
 
-            <div class="jewelry-grid" id="gold-grid">
-                <!-- Products will be loaded dynamically from Supabase -->
-                <div class="loading-state" style="text-align: center; width: 100%; color: var(--text-muted);">
-                    Fine jewellery arriving soon...
+        <!-- 2. GRID SECTION -->
+        <div id="collections" class="grid-header">
+            <div>
+                <h2>Explore Gold Heritage</h2>
+                <p style="color: var(--text-muted); margin-top: 5px;">Premium confidence, clarity, and detail you can feel.</p>
+            </div>
+        </div>
+
+        <div id="filterContainer" style="margin-bottom: 40px; text-align: center;"></div>
+
+        <div class="jewelry-grid" id="gold-grid">
+            <div class="loading-state" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                Loading Collection...
+            </div>
+        </div>
+        
+        <div class="view-more-container">
+            <button id="viewMoreBtn" class="btn-view-more" onclick="loadMoreItems()">View More Jewellery</button>
+        </div>
+
+        <!-- 3. TRUST STRIP -->
+        <section class="trustStrip" id="trust">
+            <div class="trustItem">
+                <span class="badge">25+</span>
+                <div>
+                    <b>25+ Years</b>
+                    <small>Heritage craftsmanship & trusted service.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge">✓</span>
+                <div>
+                    <b>Certified</b>
+                    <small>Hallmarked metals & verified stones.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge">∞</span>
+                <div>
+                    <b>Lifetime Care</b>
+                    <small>Cleaning & maintenance support.</small>
+                </div>
+            </div>
+            <div class="trustItem">
+                <span class="badge">🔒</span>
+                <div>
+                    <b>Secure Payments</b>
+                    <small>Protected checkout & safe delivery.</small>
                 </div>
             </div>
         </section>
 
-        <!-- Re-added heritage text section just in case, though navigation now points to separate heritage.html -->
-        <!-- Keeping it hidden or removed since we now have heritage.html? The original had a heritage tab. -->
-        <!-- I'll remove the second section to rely on heritage.html as the main heritage page, updating nav to point there. -->
+        <!-- 4. TESTIMONIAL -->
+        <section class="testimonial">
+            <div class="quote">
+                <h3>What Our Clients Say</h3>
+                <p>
+                    “Absolutely stunning jewelry and outstanding service. 
+                    I felt confident at every step—from authenticity to delivery.”
+                </p>
+                <div class="name">
+                    <span style="width:10px;height:10px;border-radius:50%;background:white; margin-right:8px;"></span>
+                    Emily R.
+                </div>
+            </div>
+            <div class="model">
+                <div class="portrait">Premium Visual Space</div>
+            </div>
+        </section>
 
     </main>
-
+ 
     <div id="dossier-root"></div>
 
     <footer>
@@ -123,24 +230,16 @@
     <script src="../js/mobile-menu.js"></script>
     <script src="../js/dossier.js"></script>
     <script>
-        // --- Page Navigation (Local Tabs) ---
-        // Simplified since we moved heritage to its own page, but keeping generic logic if needed for potential future tabs.
-        function showPage(pageId) {
-            // Note: Heritage is now external link, so this might only be used for 'home' (Collections)
-            // if we had sub-tabs. For now, it just ensures the current view is active.
-            // document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-            // document.getElementById(pageId).classList.add('active');
-            // lenis.scrollTo(0);
-        }
-
         let allItems = [];
+        let filteredItems = [];
+        let visibleCount = 9;
         let filterManager = null;
 
         async function loadJewellery() {
             const grid = document.getElementById('gold-grid');
 
-            if (!window.env?.TEXT_SUPABASE_URL || !window.env?.TEXT_SUPABASE_ANON_KEY) {
-                grid.innerHTML = `<p style="text-align: center; width: 100%; color: var(--crimson);">Configuration Missing!</p>`;
+            if (!window.env?.TEXT_SUPABASE_URL) {
+                grid.innerHTML = `<p style="text-align: center; width: 100%;">Config Missing</p>`;
                 return;
             }
 
@@ -154,81 +253,119 @@
                 if (error) throw error;
                 allItems = data || [];
 
-                // Init Filter
                 if (!filterManager) {
-                    filterManager = new ProductFilter('gold', (filters) => renderGrid(filters));
+                    filterManager = new ProductFilter('gold', (filters) => {
+                        visibleCount = 9; 
+                        renderGrid(filters);
+                    });
                 }
 
                 renderGrid();
             } catch (err) {
-                console.error('Error loading jewellery:', err);
+                console.error('Error loading:', err);
                 grid.innerHTML = '<p style="text-align: center; width: 100%;">Failed to load collection.</p>';
             }
         }
 
         function renderGrid(filters = null) {
             const grid = document.getElementById('gold-grid');
-            let filtered = [...allItems];
-
+            const viewMoreBtn = document.getElementById('viewMoreBtn');
+            // const currentFiltered = runFilterLogic(allItems, filters); // Removed undefined function
+            
+            // Store global filtered logic if needed, but runFilterLogic returns fresh
+            // Let's rely on storing the last applied filters in a simpler way if needed, 
+            // but actually we need to store the *result* to slice it? 
+            // Better pattern: store filteredItems globally.
+            
+            // 1. Apply Filters
+            filteredItems = [...allItems];
             if (filters) {
-                if (filters.search) {
-                    filtered = filtered.filter(it => it.name.toLowerCase().includes(filters.search) || it.description?.toLowerCase().includes(filters.search));
-                }
-                if (filters.jewelryType.length > 0) {
-                    filtered = filtered.filter(it => filters.jewelryType.includes(it.jewelry_type));
-                }
-                if (filters.purity.length > 0) {
-                    filtered = filtered.filter(it => filters.purity.includes(it.gold_purity));
-                }
-                // Price filter - assumes price is like "₹1,20,000" or just numbers
-                filtered = filtered.filter(it => {
+                /* Inline simple filter logic or reuse what we had */
+                if (filters.search) filteredItems = filteredItems.filter(it => it.name.toLowerCase().includes(filters.search));
+                if (filters.jewelryType.length > 0) filteredItems = filteredItems.filter(it => filters.jewelryType.includes(it.jewelry_type));
+                if (filters.purity.length > 0) filteredItems = filteredItems.filter(it => filters.purity.includes(it.gold_purity));
+                filteredItems = filteredItems.filter(it => {
                     const priceNum = parseInt(String(it.price).replace(/[^0-9]/g, '')) || 0;
                     return priceNum <= filters.priceRange || filters.priceRange === 500000;
                 });
             }
 
+            // 2. Pagination
+            const visibleItems = filteredItems.slice(0, visibleCount);
+
+            // 3. Render
             grid.innerHTML = '';
-            if (filtered.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; width: 100%;">No items match your criteria.</p>';
+            if (visibleItems.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; width: 100%;">No items match.</p>';
+                if(viewMoreBtn) viewMoreBtn.style.display = 'none';
                 return;
             }
 
-            filtered.forEach(item => {
+            visibleItems.forEach(item => {
+                const isLiked = wishlistManager?.isInWishlist(item.id);
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                const isLiked = wishlistManager?.isInWishlist(item.id);
+                card.onclick = () => openProductDetail(item.id);
+
                 card.innerHTML = `
-                    <div class="image-container" onclick="openProductDetail('${item.id}')">
-                        <img src="${item.image_url}" alt="${item.name}">
+                    <div class="image-container">
+                        <img src="${item.image_url}" alt="${item.name}" loading="lazy">
+                        <span>${item.jewelry_type || 'Jewellery'}</span>
+                        <button class="wishlist-icon ${isLiked ? 'wishlisted' : ''}" 
+                                onclick="event.stopPropagation(); toggleWishlist('${item.id}', this)">
+                            ${isLiked ? '♥' : '♡'}
+                        </button>
                     </div>
-                    <div style="display:flex; justify-content:space-between; align-items:start; margin-top:15px;">
-                        <h3 onclick="openProductDetail('${item.id}')" style="margin:0; cursor:pointer;">${item.name}</h3>
-                        <button class="wishlist-btn ${isLiked ? 'wishlisted' : ''}" data-wishlist-id="${item.id}" onclick="event.stopPropagation(); toggleWishlist('${item.id}')">${isLiked ? '♥' : '♡'}</button>
+                    <div class="card-body">
+                        <h3>${item.name}</h3>
+                        <p>${item.price}</p>
+                        <button class="btn-view-details">View Details</button>
                     </div>
-                    <span class="price-tag">${item.price}</span>
                 `;
                 grid.appendChild(card);
             });
+
+            // 4. View More State
+            if (viewMoreBtn) {
+                viewMoreBtn.style.display = (filteredItems.length > visibleCount) ? 'inline-block' : 'none';
+            }
+            
+            // Save filters for "View More" access
+            _lastFilters = filters;
         }
 
-        window.addEventListener('DOMContentLoaded', loadJewellery);
+        let _lastFilters = null;
+        function loadMoreItems() {
+            visibleCount += 9;
+            renderGrid(_lastFilters);
+        }
+
+        function toggleWishlist(id, btn) {
+            if(window.wishlistManager) {
+                window.wishlistManager.toggle(id);
+                // Update UI immediately for feedback
+                if(btn.classList.contains('wishlisted')) {
+                    btn.classList.remove('wishlisted');
+                    btn.innerText = '♡';
+                } else {
+                    btn.classList.add('wishlisted');
+                    btn.innerText = '♥';
+                }
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
 
         async function handleEnquiry() {
             const item = allItems.find(it => it.id === dossier.productId);
             openEnquiryModal(item);
         }
 
-        /* Mobile Menu Logic */
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-            if(menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
+        window.addEventListener('DOMContentLoaded', loadJewellery);
     </script>
 </body>
-
 </html>
