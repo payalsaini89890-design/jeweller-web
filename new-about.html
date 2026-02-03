@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About Us • Aurum Jewelers</title>
+  <meta name="description" content="Discover our story, craftsmanship, sourcing standards, and the trust behind every piece we create." />
+  <meta name="theme-color" content="#0a0b10" />
+
+  <!-- Premium typography (system + fallback). You can swap with your brand font later -->
+  <style>
+    :root{
+      --bg0:#06070b;
+      --bg1:#0a0b10;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.12);
+      --text:#eef0f6;
+      --muted:#b7bccb;
+      --muted2:#8a90a2;
+
+      --gold:#d8b56a;
+      --gold2:#f0d79a;
+      --accent:#8ef0ff;
+
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --shadow2: 0 12px 30px rgba(0,0,0,.45);
+
+      --r16: 16px;
+      --r22: 22px;
+      --r28: 28px;
+
+      --max: 1160px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(216,181,106,.16), transparent 55%),
+        radial-gradient(900px 600px at 90% 15%, rgba(142,240,255,.10), transparent 60%),
+        radial-gradient(1200px 700px at 50% 120%, rgba(240,215,154,.08), transparent 50%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+      letter-spacing: .2px;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    button{ font:inherit; }
+
+    /* Decorative grain */
+    .grain{
+      pointer-events:none;
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.22;
+    }
+
+    /* Container */
+    .wrap{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(10,11,16,.78), rgba(10,11,16,.40));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .navbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      transition: padding .25s ease, transform .25s ease;
+    }
+    .nav.scrolled .navbar{ padding: 10px 0; }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(240,215,154,.9), rgba(216,181,106,.35) 45%, rgba(255,255,255,.08) 70%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: linear-gradient(120deg, transparent 25%, rgba(255,255,255,.18), transparent 55%);
+      transform: rotate(15deg);
+      animation: sheen 6s linear infinite;
+      opacity:.7;
+    }
+    @keyframes sheen{
+      0%{ transform: translateX(-40%) rotate(15deg); }
+      100%{ transform: translateX(40%) rotate(15deg); }
+    }
+    .brand-title{
+      display:flex; flex-direction:column; line-height:1.1;
+    }
+    .brand-title b{
+      font-weight: 700;
+      letter-spacing: .8px;
+    }
+    .brand-title span{
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+
+    .navlinks{
+      display:flex; align-items:center; gap:18px;
+      padding: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .navlinks a{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 999px;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .navlinks a:hover{
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta{
+      display:flex; align-items:center; gap:10px;
+    }
+    .btn{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      padding: 11px 14px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); }
+
+    .btn-primary{
+      border: 1px solid rgba(216,181,106,.55);
+      background: linear-gradient(180deg, rgba(216,181,106,.26), rgba(216,181,106,.10));
+      box-shadow: 0 18px 50px rgba(216,181,106,.14);
+    }
+    .btn-primary:hover{
+      background: linear-gradient(180deg, rgba(240,215,154,.30), rgba(216,181,106,.12));
+      border-color: rgba(240,215,154,.7);
+    }
+
+    /* Mobile nav */
+    .hamburger{
+      display:none;
+      width:42px; height:42px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      place-items:center;
+      cursor:pointer;
+    }
+    .hamburger span{
+      width:18px; height:2px; background:rgba(255,255,255,.82);
+      display:block; position:relative;
+    }
+    .hamburger span:before,.hamburger span:after{
+      content:""; position:absolute; left:0; width:18px; height:2px; background:rgba(255,255,255,.82);
+    }
+    .hamburger span:before{ top:-6px; }
+    .hamburger span:after{ top:6px; }
+
+    .mobile-panel{
+      display:none;
+      padding: 10px 0 18px;
+    }
+    .mobile-panel .card{
+      border-radius: 18px;
+      padding: 10px;
+    }
+    .mobile-panel a{
+      display:block;
+      padding: 12px 12px;
+      border-radius: 14px;
+      color: var(--muted);
+    }
+    .mobile-panel a:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero{
+      padding: 52px 0 18px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.18fr .82fr;
+      gap: 26px;
+      align-items:stretch;
+    }
+    .headline{
+      padding: 26px;
+      border-radius: var(--r28);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(800px 220px at 10% 0%, rgba(216,181,106,.22), transparent 60%),
+        radial-gradient(550px 220px at 90% 10%, rgba(142,240,255,.10), transparent 55%),
+        rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(216,181,106,.35);
+      background: rgba(216,181,106,.10);
+      color: var(--gold2);
+      font-size: 12px;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+    .kicker i{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--gold2);
+      box-shadow: 0 0 0 6px rgba(216,181,106,.18);
+      display:inline-block;
+    }
+    h1{
+      margin: 14px 0 12px;
+      font-size: clamp(28px, 3.2vw, 46px);
+      line-height: 1.08;
+      letter-spacing: .2px;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.65;
+      max-width: 56ch;
+    }
+
+    .hero-actions{
+      margin-top: 18px;
+      display:flex; flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+    }
+    .pill{
+      display:flex; gap:10px; align-items:center;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill svg{ opacity:.9; }
+
+    .hero-side{
+      display:grid;
+      gap: 14px;
+    }
+
+    /* Card base */
+    .card{
+      border-radius: var(--r22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .card.pad{ padding: 18px; }
+    .card h3{ margin:0 0 6px; font-size: 15px; letter-spacing: .2px; }
+    .card p{ margin:0; color:var(--muted); font-size: 13.5px; line-height:1.6; }
+
+    /* “Jewelry visual” */
+    .visual{
+      position:relative;
+      min-height: 220px;
+      padding: 18px;
+      background:
+        radial-gradient(140px 140px at 32% 35%, rgba(240,215,154,.45), transparent 60%),
+        radial-gradient(180px 180px at 70% 55%, rgba(142,240,255,.14), transparent 65%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .gem{
+      position:absolute;
+      width: 160px; height: 160px;
+      left: 22px; top: 34px;
+      border-radius: 34px;
+      transform: rotate(12deg);
+      background:
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,.55), rgba(240,215,154,.28) 40%, rgba(216,181,106,.12) 65%, rgba(0,0,0,.10)),
+        linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,0));
+      border: 1px solid rgba(255,255,255,.18);
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,.55));
+    }
+    .ring{
+      position:absolute;
+      width: 210px; height: 210px;
+      right: -18px; bottom: -28px;
+      border-radius: 999px;
+      border: 18px solid rgba(216,181,106,.28);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+      background: radial-gradient(circle at 30% 30%, rgba(240,215,154,.10), transparent 55%);
+      transform: rotate(-12deg);
+    }
+    .ring:after{
+      content:"";
+      position:absolute; inset: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: radial-gradient(circle at 60% 40%, rgba(142,240,255,.08), transparent 55%);
+    }
+    .visual .tag{
+      position:absolute; left:18px; bottom:18px;
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .tag b{ color: var(--gold2); font-weight:700; }
+
+    /* Sections */
+    section{ padding: 26px 0; }
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: .2px;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted2);
+      font-size: 13.5px;
+      max-width: 58ch;
+      line-height: 1.55;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .icon{
+      width:40px;height:40px;border-radius:14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(240,215,154,.22), rgba(255,255,255,.03) 55%),
+        rgba(255,255,255,.04);
+      display:grid; place-items:center;
+      margin-bottom: 10px;
+    }
+    .muted{ color: var(--muted); }
+
+    /* Stats row */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stat{
+      padding: 16px;
+      border-radius: var(--r22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .stat b{
+      display:block;
+      font-size: 26px;
+      letter-spacing: .2px;
+    }
+    .stat span{
+      display:block;
+      color: var(--muted2);
+      font-size: 12.5px;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+    }
+
+    /* Timeline */
+    .timeline{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    .step{
+      padding: 16px;
+      border-radius: var(--r22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      position:relative;
+      overflow:hidden;
+    }
+    .step:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(500px 120px at 20% 0%, rgba(216,181,106,.16), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .step .row{
+      position:relative;
+      display:flex; align-items:flex-start; gap: 12px;
+    }
+    .badge{
+      flex:0 0 auto;
+      width: 34px; height:34px;
+      border-radius: 14px;
+      border: 1px solid rgba(216,181,106,.40);
+      background: rgba(216,181,106,.10);
+      display:grid; place-items:center;
+      color: var(--gold2);
+      font-weight: 700;
+    }
+    .step h4{ margin:0 0 6px; font-size: 14.5px; }
+    .step p{ margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+
+    /* Testimonials */
+    .quotes{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    .quote{
+      padding: 18px;
+      border-radius: var(--r22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      position:relative;
+      overflow:hidden;
+    }
+    .quote:before{
+      content:"“";
+      position:absolute;
+      top:-18px; left:12px;
+      font-size: 86px;
+      color: rgba(216,181,106,.20);
+      font-weight: 800;
+      line-height:1;
+    }
+    .quote p{
+      margin: 12px 0 14px;
+      color: var(--text);
+      font-size: 14.5px;
+      line-height:1.75;
+      max-width: 70ch;
+    }
+    .who{
+      display:flex; align-items:center; gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .avatar{
+      width:36px;height:36px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(142,240,255,.14), rgba(255,255,255,.03) 60%),
+        rgba(255,255,255,.04);
+    }
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    details{
+      border-radius: var(--r22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 14px 16px;
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 13.8px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .chev{
+      width: 28px; height: 28px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      display:grid; place-items:center;
+      transition: transform .2s ease;
+      flex:0 0 auto;
+    }
+    details[open] .chev{ transform: rotate(180deg); }
+    details p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height:1.65;
+    }
+
+    /* CTA */
+    .cta{
+      margin-top: 10px;
+      padding: 22px;
+      border-radius: var(--r28);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(900px 220px at 15% 0%, rgba(216,181,106,.22), transparent 55%),
+        radial-gradient(650px 220px at 95% 25%, rgba(142,240,255,.10), transparent 60%),
+        rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px;
+      overflow:hidden;
+      position:relative;
+    }
+    .cta h3{
+      margin:0 0 6px;
+      font-size: 18px;
+    }
+    .cta p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+      max-width: 70ch;
+    }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 38px;
+      color: var(--muted2);
+      font-size: 12.5px;
+    }
+    .foot{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap: 16px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 18px;
+    }
+    .foot a{ color: var(--muted); }
+    .foot a:hover{ color: var(--text); }
+
+    /* Reveal animation */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Small helpers */
+    .rowline{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .chip{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .quotes{ grid-template-columns: 1fr; }
+      .timeline{ grid-template-columns: 1fr; }
+      .stats{ grid-template-columns: repeat(2,1fr); }
+      .grid-3{ grid-template-columns: 1fr; }
+      .faq{ grid-template-columns: 1fr; }
+      .navlinks{ display:none; }
+      .hamburger{ display:grid; }
+      .mobile-panel{ display:block; }
+      .cta{ flex-direction: column; align-items:flex-start; }
+    }
+    @media (max-width: 520px){
+      .wrap{ width:min(var(--max), calc(100% - 26px)); }
+      .headline{ padding: 18px; }
+      .hero{ padding-top: 36px; }
+      .stat b{ font-size: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <!-- NAV -->
+  <header class="nav" id="top">
+    <div class="wrap">
+      <div class="navbar">
+        <a class="brand" href="index.html" aria-label="Go to home">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brand-title">
+            <b>Aurum Jewelers</b>
+            <span>Craft • Trust • Timeless</span>
+          </div>
+        </a>
+
+        <nav class="navlinks" aria-label="Page sections">
+          <a href="#story">Story</a>
+          <a href="#craft">Craft</a>
+          <a href="#trust">Trust</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="contact.html">Contact</a>
+          <a class="btn btn-primary" href="products.html">Explore Collection</a>
+          <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-panel" id="mobilePanel" hidden>
+        <div class="card">
+          <a href="#story">Story</a>
+          <a href="#craft">Craft</a>
+          <a href="#trust">Trust</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#faq">FAQ</a>
+          <a href="products.html">Explore Collection</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="headline reveal">
+          <div class="kicker"><i></i> Premium craftsmanship you can trust</div>
+          <h1>Jewelry built to feel luxurious — and stay meaningful for decades.</h1>
+          <p class="sub">
+            We combine modern precision with traditional artistry to create pieces that look stunning,
+            wear comfortably, and come with transparent standards for purity, gemstones, and after-care.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="products.html">Shop Bestsellers</a>
+            <a class="btn" href="#trust">See our trust promise</a>
+
+            <div class="rowline" aria-label="Highlights">
+              <div class="pill" title="Certified materials">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Certified Purity
+              </div>
+              <div class="pill" title="Safe & insured shipping">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 8h-3l-2-3H3v11h2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5 16V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                </svg>
+                Insured Delivery
+              </div>
+              <div class="pill" title="Lifetime care support">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 21s-7-4.6-9-9a5.6 5.6 0 0 1 9-6 5.6 5.6 0 0 1 9 6c-2 4.4-9 9-9 9Z"
+                        stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Care Support
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <div class="card visual reveal">
+            <div class="gem" aria-hidden="true"></div>
+            <div class="ring" aria-hidden="true"></div>
+            <div class="tag"><b>Hallmarked</b> • Quality verified</div>
+          </div>
+
+          <div class="card pad reveal">
+            <h3>What makes us “premium”</h3>
+            <p>
+              Comfort-fit finishing, stone security checks, and an honest policy on purity & grading —
+              so customers feel confident before and after buying.
+            </p>
+            <div class="rowline">
+              <span class="chip">Comfort-fit interiors</span>
+              <span class="chip">Secure settings</span>
+              <span class="chip">Transparent grading</span>
+              <span class="chip">After-care</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="reveal" id="trust">
+      <div class="section-head">
+        <div>
+          <h2>Trust that’s measurable</h2>
+          <p>Replace these numbers with your real stats anytime — they’re built to animate smoothly.</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat card">
+          <b data-count="98.7">0</b>
+          <span>Customer satisfaction %</span>
+        </div>
+        <div class="stat card">
+          <b data-count="24">0</b>
+          <span>Quality checkpoints</span>
+        </div>
+        <div class="stat card">
+          <b data-count="48">0</b>
+          <span>Hours dispatch time</span>
+        </div>
+        <div class="stat card">
+          <b data-count="365">0</b>
+          <span>Days support</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="reveal" id="story">
+      <div class="section-head">
+        <div>
+          <h2>Our story</h2>
+          <p>
+            A modern jewelry studio with a classic promise: no shortcuts, no hidden trade-offs —
+            just pieces you’ll be proud to gift and wear.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card pad">
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s-7-4.6-9-9a5.6 5.6 0 0 1 9-6 5.6 5.6 0 0 1 9 6c-2 4.4-9 9-9 9Z"
+                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Design with emotion</h3>
+          <p>Every piece starts with a purpose — engagement, celebration, heritage, or self-love.</p>
+        </div>
+
+        <div class="card pad">
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M6 20V9l6-5 6 5v11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 20v-6h4v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Crafted to last</h3>
+          <p>Precision finishing, comfort-fit interiors, and setting security checks at every stage.</p>
+        </div>
+
+        <div class="card pad">
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z"
+                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Honest standards</h3>
+          <p>Clear purity, transparent gemstone grading, and straight answers — always.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRAFT + SOURCING -->
+    <section class="reveal" id="craft">
+      <div class="section-head">
+        <div>
+          <h2>How we craft (the premium way)</h2>
+          <p>From CAD precision to hand-finishing — the best results happen when tech + artistry work together.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="row">
+            <div class="badge">1</div>
+            <div>
+              <h4>Design & proportions</h4>
+              <p>We refine silhouette, stone balance, and everyday comfort before production begins.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="row">
+            <div class="badge">2</div>
+            <div>
+              <h4>Precision manufacturing</h4>
+              <p>Accurate base creation ensures symmetry, strength, and a clean foundation for setting.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="row">
+            <div class="badge">3</div>
+            <div>
+              <h4>Stone setting & security</h4>
+              <p>We test alignment and stability so your stones stay secure for the long run.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="row">
+            <div class="badge">4</div>
+            <div>
+              <h4>Finishing & inspection</h4>
+              <p>Polish, edges, prongs, and symmetry checks — then final quality inspection before dispatch.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="grid-3">
+        <div class="card pad">
+          <h3>Sourcing & ethics</h3>
+          <p>
+            We prioritize traceable supply chains and responsible partners. If you use certified diamonds/gems,
+            mention your certifications here for stronger trust.
+          </p>
+        </div>
+        <div class="card pad">
+          <h3>Purity & hallmark</h3>
+          <p>
+            Purity is verified and documented. For gold/silver, add local hallmark details (BIS, etc.) based on your region.
+          </p>
+        </div>
+        <div class="card pad">
+          <h3>After-care support</h3>
+          <p>
+            We help with cleaning guidance, basic maintenance, and care tips — so your jewelry stays brilliant.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reveal" id="reviews">
+      <div class="section-head">
+        <div>
+          <h2>What customers say</h2>
+          <p>These are placeholder reviews — replace them with real testimonials for maximum trust.</p>
+        </div>
+      </div>
+
+      <div class="quotes">
+        <div class="quote">
+          <p>
+            The finishing looks insanely premium. The ring feels smooth inside, and the stone sits perfectly.
+            Packaging was elegant and delivery was fast.
+          </p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <div><b class="muted">Riya S.</b> • Verified buyer</div>
+              <div style="color:var(--muted2); font-size:12px; margin-top:2px;">Engagement ring</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote">
+          <p>
+            Support was responsive and honest about stone options. The final piece looks better than photos.
+          </p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <div><b class="muted">Arjun K.</b> • Verified buyer</div>
+              <div style="color:var(--muted2); font-size:12px; margin-top:2px;">Pendant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="reveal" id="faq">
+      <div class="section-head">
+        <div>
+          <h2>FAQ</h2>
+          <p>Short, confident answers reduce doubt and increase trust.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>
+            Do you provide purity / authenticity documentation?
+            <span class="chev" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <p>Yes — we provide documentation and transparent details for metal purity and gemstone specifications.</p>
+        </details>
+
+        <details>
+          <summary>
+            How do you ensure stones are secure?
+            <span class="chev" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <p>We do setting stability checks and final inspections for alignment, prongs, and overall security.</p>
+        </details>
+
+        <details>
+          <summary>
+            What about delivery and packaging?
+            <span class="chev" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <p>We ship with protective premium packaging. Add “insured delivery” if your courier supports it.</p>
+        </details>
+
+        <details>
+          <summary>
+            Can I customize a design?
+            <span class="chev" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <p>Yes — share your budget and inspiration, and we’ll guide you with options that look premium and fit comfortably.</p>
+        </details>
+      </div>
+
+      <div class="cta">
+        <div>
+          <h3>Want something custom, premium, and perfectly sized?</h3>
+          <p>Send us your idea and we’ll suggest the best design + metal + stone options within your budget.</p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+          <a class="btn" href="products.html">Browse Collection</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <div class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:12px;"></div>
+            <div>
+              <div style="font-weight:700; letter-spacing:.6px;">Aurum Jewelers</div>
+              <div style="color:var(--muted2); font-size:12px; margin-top:2px;">Premium craftsmanship • Trusted quality</div>
+            </div>
+          </div>
+          <div>© <span id="year"></span> Aurum Jewelers. All rights reserved.</div>
+        </div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="#top">Back to top</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ===== Smooth anchors =====
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a[href^='#']");
+      if(!a) return;
+      const id = a.getAttribute("href");
+      const el = document.querySelector(id);
+      if(!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", id);
+      // close mobile menu if open
+      const panel = document.getElementById("mobilePanel");
+      const btn = document.getElementById("menuBtn");
+      if(panel && !panel.hasAttribute("hidden")){
+        panel.setAttribute("hidden","");
+        btn.setAttribute("aria-expanded","false");
+      }
+    });
+
+    // ===== Sticky nav subtle state =====
+    const nav = document.querySelector(".nav");
+    const onScroll = () => {
+      if(window.scrollY > 10) nav.classList.add("scrolled");
+      else nav.classList.remove("scrolled");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive:true });
+
+    // ===== Mobile menu =====
+    const menuBtn = document.getElementById("menuBtn");
+    const mobilePanel = document.getElementById("mobilePanel");
+    menuBtn?.addEventListener("click", () => {
+      const isOpen = !mobilePanel.hasAttribute("hidden");
+      if(isOpen){
+        mobilePanel.setAttribute("hidden","");
+        menuBtn.setAttribute("aria-expanded","false");
+      }else{
+        mobilePanel.removeAttribute("hidden");
+        menuBtn.setAttribute("aria-expanded","true");
+      }
+    });
+
+    // ===== Reveal on scroll =====
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(ent => {
+        if(ent.isIntersecting){
+          ent.target.classList.add("in");
+          io.unobserve(ent.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // ===== Animated counters =====
+    function animateCount(el, to){
+      const from = 0;
+      const duration = 1100;
+      const start = performance.now();
+      const isFloat = String(to).includes(".");
+      function tick(t){
+        const p = Math.min(1, (t - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        const val = from + (to - from) * eased;
+        el.textContent = isFloat ? val.toFixed(1) : Math.round(val);
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(ent => {
+        if(!ent.isIntersecting) return;
+        const el = ent.target;
+        const to = parseFloat(el.getAttribute("data-count") || "0");
+        animateCount(el, to);
+        statObserver.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll("[data-count]").forEach(el => statObserver.observe(el));
+
+    // ===== Footer year =====
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
