@@ -19,14 +19,9 @@
 }
 
 /* HERO SECTION - Height 100vh, transparent to show bg */
-.hero {
-    height: 100vh; /* Fallback */
-    height: 100dvh; /* Dynamic viewport height for mobile */
-    position: relative;
-    background: transparent !important; /* Override index.css gradient */
-    display: block !important;          /* Override index.css flex */
-    padding: 0 !important;              /* Override index.css padding */
-    margin: 0 !important;
+/* HERO SECTION - Height fallback handled in index.css */
+.hero-legacy-override {
+    display: none;
 }
 
 /* NAVBAR - Hero State */

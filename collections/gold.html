@@ -1,24 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gold Heritage Collection | The Jewellery Atelier</title>
-    <meta name="description" content="Explore the Signature Gold Collection at The Jewellery Atelier. Marwari regality meets contemporary fine jewellery design.">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Gold Heritage Collection | The Jewellery Atelier">
-    <meta property="og:description" content="A curated selection of fine gold jewellery, where every piece tells a story of heritage.">
+    <meta
+      name="description"
+      content="Explore the Signature Gold Collection at The Jewellery Atelier. Marwari regality meets contemporary fine jewellery design."
+    />
 
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/collections.css">
-    <link rel="stylesheet" href="../css/modal.css">
-    <link rel="stylesheet" href="../css/gallery.css">
-    <link rel="stylesheet" href="../css/filters.css">
-    <link rel="stylesheet" href="../css/mobile-menu.css">
-    <link rel="stylesheet" href="../css/dossier.css">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Gold Heritage Collection | The Jewellery Atelier"
+    />
+    <meta
+      property="og:description"
+      content="A curated selection of fine gold jewellery, where every piece tells a story of heritage."
+    />
+
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/collections.css" />
+    <link rel="stylesheet" href="../css/modal.css" />
+    <link rel="stylesheet" href="../css/gallery.css" />
+    <link rel="stylesheet" href="../css/filters.css" />
+    <link rel="stylesheet" href="../css/mobile-menu.css" />
+    <link rel="stylesheet" href="../css/dossier.css" />
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -27,199 +35,242 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/ticker.js" defer></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenu">
-        <div style="position:absolute; top:30px; right:30px; cursor:pointer; font-size:1rem; letter-spacing:2px;" onclick="toggleMobileMenu()">CLOSE</div>
-        <a href="../index.html">Home</a>
-        <a href="../heritage.html">The Heritage</a>
-        <a href="gold.html">Gold</a>
-        <a href="platinum.html">Platinum</a>
-        <a href="../ai.html">AI Concierge</a>
-        <a href="../wishlist.html">Wishlist</a>
-        <a href="../contact.html">Visit</a>
+      <div
+        style="
+          position: absolute;
+          top: 30px;
+          right: 30px;
+          cursor: pointer;
+          font-size: 1rem;
+          letter-spacing: 2px;
+        "
+        onclick="toggleMobileMenu()"
+      >
+        CLOSE
+      </div>
+      <a href="../index.html">Home</a>
+      <a href="gold.html">Gold</a>
+      <a href="platinum.html">Platinum</a>
+      <a href="../ai.html">AI Concierge</a>
+      <a href="../contact.html">Visit</a>
+      <a href="../heritage.html">The Heritage</a>
+      <a href="../wishlist.html">Wishlist</a>
     </div>
 
     <header id="header">
-        <a href="../index.html" class="logo">THE ATELIER</a>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../heritage.html">The Heritage</a></li>
-                <li><a href="gold.html" class="active">Gold Collection</a></li>
-                <li><a href="platinum.html">Platinum Collection</a></li>
-                <li><a href="../contact.html">Visit Store</a></li>
-                <li><a href="../ai.html">AI Concierge</a></li>
-                <li><a href="../wishlist.html" title="Wishlist" style="position: relative; font-size: 1.2rem;">♥ <span id="wishlist-count" style="display: none;">0</span></a></li>
-            </ul>
-            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
-        </nav>
+      <a href="../index.html" class="logo">THE ATELIER</a>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="gold.html" class="active">Gold Collection</a></li>
+          <li><a href="platinum.html">Platinum Collection</a></li>
+          <li><a href="../ai.html">AI Concierge</a></li>
+          <li><a href="../contact.html">Visit Store</a></li>
+          <li><a href="../heritage.html">The Heritage</a></li>
+          <li>
+            <a
+              href="../wishlist.html"
+              title="Wishlist"
+              style="position: relative; font-size: 1.2rem"
+              >♥ <span id="wishlist-count" style="display: none">0</span></a
+            >
+          </li>
+        </ul>
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
+      </nav>
     </header>
 
     <main class="collection-container">
-        <!-- 1. HERO SECTION -->
-        <section class="hero">
-            <div>
-                <h1>Our Exquisite<br/>Collections</h1>
-                <p>
-                    Discover timeless elegance—crafted with certified metals and responsibly sourced stones. 
-                    Built to last, designed to be remembered.
-                </p>
+      <!-- 1. HERO SECTION -->
+      <section class="hero">
+        <div>
+          <h1>Our Exquisite<br />Collections</h1>
+          <p>
+            Discover timeless elegance—crafted with certified metals and
+            responsibly sourced stones. Built to last, designed to be
+            remembered.
+          </p>
 
-                <div class="ctaRow">
-                    <a class="btn-hero" href="#collections">
-                        Explore Collections
-                        <span>→</span>
-                    </a>
-                </div>
-
-                <div style="margin-top:25px; display:flex; gap:15px; flex-wrap:wrap;">
-                    <div class="pill">
-                        <span class="dotIcon"></span>
-                        <div>
-                            <b>Certified & Hallmarked</b>
-                            <small>Transparent purity and authentic craftsmanship.</small>
-                        </div>
-                    </div>
-                    <div class="pill">
-                        <span class="dotIcon"></span>
-                        <div>
-                            <b>Lifetime Care</b>
-                            <small>Cleaning & servicing to keep your shine forever.</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <aside class="heroCard">
-                <div class="heroMedia">
-                    <div class="frame">
-                        <span>Featured: Diamond Statement Set</span>
-                    </div>
-                </div>
-                <div class="heroMeta">
-                    <div class="pill">
-                        <span class="dotIcon"></span>
-                        <div>
-                            <b>Trust-first buying</b>
-                            <small>Clear pricing, secure payments, and verified authenticity.</small>
-                        </div>
-                    </div>
-                    <div class="pill">
-                        <span class="dotIcon"></span>
-                        <div>
-                            <b>White-glove support</b>
-                            <small>Guidance from selection to aftercare.</small>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-        </section>
-
-        <!-- 2. GRID SECTION -->
-        <div id="collections" class="grid-header">
-            <div>
-                <h2>Explore Gold Heritage</h2>
-                <p style="color: var(--text-muted); margin-top: 5px;">Premium confidence, clarity, and detail you can feel.</p>
-            </div>
+          <div class="ctaRow">
+            <a class="btn-hero" href="#collections">
+              Explore Collections
+              <span>→</span>
+            </a>
+          </div>
         </div>
 
-        <div id="filterContainer" style="margin-bottom: 40px; text-align: center;"></div>
-
-        <div class="jewelry-grid" id="gold-grid">
-            <div class="loading-state" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                Loading Collection...
+        <aside class="heroCard">
+          <div class="heroMedia">
+            <div class="frame">
+              <span>Featured: Diamond Statement Set</span>
             </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- Trust Pills Row (All 4 aligned) -->
+      <div class="trust-pills-row">
+        <div class="pill">
+          <span class="dotIcon"></span>
+          <div>
+            <b>Certified & Hallmarked</b>
+            <small>Transparent purity and authentic craftsmanship.</small>
+          </div>
         </div>
-        
-        <div class="view-more-container">
-            <button id="viewMoreBtn" class="btn-view-more" onclick="loadMoreItems()">View More Jewellery</button>
+        <div class="pill">
+          <span class="dotIcon"></span>
+          <div>
+            <b>Lifetime Care</b>
+            <small>Cleaning & servicing to keep your shine forever.</small>
+          </div>
         </div>
+        <div class="pill">
+          <span class="dotIcon"></span>
+          <div>
+            <b>Trust-first buying</b>
+            <small
+              >Clear pricing, secure payments, and verified authenticity.</small
+            >
+          </div>
+        </div>
+        <div class="pill">
+          <span class="dotIcon"></span>
+          <div>
+            <b>White-glove support</b>
+            <small>Guidance from selection to aftercare.</small>
+          </div>
+        </div>
+      </div>
 
-        <!-- 3. TRUST STRIP -->
-        <section class="trustStrip" id="trust">
-            <div class="trustItem">
-                <span class="badge">25+</span>
-                <div>
-                    <b>25+ Years</b>
-                    <small>Heritage craftsmanship & trusted service.</small>
-                </div>
-            </div>
-            <div class="trustItem">
-                <span class="badge">✓</span>
-                <div>
-                    <b>Certified</b>
-                    <small>Hallmarked metals & verified stones.</small>
-                </div>
-            </div>
-            <div class="trustItem">
-                <span class="badge">∞</span>
-                <div>
-                    <b>Lifetime Care</b>
-                    <small>Cleaning & maintenance support.</small>
-                </div>
-            </div>
-            <div class="trustItem">
-                <span class="badge">🔒</span>
-                <div>
-                    <b>Secure Payments</b>
-                    <small>Protected checkout & safe delivery.</small>
-                </div>
-            </div>
-        </section>
+      <!-- 2. GRID SECTION -->
+      <div id="collections" class="grid-header">
+        <div>
+          <h2>Explore Gold Heritage</h2>
+          <p style="color: var(--text-muted); margin-top: 5px">
+            Premium confidence, clarity, and detail you can feel.
+          </p>
+        </div>
+      </div>
 
-        <!-- 4. TESTIMONIAL -->
-        <section class="testimonial">
-            <div class="quote">
-                <h3>What Our Clients Say</h3>
-                <p>
-                    “Absolutely stunning jewelry and outstanding service. 
-                    I felt confident at every step—from authenticity to delivery.”
-                </p>
-                <div class="name">
-                    <span style="width:10px;height:10px;border-radius:50%;background:white; margin-right:8px;"></span>
-                    Emily R.
-                </div>
-            </div>
-            <div class="model">
-                <div class="portrait">Premium Visual Space</div>
-            </div>
-        </section>
+      <div
+        id="filterContainer"
+        style="margin-top: 30px; margin-bottom: 40px; text-align: center"
+      ></div>
 
+      <div class="jewelry-grid" id="gold-grid">
+        <div
+          class="loading-state"
+          style="grid-column: 1 / -1; text-align: center; padding: 40px"
+        >
+          Loading Collection...
+        </div>
+      </div>
+
+      <div class="view-more-container">
+        <button
+          id="viewMoreBtn"
+          class="btn-view-more"
+          onclick="loadMoreItems()"
+        >
+          View More Jewellery
+        </button>
+      </div>
+
+      <!-- 3. TRUST STRIP -->
+      <section class="trustStrip" id="trust">
+        <div class="trustItem">
+          <span class="badge">25+</span>
+          <div>
+            <b>25+ Years</b>
+            <small>Heritage craftsmanship & trusted service.</small>
+          </div>
+        </div>
+        <div class="trustItem">
+          <span class="badge">✓</span>
+          <div>
+            <b>Certified</b>
+            <small>Hallmarked metals & verified stones.</small>
+          </div>
+        </div>
+        <div class="trustItem">
+          <span class="badge">∞</span>
+          <div>
+            <b>Lifetime Care</b>
+            <small>Cleaning & maintenance support.</small>
+          </div>
+        </div>
+        <div class="trustItem">
+          <span class="badge">🔒</span>
+          <div>
+            <b>Secure Payments</b>
+            <small>Protected checkout & safe delivery.</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. TESTIMONIAL -->
+      <section class="testimonial">
+        <div class="quote">
+          <h3>What Our Clients Say</h3>
+          <p>
+            “Absolutely stunning jewelry and outstanding service. I felt
+            confident at every step—from authenticity to delivery.”
+          </p>
+          <div class="name">
+            <span
+              style="
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: white;
+                margin-right: 8px;
+              "
+            ></span>
+            Emily R.
+          </div>
+        </div>
+        <div class="model">
+          <div class="portrait">Premium Visual Space</div>
+        </div>
+      </section>
     </main>
- 
+
     <div id="dossier-root"></div>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <span class="logo">THE JEWELLERY ATELIER</span>
-                <p>Trusted craftsmanship in gold and silver ornaments.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Collections</h4>
-                <a href="#">Bridal Sets</a>
-                <a href="#">Polki & Jadau</a>
-                <a href="#">Daily Wear Gold</a>
-                <a href="#">Certified Diamonds</a>
-            </div>
-            <div class="footer-col">
-                <h4>Atelier</h4>
-                <a href="../heritage.html">Our Story</a>
-                <a href="../heritage.html">Craftsmanship</a>
-                <a href="../contact.html">Book Appointment</a>
-                <a href="#">Gold Exchange</a>
-            </div>
-            <div class="footer-col">
-                <h4>Visit Us</h4>
-                <p>123 Royale Avenue, Diamond District,<br>Flagship City, 000001</p>
-                <p>Ph: +91 00000 00000</p>
-            </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo">THE JEWELLERY ATELIER</span>
+          <p>Trusted craftsmanship in gold and silver ornaments.</p>
         </div>
-        <div class="copyright">© 2026 The Jewellery Atelier. BIS Hallmarked Purity Guaranteed.</div>
+        <div class="footer-col">
+          <h4>Collections</h4>
+          <a href="#">Bridal Sets</a>
+          <a href="#">Polki & Jadau</a>
+          <a href="#">Daily Wear Gold</a>
+          <a href="#">Certified Diamonds</a>
+        </div>
+        <div class="footer-col">
+          <h4>Atelier</h4>
+          <a href="../heritage.html">Our Story</a>
+          <a href="../heritage.html">Craftsmanship</a>
+          <a href="../contact.html">Book Appointment</a>
+          <a href="#">Gold Exchange</a>
+        </div>
+        <div class="footer-col">
+          <h4>Visit Us</h4>
+          <p>123 Royale Avenue, Diamond District,<br />Flagship City, 000001</p>
+          <p>Ph: +91 00000 00000</p>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 The Jewellery Atelier. BIS Hallmarked Purity Guaranteed.
+      </div>
     </footer>
 
     <script src="../js/app.js"></script>
@@ -230,90 +281,131 @@
     <script src="../js/mobile-menu.js"></script>
     <script src="../js/dossier.js"></script>
     <script>
-        let allItems = [];
-        let filteredItems = [];
-        let visibleCount = 9;
-        let filterManager = null;
+      let allItems = [];
+      let filteredItems = [];
+      let visibleCount = 9;
+      let filterManager = null;
 
-        async function loadJewellery() {
-            const grid = document.getElementById('gold-grid');
+      async function loadJewellery() {
+        const grid = document.getElementById("gold-grid");
 
-            if (!window.env?.TEXT_SUPABASE_URL) {
-                grid.innerHTML = `<p style="text-align: center; width: 100%;">Config Missing</p>`;
-                return;
-            }
+        // 1. Show Skeletons while loading
+        showSkeletons();
 
-            try {
-                const { data, error } = await window.supabaseText
-                    .from('jewellery')
-                    .select('*')
-                    .eq('category', 'gold')
-                    .eq('is_active', true);
-
-                if (error) throw error;
-                allItems = data || [];
-
-                if (!filterManager) {
-                    filterManager = new ProductFilter('gold', (filters) => {
-                        visibleCount = 9; 
-                        renderGrid(filters);
-                    });
-                }
-
-                renderGrid();
-            } catch (err) {
-                console.error('Error loading:', err);
-                grid.innerHTML = '<p style="text-align: center; width: 100%;">Failed to load collection.</p>';
-            }
+        if (!window.env?.TEXT_SUPABASE_URL) {
+          grid.innerHTML = `<p style="text-align: center; width: 100%;">Config Missing</p>`;
+          return;
         }
 
-        function renderGrid(filters = null) {
-            const grid = document.getElementById('gold-grid');
-            const viewMoreBtn = document.getElementById('viewMoreBtn');
-            // const currentFiltered = runFilterLogic(allItems, filters); // Removed undefined function
-            
-            // Store global filtered logic if needed, but runFilterLogic returns fresh
-            // Let's rely on storing the last applied filters in a simpler way if needed, 
-            // but actually we need to store the *result* to slice it? 
-            // Better pattern: store filteredItems globally.
-            
-            // 1. Apply Filters
-            filteredItems = [...allItems];
-            if (filters) {
-                /* Inline simple filter logic or reuse what we had */
-                if (filters.search) filteredItems = filteredItems.filter(it => it.name.toLowerCase().includes(filters.search));
-                if (filters.jewelryType.length > 0) filteredItems = filteredItems.filter(it => filters.jewelryType.includes(it.jewelry_type));
-                if (filters.purity.length > 0) filteredItems = filteredItems.filter(it => filters.purity.includes(it.gold_purity));
-                filteredItems = filteredItems.filter(it => {
-                    const priceNum = parseInt(String(it.price).replace(/[^0-9]/g, '')) || 0;
-                    return priceNum <= filters.priceRange || filters.priceRange === 500000;
-                });
-            }
+        try {
+          const { data, error } = await window.supabaseText
+            .from("jewellery")
+            .select("*")
+            .eq("category", "gold")
+            .eq("is_active", true);
 
-            // 2. Pagination
-            const visibleItems = filteredItems.slice(0, visibleCount);
+          if (error) throw error;
+          allItems = data || [];
 
-            // 3. Render
-            grid.innerHTML = '';
-            if (visibleItems.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; width: 100%;">No items match.</p>';
-                if(viewMoreBtn) viewMoreBtn.style.display = 'none';
-                return;
-            }
+          if (!filterManager) {
+            filterManager = new ProductFilter("gold", (filters) => {
+              visibleCount = 9;
+              renderGrid(filters);
+            });
+          }
 
-            visibleItems.forEach(item => {
-                const isLiked = wishlistManager?.isInWishlist(item.id);
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.onclick = () => openProductDetail(item.id);
+          // Add a slight artificial delay for the premium feel of the skeleton transition
+          setTimeout(() => renderGrid(), 600);
+        } catch (err) {
+          console.error("Error loading:", err);
+          grid.innerHTML =
+            '<p style="text-align: center; width: 100%;">Failed to load collection.</p>';
+        }
+      }
 
-                card.innerHTML = `
+      function showSkeletons() {
+        const grid = document.getElementById("gold-grid");
+        grid.innerHTML = "";
+        for (let i = 0; i < 6; i++) {
+          grid.innerHTML += `
+                    <div class="product-card skeleton" style="cursor: default;">
+                        <div class="image-container skeleton"></div>
+                        <div class="card-body">
+                            <div class="skeleton" style="height: 20px; width: 70%; margin-bottom: 10px; border-radius: 4px;"></div>
+                            <div class="skeleton" style="height: 15px; width: 40%; margin-bottom: 20px; border-radius: 4px;"></div>
+                            <div class="skeleton" style="height: 35px; width: 100%; border-radius: 8px;"></div>
+                        </div>
+                    </div>
+                `;
+        }
+      }
+
+      function renderGrid(filters = null) {
+        const grid = document.getElementById("gold-grid");
+        const viewMoreBtn = document.getElementById("viewMoreBtn");
+        // const currentFiltered = runFilterLogic(allItems, filters); // Removed undefined function
+
+        // Store global filtered logic if needed, but runFilterLogic returns fresh
+        // Let's rely on storing the last applied filters in a simpler way if needed,
+        // but actually we need to store the *result* to slice it?
+        // Better pattern: store filteredItems globally.
+
+        // 1. Apply Filters
+        filteredItems = [...allItems];
+        if (filters) {
+          /* Inline simple filter logic or reuse what we had */
+          if (filters.search)
+            filteredItems = filteredItems.filter((it) =>
+              it.name.toLowerCase().includes(filters.search),
+            );
+          if (filters.jewelryType.length > 0)
+            filteredItems = filteredItems.filter((it) =>
+              filters.jewelryType.includes(it.jewelry_type),
+            );
+          if (filters.purity.length > 0)
+            filteredItems = filteredItems.filter((it) =>
+              filters.purity.includes(it.gold_purity),
+            );
+          filteredItems = filteredItems.filter((it) => {
+            const priceNum =
+              parseInt(String(it.price).replace(/[^0-9]/g, "")) || 0;
+            return (
+              priceNum <= filters.priceRange || filters.priceRange === 500000
+            );
+          });
+        }
+
+        // 2. Pagination
+        const visibleItems = filteredItems.slice(0, visibleCount);
+
+        // 3. Render
+        grid.innerHTML = "";
+        if (visibleItems.length === 0) {
+          grid.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">✧</div>
+              <h3>No Masterpieces Found</h3>
+              <p>Adjust your filters or search terms to reveal our other exquisite pieces.</p>
+              <button class="btn-red" style="padding: 12px 30px;" onclick="location.reload()">Reset Filters</button>
+            </div>
+          `;
+          if (viewMoreBtn) viewMoreBtn.style.display = "none";
+          return;
+        }
+
+        visibleItems.forEach((item) => {
+          const isLiked = wishlistManager?.isInWishlist(item.id);
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.onclick = () => openProductDetail(item.id);
+
+          card.innerHTML = `
                     <div class="image-container">
                         <img src="${item.image_url}" alt="${item.name}" loading="lazy">
-                        <span>${item.jewelry_type || 'Jewellery'}</span>
-                        <button class="wishlist-icon ${isLiked ? 'wishlisted' : ''}" 
+                        <span>${item.jewelry_type || "Jewellery"}</span>
+                        <button class="wishlist-icon ${isLiked ? "wishlisted" : ""}" 
                                 onclick="event.stopPropagation(); toggleWishlist('${item.id}', this)">
-                            ${isLiked ? '♥' : '♡'}
+                            ${isLiked ? "♥" : "♡"}
                         </button>
                     </div>
                     <div class="card-body">
@@ -322,50 +414,53 @@
                         <button class="btn-view-details">View Details</button>
                     </div>
                 `;
-                grid.appendChild(card);
-            });
+          grid.appendChild(card);
+        });
 
-            // 4. View More State
-            if (viewMoreBtn) {
-                viewMoreBtn.style.display = (filteredItems.length > visibleCount) ? 'inline-block' : 'none';
-            }
-            
-            // Save filters for "View More" access
-            _lastFilters = filters;
+        // 4. View More State
+        if (viewMoreBtn) {
+          viewMoreBtn.style.display =
+            filteredItems.length > visibleCount ? "inline-block" : "none";
         }
 
-        let _lastFilters = null;
-        function loadMoreItems() {
-            visibleCount += 9;
-            renderGrid(_lastFilters);
-        }
+        // Save filters for "View More" access
+        _lastFilters = filters;
+      }
 
-        function toggleWishlist(id, btn) {
-            if(window.wishlistManager) {
-                window.wishlistManager.toggle(id);
-                // Update UI immediately for feedback
-                if(btn.classList.contains('wishlisted')) {
-                    btn.classList.remove('wishlisted');
-                    btn.innerText = '♡';
-                } else {
-                    btn.classList.add('wishlisted');
-                    btn.innerText = '♥';
-                }
-            }
-        }
+      let _lastFilters = null;
+      function loadMoreItems() {
+        visibleCount += 9;
+        renderGrid(_lastFilters);
+      }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+      function toggleWishlist(id, btn) {
+        if (window.wishlistManager) {
+          window.wishlistManager.toggle(id);
+          // Update UI immediately for feedback
+          if (btn.classList.contains("wishlisted")) {
+            btn.classList.remove("wishlisted");
+            btn.innerText = "♡";
+          } else {
+            btn.classList.add("wishlisted");
+            btn.innerText = "♥";
+          }
         }
+      }
 
-        async function handleEnquiry() {
-            const item = allItems.find(it => it.id === dossier.productId);
-            openEnquiryModal(item);
-        }
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("active");
+        document.body.style.overflow = menu.classList.contains("active")
+          ? "hidden"
+          : "";
+      }
 
-        window.addEventListener('DOMContentLoaded', loadJewellery);
+      async function handleEnquiry() {
+        const item = allItems.find((it) => it.id === dossier.productId);
+        openEnquiryModal(item);
+      }
+
+      window.addEventListener("DOMContentLoaded", loadJewellery);
     </script>
-</body>
+  </body>
 </html>

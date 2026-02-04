@@ -4,7 +4,7 @@
 .filter-trigger-btn {
     position: fixed;
     left: 30px;
-    top: 50%;
+    top: 70%;
     transform: translateY(-50%);
     background: var(--crimson);
     color: white;

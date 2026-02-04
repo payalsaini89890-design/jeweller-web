@@ -1,132 +1,679 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>The Heritage | The Jewellery Atelier</title>
+    <meta
+      name="description"
+      content="Discover our story, craftsmanship, sourcing standards, and the trust behind every piece we create."
+    />
+    <meta name="theme-color" content="#fdfcf9" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Heritage & Legacy | The Jewellery Atelier</title>
-    <meta name="description" content="A legacy built on trust and craftsmanship. Learn about the history and Marwari artistry of The Jewellery Atelier.">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="The Heritage & Legacy | The Jewellery Atelier">
-    <meta property="og:description" content="Preserving the intricate craftsmanship that has defined royalty for centuries.">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/heritage.css">
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-    <script src="js/env.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-client.js"></script>
-    <script src="js/ticker.js" defer></script>
-</head>
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="css/main.css" />
 
-<body>
+    <style>
+      /* 
+       THEME OVERRIDE: MAPPING LOCAL VARIABLES TO GLOBAL LIGHT THEME
+       We override the dark defaults with the site's standard Ivory/Crimson palette.
+    */
+      :root {
+        /* Global Mappings */
+        --bg0: var(--cream-light); /* #fdfcf9 */
+        --bg1: #f3efe9; /* Slightly darker ivory */
 
+        /* Glassmorphism Cards on Light Bg */
+        --card: rgba(255, 255, 255, 0.6);
+        --card2: #ffffff;
+
+        --stroke: rgba(74, 4, 4, 0.1); /* Crimson stroke, low opacity */
+
+        --text: var(--text-dark); /* #2d2d2d */
+        --muted: var(--text-grey); /* #666666 */
+        --muted2: #888888;
+
+        --gold: var(--gold); /* #b38b59 */
+        --gold2: #d4af37; /* Brighter gold for accents */
+        --accent: var(--deep-red); /* #4a0404 */
+
+        --shadow: 0 20px 60px rgba(74, 4, 4, 0.08);
+        --shadow2: 0 12px 30px rgba(74, 4, 4, 0.05);
+
+        --r16: 16px;
+        --r22: 22px;
+        --r28: 28px;
+
+        --max: 1160px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--text);
+        /* Light luxurious gradients */
+        background:
+          radial-gradient(
+            1200px 700px at 20% 0%,
+            rgba(179, 139, 89, 0.15),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 600px at 90% 15%,
+            rgba(74, 4, 4, 0.05),
+            transparent 60%
+          ),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+        overflow-x: hidden;
+        letter-spacing: 0.2px;
+      }
+
+      /* Decorative grain (Subtler for light mode) */
+      .grain {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+        mix-blend-mode: multiply; /* Better for light bg */
+        opacity: 0.08;
+      }
+
+      /* Container */
+      .wrap {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      /* --- GLOBAL NAV OVERRIDES --- */
+      /* We use main.css for nav, but ensure spacing */
+      #header {
+        position: sticky;
+        top: 0;
+        background: rgba(253, 252, 249, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(74, 4, 4, 0.05);
+      }
+
+      /* Hero */
+      .hero {
+        padding: 80px 0 40px; /* More top padding for standard nav */
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.18fr 0.82fr;
+        gap: 26px;
+        align-items: stretch;
+      }
+      .headline {
+        padding: 36px;
+        border-radius: var(--r28);
+        border: 1px solid var(--stroke);
+        background:
+          radial-gradient(
+            800px 220px at 10% 0%,
+            rgba(179, 139, 89, 0.2),
+            transparent 60%
+          ),
+          rgba(255, 255, 255, 0.4);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(179, 139, 89, 0.4);
+        background: rgba(179, 139, 89, 0.08);
+        color: var(--deep-red);
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .kicker i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--deep-red);
+        box-shadow: 0 0 0 4px rgba(74, 4, 4, 0.08);
+        display: inline-block;
+      }
+      h1 {
+        margin: 18px 0 16px;
+        font-family: var(--serif);
+        font-size: clamp(32px, 3.5vw, 52px);
+        line-height: 1.1;
+        color: var(--deep-red);
+      }
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+        max-width: 56ch;
+      }
+
+      .hero-actions {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .pill {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 99px;
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.5);
+        color: var(--deep-red);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .pill svg {
+        width: 14px;
+        height: 14px;
+        opacity: 0.8;
+      }
+
+      .hero-side {
+        display: grid;
+        gap: 14px;
+      }
+
+      /* Card base */
+      .card {
+        border-radius: var(--r22);
+        border: 1px solid var(--stroke);
+        background: var(--card); /* Glassy white */
+        box-shadow: var(--shadow2);
+        overflow: hidden;
+        backdrop-filter: blur(5px);
+      }
+      .card.pad {
+        padding: 24px;
+      }
+      .card h3 {
+        margin: 0 0 8px;
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        color: var(--deep-red);
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      /* "Jewelry visual" */
+      .visual {
+        position: relative;
+        min-height: auto;
+        background: transparent;
+        padding: 0;
+      }
+      .visual img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: var(--r22);
+        object-fit: cover;
+      }
+      /* We can keep the abstract shapes, just adjust colors */
+      .gem {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        left: 22px;
+        top: 34px;
+        border-radius: 34px;
+        transform: rotate(12deg);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.9),
+          rgba(253, 252, 249, 0.5) 50%,
+          rgba(179, 139, 89, 0.1)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 20px 40px rgba(179, 139, 89, 0.15);
+      }
+      .ring {
+        border-color: rgba(179, 139, 89, 0.3);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(179, 139, 89, 0.05),
+          transparent 60%
+        );
+      }
+
+      .visual .tag {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 99px;
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--deep-red);
+        font-size: 11px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        z-index: 2;
+      }
+      .tag b {
+        color: var(--deep-red);
+        font-weight: 700;
+      }
+
+      /* Sections */
+      section {
+        padding: 40px 0;
+      }
+      .section-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 2.2rem;
+        color: var(--deep-red);
+      }
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        max-width: 58ch;
+        line-height: 1.6;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.6);
+        display: grid;
+        place-items: center;
+        margin-bottom: 16px;
+        color: var(--gold);
+      }
+
+      /* Buttons */
+      .btn-primary-hero {
+        background: var(--deep-red);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: 4px; /* More square like standard */
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 2px;
+        font-weight: 500;
+        border: none;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(74, 4, 4, 0.15);
+      }
+      .btn-primary-hero:hover {
+        background: #630606;
+        transform: translateY(-2px);
+      }
+      .btn-secondary-hero {
+        background: transparent;
+        color: var(--deep-red);
+        border: 1px solid var(--deep-red);
+        padding: 13px 26px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 2px;
+        transition: 0.3s;
+      }
+      .btn-secondary-hero:hover {
+        background: rgba(74, 4, 4, 0.05);
+      }
+
+      /* Reveal animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .rowline {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      .chip {
+        padding: 6px 12px;
+        border-radius: 99px;
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.4);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      /* Responsive */
+      @media (max-width: 980px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .headline {
+          padding: 24px;
+        }
+        h1 {
+          font-size: 2.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grain"></div>
+
+    <!-- STANDARD NAV -->
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenu">
-        <div style="position:absolute; top:30px; right:30px; cursor:pointer; font-size:1rem; letter-spacing:2px;" onclick="toggleMobileMenu()">CLOSE</div>
-        <a href="index.html">Home</a>
-        <a href="heritage.html">The Heritage</a>
-        <a href="collections/gold.html">Gold</a>
-        <a href="collections/platinum.html">Platinum</a>
-        <a href="ai.html">AI Concierge</a>
-        <a href="wishlist.html">Wishlist</a>
-        <a href="contact.html">Visit</a>
+      <div
+        style="
+          position: absolute;
+          top: 30px;
+          right: 30px;
+          cursor: pointer;
+          font-size: 1rem;
+          letter-spacing: 2px;
+        "
+        onclick="toggleMobileMenu()"
+      >
+        CLOSE
+      </div>
+      <a href="index.html">Home</a>
+      <a href="collections/gold.html">Gold Collection</a>
+      <a href="collections/platinum.html">Platinum Collection</a>
+      <a href="ai.html">AI Concierge</a>
+      <a href="contact.html">Visit Store</a>
+      <a href="heritage.html">The Heritage</a>
+      <a href="wishlist.html">Wishlist</a>
     </div>
 
     <header id="header">
-        <a href="index.html" class="logo">THE ATELIER</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="heritage.html">The Heritage</a></li>
-                <li><a href="collections/gold.html">Gold Collection</a></li>
-                <li><a href="collections/platinum.html">Platinum Collection</a></li>
-                <li><a href="contact.html">Visit Store</a></li>
-                <li><a href="ai.html">AI Concierge</a></li>
-                <li><a href="wishlist.html" title="Wishlist" style="position: relative; font-size: 1.2rem;">♥ <span id="wishlist-count" style="display: none;">0</span></a></li>
-            </ul>
-            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
-        </nav>
+      <a href="index.html" class="logo">THE ATELIER</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="collections/gold.html">Gold Collection</a></li>
+          <li><a href="collections/platinum.html">Platinum Collection</a></li>
+          <li><a href="ai.html">AI Concierge</a></li>
+          <li><a href="contact.html">Visit Store</a></li>
+          <li><a href="heritage.html">The Heritage</a></li>
+          <li>
+            <a
+              href="wishlist.html"
+              title="Wishlist"
+              style="position: relative; font-size: 1.2rem"
+              >♥ <span id="wishlist-count" style="display: none">0</span></a
+            >
+          </li>
+        </ul>
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
+      </nav>
     </header>
 
-    <section class="heritage-section">
-        <div class="container">
+    <!-- CONTENT -->
+    <main class="wrap">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="headline reveal active">
+            <div class="kicker"><i></i> Since 1980</div>
+            <h1>Craftsmanship measured in generations, not hours.</h1>
+            <p class="sub">
+              We combine the royal traditions of Marwari artistry with modern
+              precision. Every piece is a dialogue between the past and the
+              present.
+            </p>
 
-            <div class="heritage-intro reveal">
-                <span class="label">Our Heritage</span>
-                <h1 class="heritage-heading" style="font-family: var(--serif); font-weight: 400; font-size: 3rem; margin-top: 20px;">A Legacy Crafted <br>in Trust</h1>
-                <div class="divider-gold"></div>
+            <div class="hero-actions">
+              <!-- Updated links to Collections -->
+              <a class="btn-primary-hero" href="collections/gold.html"
+                >Explore Gold</a
+              >
+              <a class="btn-secondary-hero" href="collections/platinum.html"
+                >Explore Platinum</a
+              >
+
+              <div class="rowline" aria-label="Highlights">
+                <div class="pill">BIS Hallmarked</div>
+                <div class="pill">Fair Pricing</div>
+                <div class="pill">Lifetime Care</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-side">
+            <div
+              class="card visual reveal active"
+              style="transition-delay: 0.1s"
+            >
+              <img src="card.png" alt="Certified Jewelry" />
+              <div class="tag"><b>Certified</b> • Authentic</div>
             </div>
 
-            <div class="story-grid">
-                <div class="story-text reveal">
-                    <h3 class="story-title">Born in a Legacy</h3>
-                    <p class="story-text">
-                        The Jewellery Atelier began as a small vision to preserve the intricate
-                        Marwari craftsmanship that has defined Indian royalty for centuries. Our journey
-                        from a single artisan's bench to a flagship showroom is built on one foundation: Unwavering Trust.
-                    </p>
-                    <p>
-                        For decades, the name The Atelier has been synonymous with the quiet dignity of 
-                        fine craftsmanship. Our story is not written in the brilliance of gold alone, but in the unwavering
-                        trust of generations who have walked through our doors.
-                    </p>
-                    <p>
-                        Each piece we forge is a dialogue between the traditions of Marwar and the refinement of modern
-                        aesthetics. We remain custodians of the old ways—where purity is a promise and craftsmanship is
-                        a lifelong pursuit.
-                    </p>
-                    <p>
-                        In a world of fast fashion, we choose the rhythm of the master artisan. Slow, deliberate, and
-                        timeless.
-                    </p>
-                </div>
-                <div class="story-visual reveal">
-                    <img src="https://therajbhawan.com/wp-content/uploads/2024/05/a9-1.jpg"
-                        alt="Atelier Heritage Craftsmanship" id="parallax-image">
-                </div>
+            <div class="card pad reveal active" style="transition-delay: 0.2s">
+              <h3>The Atelier Standard</h3>
+              <p>
+                Comfort-fit finishing, stone security checks, and an honest
+                policy on purity & grading. We sell trust, not just metal.
+              </p>
+              <div class="rowline">
+                <span class="chip">Comfort-fit interiors</span>
+                <span class="chip">Secure settings</span>
+                <span class="chip">Transparent grading</span>
+              </div>
             </div>
-
-            <div class="highlights-row">
-                <div class="highlight-item reveal" style="transition-delay: 0.1s;">
-                    <div class="gold-dot"></div>
-                    <h3>Generations of Trust</h3>
-                    <p>Since 1980</p>
-                </div>
-                <div class="highlight-item reveal" style="transition-delay: 0.2s;">
-                    <div class="gold-dot"></div>
-                    <h3>Authentic Artistry</h3>
-                    <p>Hand-crafted Heritage</p>
-                </div>
-                <div class="highlight-item reveal" style="transition-delay: 0.3s;">
-                    <div class="gold-dot"></div>
-                    <h3>Purity Guaranteed</h3>
-                    <p>BIS Hallmarked Standards</p>
-                </div>
-            </div>
-
-            <div class="signature-quote reveal">
-                <p class="quote-text">“True jewellery is not measured in gold, but in trust.”</p>
-                <div class="quote-underline"></div>
-            </div>
-
+          </div>
         </div>
-    </section>
+      </section>
+
+      <!-- VALUES (STORY) - Kept this, removed Stats/FAQ as requested -->
+      <section class="reveal" id="story">
+        <div class="section-head">
+          <div>
+            <h2>Our Core Values</h2>
+            <p>
+              A modern jewelry studio with a classic promise: no shortcuts. Just
+              pieces you’ll be proud to gift and wear.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card pad">
+            <div class="icon" aria-hidden="true">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                />
+              </svg>
+            </div>
+            <h3>Design with Emotion</h3>
+            <p>
+              Every piece starts with a purpose — engagement, celebration,
+              heritage, or self-love.
+            </p>
+          </div>
+
+          <div class="card pad">
+            <div class="icon" aria-hidden="true">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+            </div>
+            <h3>Crafted to Last</h3>
+            <p>
+              Precision finishing, comfort-fit interiors, and setting security
+              checks at every stage.
+            </p>
+          </div>
+
+          <div class="card pad">
+            <div class="icon" aria-hidden="true">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
+            </div>
+            <h3>Honest Standards</h3>
+            <p>
+              We believe in transparent pricing and certification. You know
+              exactly what you are paying for.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-main">
+        <div>
+          <a href="index.html" class="logo">THE ATELIER</a>
+          <p style="max-width: 300px; margin-top: 20px">
+            A trusted name in Flagship City for exquisite gold and silver
+            ornaments. From traditional heritage pieces to modern artistry.
+          </p>
+        </div>
+        <div class="footer-contact">
+          <h4>Locate Us</h4>
+          <address class="footer-addr">
+            <p>
+              123 Royale Avenue, Diamond District,<br />Flagship City, 000000
+            </p>
+          </address>
+          <br />
+          <h4>Hours</h4>
+          <p>Mon-Sat: 11:00 AM - 8:00 PM</p>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact Details</h4>
+          <p class="footer-addr">P: +91 00000 00000</p>
+          <p class="footer-addr">E: hello@thejewelleryatelier.com</p>
+
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2L1 12l11 10 11-10L12 2zm0 16.2L4.8 12 12 5.8 19.2 12 12 18.2z"
+                />
+              </svg>
+              <span>BIS Hallmarked</span>
+            </div>
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.5h7c-.47 4.34-3.1 8.2-7 9.33V11.5H5V6.3l7-3.11v8.31z"
+                />
+              </svg>
+              <span>Ethically Sourced</span>
+            </div>
+          </div>
+          <br />
+          <h4>Collections</h4>
+          <a href="collections/gold.html">Gold Heritage</a><br />
+          <a href="collections/platinum.html">Platinum Suite</a>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2026 THE JEWELLERY ATELIER. ALL RIGHTS RESERVED.
+      </div>
+    </footer>
 
     <script src="js/app.js"></script>
     <script>
-        /* Mobile Menu Logic */
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-            if(menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+      /* Mobile Menu Logic */
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("active");
+        if (menu.classList.contains("active")) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "";
         }
-    </script>
-</body>
+      }
 
+      /* Reveal Animation Intersection Observer */
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      reveals.forEach((r) => observer.observe(r));
+    </script>
+  </body>
 </html>

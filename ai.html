@@ -1,455 +1,509 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atelier Concierge | Fine Jewellery Assistance</title>
+    <meta
+      name="description"
+      content="Interact with The Jewellery Atelier AI Concierge for personalized assistance, live gold rates, and collection guidance."
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atelier Concierge | Fine Jewellery Assistance</title>
-  <meta name="description" content="Interact with The Jewellery Atelier AI Concierge for personalized assistance, live gold rates, and collection guidance.">
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Atelier Concierge | Fine Jewellery Assistance">
-  <meta property="og:description" content="Your personal AI assistant for bespoke jewellery inquiries and showroom information.">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Atelier Concierge | Fine Jewellery Assistance"
+    />
+    <meta
+      property="og:description"
+      content="Your personal AI assistant for bespoke jewellery inquiries and showroom information."
+    />
 
-  <link rel="stylesheet" href="css/main.css">
-  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-  <style>
-    :root {
-      --bg: #fdfcf9;
-      --panel: #ffffff;
-      --accent: #4a0404;
-      --accent-soft: #f9f1f1;
-      --text: #2d2d2d;
-      --dim: #666;
-      --border: rgba(74, 4, 4, 0.1);
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Montserrat', sans-serif;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .shell {
-      max-width: 900px;
-      width: 100%;
-      margin: 0 auto;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    header {
-      padding: 30px 40px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(253, 252, 249, 0.8);
-      backdrop-filter: blur(10px);
-      z-index: 10;
-    }
-
-    .concierge-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-    }
-
-    #chat-flow {
-      flex: 1;
-      padding: 40px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      padding-bottom: 140px;
-      scroll-behavior: smooth;
-    }
-
-    #chat-flow::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    #chat-flow::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 10px;
-    }
-
-    .row {
-      display: flex;
-      flex-direction: column;
-      max-width: 80%;
-    }
-
-    .row.user {
-      align-self: flex-end;
-      align-items: flex-end;
-    }
-
-    .row.ai {
-      align-self: flex-start;
-      align-items: flex-start;
-    }
-
-    .label-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-      opacity: 0.6;
-    }
-
-    .label {
-      font-size: 0.65rem;
-      letter-spacing: 1px;
-      color: var(--dim);
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .timestamp {
-      font-size: 0.65rem;
-      color: var(--dim);
-    }
-
-    .text {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      padding: 18px 22px;
-      border-radius: 15px;
-      white-space: pre-wrap;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .ai .text {
-      background: white;
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-top-left-radius: 2px;
-      border-left: 3px solid var(--accent);
-    }
-
-    .user .text {
-      background: var(--accent);
-      color: #fff;
-      border-top-right-radius: 2px;
-      box-shadow: 0 10px 20px rgba(74, 4, 4, 0.1);
-    }
-
-    .dock-container {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 30px 40px;
-      background: linear-gradient(transparent, var(--bg) 50%);
-    }
-
-    .dock {
-      display: flex;
-      gap: 15px;
-      max-width: 900px;
-      margin: 0 auto;
-      align-items: center;
-    }
-
-    .input-pill {
-      flex: 1;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      padding: 5px 10px;
-    }
-
-    input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      padding: 15px 20px;
-      font-size: 0.95rem;
-      outline: none;
-      color: var(--text);
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .send-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: none;
-      cursor: pointer;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.3s;
-      box-shadow: 0 5px 15px rgba(74, 4, 4, 0.2);
-    }
-
-    .send-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      filter: brightness(1.2);
-    }
-
-    .send-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    #vault {
-      position: fixed;
-      inset: 0;
-      background: rgba(45, 45, 45, 0.4);
-      backdrop-filter: blur(10px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-    }
-
-    .vault-card {
-      width: 90%;
-      max-width: 400px;
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .vault-input {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      font-family: monospace;
-    }
-
-    .loading-dots {
-      display: inline-block;
-    }
-
-    .loading-dots::after {
-      content: '.';
-      animation: dots 1.5s steps(5, end) infinite;
-    }
-
-    @keyframes dots {
-
-      0%,
-      20% {
-        content: '.';
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <style>
+      :root {
+        --bg: #fdfcf9;
+        --panel: #ffffff;
+        --accent: #4a0404;
+        --accent-soft: #f9f1f1;
+        --text: #2d2d2d;
+        --dim: #666;
+        --border: rgba(74, 4, 4, 0.1);
       }
 
-      40% {
-        content: '..';
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Montserrat", sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
       }
 
-      60% {
-        content: '...';
+      .shell {
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-top: 80px; /* Offset for fixed header */
       }
 
-      80%,
-      100% {
-        content: '';
+      .concierge-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.5rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 600;
       }
-    }
-  </style>
 
-  <!-- Supabase & Config -->
-  <script src="js/env.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-client.js"></script>
-  <script src="js/ai-prompt.js"></script>
-</head>
+      #chat-flow {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding-bottom: 140px;
+        scroll-behavior: smooth;
+      }
 
-<body>
+      #chat-flow::-webkit-scrollbar {
+        width: 4px;
+      }
 
+      #chat-flow::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 10px;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: column;
+        max-width: 80%;
+      }
+
+      .row.user {
+        align-self: flex-end;
+        align-items: flex-end;
+      }
+
+      .row.ai {
+        align-self: flex-start;
+        align-items: flex-start;
+      }
+
+      .label-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        opacity: 0.6;
+      }
+
+      .label {
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+        color: var(--dim);
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      .timestamp {
+        font-size: 0.65rem;
+        color: var(--dim);
+      }
+
+      .text {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        padding: 18px 22px;
+        border-radius: 15px;
+        white-space: pre-wrap;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .ai .text {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(74, 4, 4, 0.05);
+        color: var(--text);
+        border-top-left-radius: 2px;
+        border-left: 3px solid var(--accent);
+        box-shadow: 0 10px 30px rgba(179, 139, 89, 0.1);
+      }
+
+      .user .text {
+        background: rgba(74, 4, 4, 0.85);
+        backdrop-filter: blur(12px);
+        color: #fff;
+        border-top-right-radius: 2px;
+        box-shadow: 0 10px 25px rgba(74, 4, 4, 0.15);
+      }
+
+      .dock-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 30px 40px;
+        background: linear-gradient(transparent, var(--bg) 50%);
+      }
+
+      .dock {
+        display: flex;
+        gap: 15px;
+        max-width: 900px;
+        margin: 0 auto;
+        align-items: center;
+      }
+
+      .input-pill {
+        flex: 1;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        padding: 5px 10px;
+      }
+
+      input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        padding: 15px 20px;
+        font-size: 0.95rem;
+        outline: none;
+        color: var(--text);
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .send-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: none;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(74, 4, 4, 0.2);
+      }
+
+      .send-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        filter: brightness(1.2);
+      }
+
+      .send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      #vault {
+        position: fixed;
+        inset: 0;
+        background: rgba(45, 45, 45, 0.4);
+        backdrop-filter: blur(10px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+
+      .vault-card {
+        width: 90%;
+        max-width: 400px;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid var(--border);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .vault-input {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-family: monospace;
+      }
+
+      .loading-dots {
+        display: inline-block;
+      }
+
+      .loading-dots::after {
+        content: ".";
+        animation: dots 1.5s steps(5, end) infinite;
+      }
+
+      @keyframes dots {
+        0%,
+        20% {
+          content: ".";
+        }
+
+        40% {
+          content: "..";
+        }
+
+        60% {
+          content: "...";
+        }
+
+        80%,
+        100% {
+          content: "";
+        }
+      }
+    </style>
+
+    <!-- Supabase & Config -->
+    <script src="js/env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/ai-prompt.js"></script>
+  </head>
+
+  <body>
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenu">
-        <div style="position:absolute; top:30px; right:30px; cursor:pointer; font-size:1rem; letter-spacing:2px;" onclick="toggleMobileMenu()">CLOSE</div>
-        <a href="index.html">Home</a>
-        <a href="heritage.html">The Heritage</a>
-        <a href="collections/gold.html">Gold</a>
-        <a href="collections/platinum.html">Platinum</a>
-        <a href="ai.html">AI Concierge</a>
-        <a href="wishlist.html">Wishlist</a>
-        <a href="contact.html">Visit</a>
+      <div
+        style="
+          position: absolute;
+          top: 30px;
+          right: 30px;
+          cursor: pointer;
+          font-size: 1rem;
+          letter-spacing: 2px;
+        "
+        onclick="toggleMobileMenu()"
+      >
+        CLOSE
+      </div>
+      <a href="index.html">Home</a>
+      <a href="collections/gold.html">Gold Collection</a>
+      <a href="collections/platinum.html">Platinum Collection</a>
+      <a href="ai.html">AI Concierge</a>
+      <a href="contact.html">Visit Store</a>
+      <a href="heritage.html">The Heritage</a>
+      <a href="wishlist.html">Wishlist</a>
     </div>
 
-  <div class="shell">
-    <header>
-      <div class="concierge-logo">ATELIER CONCIERGE</div>
-      <div style="display: flex; gap: 20px;">
-        <span class="label" style="cursor:pointer; color: var(--accent);" onclick="clearMemory()">Reset Chat</span>
-        <a href="index.html" class="label" style="color: var(--dim);">Back to Home</a>
-        <a href="wishlist.html" title="Wishlist" style="color: var(--dim); position: relative; font-size: 1.2rem; text-decoration: none;">♥ <span id="wishlist-count" style="display: none;">0</span></a>
-        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()" style="display:block; margin-left:15px;">MENU</div>
-      </div>
+    <header id="header">
+      <a href="index.html" class="logo">THE ATELIER</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="collections/gold.html">Gold Collection</a></li>
+          <li><a href="collections/platinum.html">Platinum Collection</a></li>
+          <li><a href="ai.html" class="active">AI Concierge</a></li>
+          <li><a href="contact.html">Visit Store</a></li>
+          <li><a href="heritage.html">The Heritage</a></li>
+          <li>
+            <a
+              href="#"
+              onclick="
+                clearMemory();
+                return false;
+              "
+              style="
+                color: var(--dim);
+                border: 1px solid var(--border);
+                padding: 5px 10px;
+                border-radius: 4px;
+              "
+              >Reset Chat</a
+            >
+          </li>
+          <li>
+            <a
+              href="wishlist.html"
+              title="Wishlist"
+              style="position: relative; font-size: 1.2rem"
+              >♥ <span id="wishlist-count" style="display: none">0</span></a
+            >
+          </li>
+        </ul>
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
+      </nav>
     </header>
 
-    <main id="chat-flow">
-      <div class="row ai">
-        <div class="label-wrap">
-          <div class="label">Concierge</div>
-          <div class="timestamp">Just now</div>
+    <div class="shell">
+      <main id="chat-flow">
+        <div class="row ai">
+          <div class="label-wrap">
+            <div class="label">Concierge</div>
+            <div class="timestamp">Just now</div>
+          </div>
+          <div class="text">
+            Welcome to The Jewellery Atelier. I am your personal concierge. How
+            may I assist you with our collections today?
+          </div>
         </div>
-        <div class="text">Welcome to The Jewellery Atelier. I am your personal concierge. How may I assist you with our
-          collections today?</div>
-      </div>
-    </main>
+      </main>
 
-    <div class="dock-container">
-      <div class="dock">
-        <div class="input-pill">
-          <input id="userInput" placeholder="Ask about our gold or platinum items..." autocomplete="off" />
+      <div class="dock-container">
+        <div class="dock">
+          <div class="input-pill">
+            <input
+              id="userInput"
+              placeholder="Ask about our gold or platinum items..."
+              autocomplete="off"
+            />
+          </div>
+          <button class="send-btn" id="sendBtn" onclick="handleAction()">
+            ➜
+          </button>
         </div>
-        <button class="send-btn" id="sendBtn" onclick="handleAction()">➜</button>
       </div>
     </div>
-  </div>
 
+    <script>
+      const flow = document.getElementById("chat-flow");
+      const input = document.getElementById("userInput");
+      const sendBtn = document.getElementById("sendBtn");
 
+      // --- LUXURY STATE MEMORY SYSTEM ---
+      class AIMemory {
+        constructor() {
+          this.STATE_KEY = "atelier_ai_state";
+          this.WINDOW_KEY = "atelier_ai_window";
+          this.EXPIRY_MS = 15 * 60 * 1000; // 15 Minutes
 
-  <script>
-    const flow = document.getElementById('chat-flow');
-    const input = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
+          this.state = this.loadState();
+          this.window = this.loadWindow();
 
-    // --- LUXURY STATE MEMORY SYSTEM ---
-    class AIMemory {
-      constructor() {
-        this.STATE_KEY = 'atelier_ai_state';
-        this.WINDOW_KEY = 'atelier_ai_window';
-        this.EXPIRY_MS = 15 * 60 * 1000; // 15 Minutes
-
-        this.state = this.loadState();
-        this.window = this.loadWindow();
-
-        this.checkExpiry();
-      }
-
-      // --- Core Loading & Saving ---
-
-      loadState() {
-        const raw = localStorage.getItem(this.STATE_KEY);
-        if (!raw) return this.getEmptyState();
-        return JSON.parse(raw);
-      }
-
-      loadWindow() {
-        const raw = localStorage.getItem(this.WINDOW_KEY);
-        if (!raw) return [];
-        return JSON.parse(raw);
-      }
-
-      save() {
-        this.state.lastActive = Date.now();
-        localStorage.setItem(this.STATE_KEY, JSON.stringify(this.state));
-        localStorage.setItem(this.WINDOW_KEY, JSON.stringify(this.window));
-      }
-
-      getEmptyState() {
-        return {
-          preferences: {
-            material: null,      // gold, platinum, diamond, silver
-            type: null,          // ring, necklace, earring, bangle
-            budget: null         // entry, mid, high
-          },
-          context: {
-            addressShared: false,
-            lastSuggestedItem: null,
-            stage: 'greet',      // greet, explore, detail, close
-          },
-          lastActive: Date.now()
-        };
-      }
-
-      checkExpiry() {
-        const now = Date.now();
-        if (now - this.state.lastActive > this.EXPIRY_MS) {
-          this.reset();
-        }
-      }
-
-      reset() {
-        this.state = this.getEmptyState();
-        this.window = [];
-        localStorage.removeItem(this.STATE_KEY);
-        localStorage.removeItem(this.WINDOW_KEY);
-        // Clear UI if needed, but handled by page reload mostly
-      }
-
-      // --- 2. Intent Extraction (Client-Side Intelligence) ---
-
-      extractIntent(userMsg) {
-        const msg = userMsg.toLowerCase();
-
-        // Material Detection (Tolerant matching)
-        if (msg.match(/gold|22k|24k/)) this.state.preferences.material = 'Gold';
-        if (msg.match(/plat|pt950/)) this.state.preferences.material = 'Platinum';
-        if (msg.match(/silver/)) this.state.preferences.material = 'Silver';
-        if (msg.match(/diamond/)) this.state.preferences.material = 'Diamond';
-
-        // Type Detection
-        if (msg.includes('ring')) this.state.preferences.type = 'Ring';
-        if (msg.match(/ear|jhumka/)) this.state.preferences.type = 'Earring';
-        if (msg.match(/neck|chain|mangal/)) this.state.preferences.type = 'Necklace';
-        if (msg.match(/bangl|kade|brace/)) this.state.preferences.type = 'Bangle';
-
-        // Budget/Stage Detection
-        if (msg.match(/price|cost|how much/)) this.state.context.stage = 'detail';
-        if (msg.match(/buy|visit|store|where/)) this.state.context.stage = 'close';
-
-        this.save();
-      }
-
-      // --- 3. Chat Window Management ---
-
-      addMessage(role, content) {
-        // Add new message
-        this.window.push({ role, content });
-
-        // Strict FIFO: Keep only last 5 messages
-        if (this.window.length > 5) {
-          this.window = this.window.slice(this.window.length - 5);
+          this.checkExpiry();
         }
 
-        this.save();
-      }
+        // --- Core Loading & Saving ---
 
-      // --- 4. Context Synthesis for AI ---
-
-      getSystemPayload(catalogueData) {
-        // Construct the "Hidden" Context Message
-        let contextMsg = `[CURRENT CONVERSATION STATE]\n`;
-        contextMsg += `- Customer Interest: ${this.state.preferences.material || 'Undecided'} ${this.state.preferences.type || 'Jewellery'}\n`;
-        contextMsg += `- Conversation Stage: ${this.state.context.stage}\n`;
-
-        // Anti-Repetition Rules
-        if (this.state.context.addressShared) {
-          contextMsg += `GUIDANCE: You have already shared the store address. Do NOT repeat it unless explicitly asked again.\n`;
+        loadState() {
+          const raw = localStorage.getItem(this.STATE_KEY);
+          if (!raw) return this.getEmptyState();
+          return JSON.parse(raw);
         }
 
-        // Personality Injection
-        const personality = `You are The Jewellery Atelier AI Concierge.
+        loadWindow() {
+          const raw = localStorage.getItem(this.WINDOW_KEY);
+          if (!raw) return [];
+          return JSON.parse(raw);
+        }
+
+        save() {
+          this.state.lastActive = Date.now();
+          localStorage.setItem(this.STATE_KEY, JSON.stringify(this.state));
+          localStorage.setItem(this.WINDOW_KEY, JSON.stringify(this.window));
+        }
+
+        getEmptyState() {
+          return {
+            preferences: {
+              material: null, // gold, platinum, diamond, silver
+              type: null, // ring, necklace, earring, bangle
+              budget: null, // entry, mid, high
+            },
+            context: {
+              addressShared: false,
+              lastSuggestedItem: null,
+              stage: "greet", // greet, explore, detail, close
+            },
+            lastActive: Date.now(),
+          };
+        }
+
+        checkExpiry() {
+          const now = Date.now();
+          if (now - this.state.lastActive > this.EXPIRY_MS) {
+            this.reset();
+          }
+        }
+
+        reset() {
+          this.state = this.getEmptyState();
+          this.window = [];
+          localStorage.removeItem(this.STATE_KEY);
+          localStorage.removeItem(this.WINDOW_KEY);
+          // Clear UI if needed, but handled by page reload mostly
+        }
+
+        // --- 2. Intent Extraction (Client-Side Intelligence) ---
+
+        extractIntent(userMsg) {
+          const msg = userMsg.toLowerCase();
+
+          // Material Detection (Tolerant matching)
+          if (msg.match(/gold|22k|24k/))
+            this.state.preferences.material = "Gold";
+          if (msg.match(/plat|pt950/))
+            this.state.preferences.material = "Platinum";
+          if (msg.match(/silver/)) this.state.preferences.material = "Silver";
+          if (msg.match(/diamond/)) this.state.preferences.material = "Diamond";
+
+          // Type Detection
+          if (msg.includes("ring")) this.state.preferences.type = "Ring";
+          if (msg.match(/ear|jhumka/)) this.state.preferences.type = "Earring";
+          if (msg.match(/neck|chain|mangal/))
+            this.state.preferences.type = "Necklace";
+          if (msg.match(/bangl|kade|brace/))
+            this.state.preferences.type = "Bangle";
+
+          // Budget/Stage Detection
+          if (msg.match(/price|cost|how much/))
+            this.state.context.stage = "detail";
+          if (msg.match(/buy|visit|store|where/))
+            this.state.context.stage = "close";
+
+          this.save();
+        }
+
+        // --- 3. Chat Window Management ---
+
+        addMessage(role, content) {
+          // Add new message
+          this.window.push({ role, content });
+
+          // Strict FIFO: Keep only last 5 messages
+          if (this.window.length > 5) {
+            this.window = this.window.slice(this.window.length - 5);
+          }
+
+          this.save();
+        }
+
+        // --- 4. Context Synthesis for AI ---
+
+        getSystemPayload(catalogueData) {
+          // Construct the "Hidden" Context Message
+          let contextMsg = `[CURRENT CONVERSATION STATE]\n`;
+          contextMsg += `- Customer Interest: ${this.state.preferences.material || "Undecided"} ${this.state.preferences.type || "Jewellery"}\n`;
+          contextMsg += `- Conversation Stage: ${this.state.context.stage}\n`;
+
+          // Anti-Repetition Rules
+          if (this.state.context.addressShared) {
+            contextMsg += `GUIDANCE: You have already shared the store address. Do NOT repeat it unless explicitly asked again.\n`;
+          }
+
+          // Personality Injection
+          const personality = `You are The Jewellery Atelier AI Concierge.
         TONE: Warm, royal, attentive, concise.
         GOAL: Guide the user to visit our store in the Diamond District.
         CATALOGUE KNOWLEDGE:
@@ -461,186 +515,222 @@
         3. If budget is mentioned, suggest items close to that range.
         `;
 
-        return [
-          { role: "system", content: personality },
-          { role: "system", content: contextMsg }, // Injected State Context
-          ...this.window // Last 5 messages only
-        ];
+          return [
+            { role: "system", content: personality },
+            { role: "system", content: contextMsg }, // Injected State Context
+            ...this.window, // Last 5 messages only
+          ];
+        }
+
+        markAddressShared() {
+          this.state.context.addressShared = true;
+          this.save();
+        }
       }
 
-      markAddressShared() {
-        this.state.context.addressShared = true;
-        this.save();
-      }
-    }
+      // --- MAIN APP LOGIC ---
 
-    // --- MAIN APP LOGIC ---
+      let GROQ_API_KEY = "";
+      let catalogueData = "";
+      let marketRates = ""; // Store rates string
+      let isGenerating = false;
+      let apiKeyLoaded = false;
 
-    let GROQ_API_KEY = '';
-    let catalogueData = "";
-    let marketRates = ""; // Store rates string
-    let isGenerating = false;
-    let apiKeyLoaded = false;
+      // Initialize Memory System
+      const memory = new AIMemory();
 
-    // Initialize Memory System
-    const memory = new AIMemory();
+      // Load UI from Window History (to restore view on reload)
+      window.addEventListener("DOMContentLoaded", () => {
+        fetchCatalogue();
+        fetchApiKey();
 
-    // Load UI from Window History (to restore view on reload)
-    window.addEventListener('DOMContentLoaded', () => {
-      fetchCatalogue();
-      fetchApiKey();
+        // Restore visible chat from short window
+        memory.window.forEach((msg) => {
+          if (msg.role !== "system") {
+            // Double check we don't show system msgs
+            addMsg(
+              msg.role === "user" ? "You" : "Concierge",
+              msg.content,
+              msg.role === "user" ? "user" : "ai",
+            );
+          }
+        });
 
-      // Restore visible chat from short window
-      memory.window.forEach(msg => {
-        if (msg.role !== 'system') { // Double check we don't show system msgs
-          addMsg(msg.role === 'user' ? 'You' : 'Concierge', msg.content, msg.role === 'user' ? 'user' : 'ai');
+        if (memory.window.length === 0) {
+          const welcomeMessage = `Welcome to The Jewellery Atelier. I am your personal concierge. How may I assist you with our collections today?`;
+          addMsg("Concierge", welcomeMessage);
         }
       });
 
-      if (memory.window.length === 0) {
-        const welcomeMessage = `Welcome to The Jewellery Atelier. I am your personal concierge. How may I assist you with our collections today?`;
-        addMsg('Concierge', welcomeMessage);
-      }
-    });
+      async function fetchCatalogue() {
+        try {
+          const { data, error } = await window.supabaseText
+            .from("jewellery")
+            .select("name, category, price, description")
+            .eq("is_active", true);
 
-    async function fetchCatalogue() {
-      try {
-        const { data, error } = await window.supabaseText
-          .from('jewellery')
-          .select('name, category, price, description')
-          .eq('is_active', true);
+          // Fetch Rates for AI Context
+          const { data: gold } = await window.supabaseText
+            .from("app_settings")
+            .select("setting_value")
+            .eq("setting_key", "rate_gold_22k")
+            .single();
+          const { data: silver } = await window.supabaseText
+            .from("app_settings")
+            .select("setting_value")
+            .eq("setting_key", "rate_silver")
+            .single();
 
-        // Fetch Rates for AI Context
-        const { data: gold } = await window.supabaseText.from('app_settings').select('setting_value').eq('setting_key', 'rate_gold_22k').single();
-        const { data: silver } = await window.supabaseText.from('app_settings').select('setting_value').eq('setting_key', 'rate_silver').single();
-        
-        if (gold && silver) {
+          if (gold && silver) {
             marketRates = `TODAY'S MARKET RATES (Indicative): Gold (22K): ${gold.setting_value}/10g, Silver: ${silver.setting_value}/1kg. Mention these ONLY if asked.`;
+          }
+          // Simplified catalogue string for token efficiency
+          catalogueData =
+            data && data.length > 0
+              ? data
+                  .map(
+                    (i) =>
+                      `• ${i.name} (${i.category}): ₹${i.price}. ${i.description}`,
+                  )
+                  .join("\n")
+              : "Catalogue currently offline. Invite user to store.";
+        } catch (err) {
+          console.error("Catalogue Error", err);
+          catalogueData = "Error loading catalogue.";
         }
-        // Simplified catalogue string for token efficiency
-        catalogueData = data && data.length > 0
-          ? data.map(i => `• ${i.name} (${i.category}): ₹${i.price}. ${i.description}`).join('\n')
-          : "Catalogue currently offline. Invite user to store.";
-      } catch (err) {
-        console.error("Catalogue Error", err);
-        catalogueData = "Error loading catalogue.";
       }
-    }
 
-    // Fetch API key (Unchanged logic, just simplified structure)
-    async function fetchApiKey() {
-      try {
-        const { data } = await window.supabaseText
-          .from('app_settings')
-          .select('setting_value')
-          .eq('setting_key', 'groq_api_key')
-          .single();
+      // Fetch API key (Unchanged logic, just simplified structure)
+      async function fetchApiKey() {
+        try {
+          const { data } = await window.supabaseText
+            .from("app_settings")
+            .select("setting_value")
+            .eq("setting_key", "groq_api_key")
+            .single();
 
-        if (data?.setting_value) {
-          GROQ_API_KEY = data.setting_value;
-          apiKeyLoaded = true;
-        } else {
-          // If no key, disable input
-          input.placeholder = "Concierge Service Offline";
-          input.disabled = true;
-          sendBtn.disabled = true;
+          if (data?.setting_value) {
+            GROQ_API_KEY = data.setting_value;
+            apiKeyLoaded = true;
+          } else {
+            // If no key, disable input
+            input.placeholder = "Concierge Service Offline";
+            input.disabled = true;
+            sendBtn.disabled = true;
+          }
+        } catch (e) {
+          console.error(e);
         }
-      } catch (e) { console.error(e); }
-    }
+      }
 
-    function addMsg(label, text, type = 'ai') {
-      const row = document.createElement('div');
-      row.className = `row ${type}`;
-      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      row.innerHTML = `<div class="label-wrap"><div class="label">${label}</div><div class="timestamp">${time}</div></div><div class="text">${text}</div>`;
-      flow.appendChild(row);
-      flow.scrollTo({ top: flow.scrollHeight, behavior: 'smooth' });
-      return row;
-    }
-
-    function clearMemory() {
-      memory.reset();
-      flow.innerHTML = '';
-      addMsg('Concierge', 'My memory has been reset. How may I assist you anew?');
-    }
-
-    async function handleAction() {
-      if (isGenerating) return;
-      const msg = input.value.trim();
-      if (!msg) return;
-      if (!apiKeyLoaded) return;
-
-      isGenerating = true;
-      sendBtn.disabled = true;
-
-      // 1. UI Update
-      addMsg('You', msg, 'user');
-      input.value = '';
-
-      // 2. Intelligent Processing
-      memory.extractIntent(msg); // Update State Context
-      memory.addMessage('user', msg); // Add to Window
-
-      // 3. Construct Payload
-      const messages = memory.getSystemPayload(marketRates + '\n' + catalogueData);
-
-      // UI Placeholder
-      const aiRow = addMsg('Concierge', 'Thinking...', 'ai');
-      const box = aiRow.querySelector('.text');
-
-      try {
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${GROQ_API_KEY}`
-          },
-          body: JSON.stringify({
-            model: "llama-3.3-70b-versatile",
-            messages: messages,
-            temperature: 0.6,
-            max_tokens: 300 // Prevent verbose outputs
-          })
+      function addMsg(label, text, type = "ai") {
+        const row = document.createElement("div");
+        row.className = `row ${type}`;
+        const time = new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
         });
-
-        const data = await response.json();
-        if (data.error) throw data.error;
-
-        const reply = data.choices[0].message.content;
-
-        // 4. Update Memory with Reply
-        memory.addMessage('assistant', reply);
-
-        // Check if AI shared address (Simple heuristic scan of reply)
-        if (reply.toLowerCase().includes('ratanada') || reply.toLowerCase().includes('subhash chowk')) {
-          memory.markAddressShared();
-        }
-
-        box.textContent = reply;
-        flow.scrollTo({ top: flow.scrollHeight, behavior: 'smooth' });
-
-      } catch (error) {
-        console.error("AI error:", error);
-        box.textContent = "I apologize, but I am momentarily distracted. Please ask me again.";
-      } finally {
-        isGenerating = false;
-        sendBtn.disabled = false;
+        row.innerHTML = `<div class="label-wrap"><div class="label">${label}</div><div class="timestamp">${time}</div></div><div class="text">${text}</div>`;
+        flow.appendChild(row);
+        flow.scrollTo({ top: flow.scrollHeight, behavior: "smooth" });
+        return row;
       }
-    }
 
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') handleAction(); });
+      function clearMemory() {
+        memory.reset();
+        flow.innerHTML = "";
+        addMsg(
+          "Concierge",
+          "My memory has been reset. How may I assist you anew?",
+        );
+      }
 
-    /* Mobile Menu Logic */
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('active');
-        if(menu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
+      async function handleAction() {
+        if (isGenerating) return;
+        const msg = input.value.trim();
+        if (!msg) return;
+        if (!apiKeyLoaded) return;
+
+        isGenerating = true;
+        sendBtn.disabled = true;
+
+        // 1. UI Update
+        addMsg("You", msg, "user");
+        input.value = "";
+
+        // 2. Intelligent Processing
+        memory.extractIntent(msg); // Update State Context
+        memory.addMessage("user", msg); // Add to Window
+
+        // 3. Construct Payload
+        const messages = memory.getSystemPayload(
+          marketRates + "\n" + catalogueData,
+        );
+
+        // UI Placeholder
+        const aiRow = addMsg("Concierge", "Thinking...", "ai");
+        const box = aiRow.querySelector(".text");
+
+        try {
+          const response = await fetch(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${GROQ_API_KEY}`,
+              },
+              body: JSON.stringify({
+                model: "llama-3.3-70b-versatile",
+                messages: messages,
+                temperature: 0.6,
+                max_tokens: 300, // Prevent verbose outputs
+              }),
+            },
+          );
+
+          const data = await response.json();
+          if (data.error) throw data.error;
+
+          const reply = data.choices[0].message.content;
+
+          // 4. Update Memory with Reply
+          memory.addMessage("assistant", reply);
+
+          // Check if AI shared address (Simple heuristic scan of reply)
+          if (
+            reply.toLowerCase().includes("ratanada") ||
+            reply.toLowerCase().includes("subhash chowk")
+          ) {
+            memory.markAddressShared();
+          }
+
+          box.textContent = reply;
+          flow.scrollTo({ top: flow.scrollHeight, behavior: "smooth" });
+        } catch (error) {
+          console.error("AI error:", error);
+          box.textContent =
+            "I apologize, but I am momentarily distracted. Please ask me again.";
+        } finally {
+          isGenerating = false;
+          sendBtn.disabled = false;
         }
-    }
-  </script>
-</body>
+      }
 
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleAction();
+      });
+
+      /* Mobile Menu Logic */
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("active");
+        if (menu.classList.contains("active")) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "";
+        }
+      }
+    </script>
+  </body>
 </html>
