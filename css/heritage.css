@@ -186,21 +186,66 @@
 }
 
 @media (max-width: 900px) {
+    .heritage-section {
+        padding: var(--m-stack) 0;
+    }
+
+    .heritage-intro {
+        margin-bottom: 80px;
+        padding: 0 var(--m-gutter);
+    }
+
+    .heritage-heading {
+        font-size: 2.2rem;
+        margin-bottom: 24px;
+    }
+
+    .label {
+        letter-spacing: 0.4em;
+        margin-bottom: 15px;
+    }
+
     .story-grid {
         grid-template-columns: 1fr;
         gap: 60px;
+        margin-bottom: var(--m-stack);
+    }
+
+    .story-text {
+        padding: 0 var(--m-gutter);
+        text-align: center;
+    }
+
+    .story-text p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        max-width: 100%;
+    }
+
+    .story-visual {
+        height: 60vh;
+        margin: 0 var(--m-gutter);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
 
     .highlights-row {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 60px;
+        margin-bottom: var(--m-stack);
+        padding: 0 var(--m-gutter);
     }
 
-    .heritage-section {
-        padding: 100px 0;
+    .highlight-item h3 {
+        font-size: 1.4rem;
     }
 
-    .story-visual {
-        height: 400px;
+    .signature-quote {
+        padding: 80px var(--m-gutter);
+    }
+
+    .quote-text {
+        font-size: 1.6rem;
+        line-height: 1.4;
     }
 }

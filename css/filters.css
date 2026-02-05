@@ -207,14 +207,40 @@
 }
 
 /* Mobile Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .filters-sidebar {
-        width: 85%;
+        width: 100%; /* Take full width on mobile for focus */
+        padding-top: 60px;
+    }
+
+    .filters-container {
+        padding: 40px var(--m-gutter);
     }
 
     .filter-trigger-btn {
-        left: 0;
-        padding: 12px 8px;
-        font-size: 0.7rem;
+        left: auto;
+        right: 0;
+        top: 80%;
+        border-radius: 8px 0 0 8px;
+        padding: 18px 12px;
+        font-size: 0.65rem;
+        background: rgba(74, 4, 4, 0.9);
+        backdrop-filter: blur(10px);
+    }
+
+    .search-input {
+        font-size: 1rem;
+        padding: 16px 50px 16px 20px;
+    }
+
+    .filter-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        margin-bottom: 20px;
+    }
+
+    .filter-option label {
+        font-size: 1rem;
+        padding: 10px 0;
     }
 }

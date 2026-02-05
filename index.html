@@ -81,6 +81,7 @@
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/mobile-menu.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/new_hero.css" />
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
@@ -427,27 +428,24 @@
 
   <body style="background-color: transparent !important">
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenu">
-      <div
-        style="
-          position: absolute;
-          top: 30px;
-          right: 30px;
-          cursor: pointer;
-          font-size: 1rem;
-          letter-spacing: 2px;
-        "
-        onclick="toggleMobileMenu()"
-      >
-        CLOSE
-      </div>
-      <a href="index.html">Home</a>
-      <a href="collections/gold.html">Gold Collection</a>
-      <a href="collections/platinum.html">Platinum Collection</a>
-      <a href="ai.html">AI Concierge</a>
-      <a href="contact.html">Visit Store</a>
-      <a href="heritage.html">The Heritage</a>
-      <a href="wishlist.html">Wishlist</a>
+    <div
+      class="mobile-menu-overlay"
+      id="mobileMenuOverlay"
+      onclick="toggleMobileMenu()"
+    ></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-close" onclick="toggleMobileMenu()">✕</div>
+      <nav class="mobile-menu-nav">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="collections/gold.html">Gold Collection</a></li>
+          <li><a href="collections/platinum.html">Platinum Collection</a></li>
+          <li><a href="ai.html">AI Concierge</a></li>
+          <li><a href="contact.html">Visit Store</a></li>
+          <li><a href="heritage.html">The Heritage</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+        </ul>
+      </nav>
     </div>
     <div class="hero-bg" id="heroBg"></div>
     <header id="header" class="hero-state">
@@ -502,11 +500,9 @@
         <!-- SECTION 1: THE DISTINCTION (WRAPPED IN PAGE-2) -->
         <section class="page-2 section">
           <!-- Inner content remains "The Distinction" but wrapped for transition -->
-          <div style="text-align: center; margin-bottom: 80px">
+          <div class="section-title">
             <span class="hero-tagline">The Atelier Standard</span>
-            <h2 style="font-size: 3.5rem; color: var(--deep-red)">
-              The Distinction
-            </h2>
+            <h2>The Distinction</h2>
           </div>
 
           <div class="distinction-grid">
@@ -597,9 +593,7 @@
                 celebrate the divine artistry of Marwar.
               </p>
               <a href="collections/gold.html"
-                ><button class="btn-outline-white" style="margin-top: 30px">
-                  Discover Gold
-                </button></a
+                ><button class="btn-outline-white">Discover Gold</button></a
               >
             </div>
           </div>
@@ -612,9 +606,7 @@
                 sovereign who leads with subtle brilliance.
               </p>
               <a href="collections/platinum.html"
-                ><button class="btn-outline-white" style="margin-top: 30px">
-                  View Platinum
-                </button></a
+                ><button class="btn-outline-white">View Platinum</button></a
               >
             </div>
           </div>
@@ -622,19 +614,15 @@
 
         <!-- SECTION 4: AI CONCIERGE -->
         <section class="ai-immersive reveal">
-          <span class="hero-tagline" style="color: var(--gold)"
-            >Digital Concierge</span
-          >
+          <span class="hero-tagline">Digital Concierge</span>
           <h2 class="ai-title">A Curator Who <br />Understands Your Soul</h2>
-          <p style="max-width: 600px; margin: 0 auto; opacity: 0.7">
+          <p class="ai-desc">
             Our AI takes your heritage and style into account to find the one
             masterpiece that was destined for you.
           </p>
           <div class="ai-interface">
             <a href="ai.html"
-              ><button class="btn-red" style="background: var(--gold)">
-                Launch Concierge
-              </button></a
+              ><button class="btn-red">Launch Concierge</button></a
             >
           </div>
         </section>
@@ -652,11 +640,9 @@
 
         <!-- SECTION 6: PATRON CHRONICLES (Feedback) -->
         <section class="feedback-marquee-section reveal">
-          <div style="text-align: center; margin-bottom: 80px">
+          <div class="section-title">
             <span class="hero-tagline">Our Patrons</span>
-            <h2 style="font-size: 3.5rem; color: var(--deep-red)">
-              Patron Chronicles
-            </h2>
+            <h2>Patron Chronicles</h2>
           </div>
 
           <div class="marquee-container">
@@ -675,20 +661,8 @@
             </div>
           </div>
 
-          <div style="text-align: center; margin-top: 50px">
-            <a
-              href="feedback.html"
-              style="
-                font-size: 0.75rem;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                color: var(--gold);
-                text-decoration: none;
-                border-bottom: 1px solid var(--gold);
-                padding-bottom: 5px;
-              "
-              >Share Your Story →</a
-            >
+          <div class="section-footer">
+            <a href="feedback.html" class="share-trigger">Share Your Story →</a>
           </div>
         </section>
 
@@ -826,16 +800,18 @@
         */
 
       // Horizontal Scroll
-      gsap.to(".horizontal-container", {
-        xPercent: -66.6,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".horizontal-trigger",
-          pin: true,
-          scrub: 1,
-          end: "+=2500",
-        },
-      });
+      if (window.innerWidth > 900) {
+        gsap.to(".horizontal-container", {
+          xPercent: -66.6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".horizontal-trigger",
+            pin: true,
+            scrub: 1,
+            end: "+=2500",
+          },
+        });
+      }
 
       // Reveal Logic
       const reveals = document.querySelectorAll(".reveal, .service-card");
@@ -900,7 +876,9 @@
       /* Mobile Menu Logic */
       function toggleMobileMenu() {
         const menu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("mobileMenuOverlay");
         menu.classList.toggle("active");
+        overlay.classList.toggle("active");
         if (menu.classList.contains("active")) {
           document.body.style.overflow = "hidden";
         } else {

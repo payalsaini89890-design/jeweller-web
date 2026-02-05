@@ -167,64 +167,58 @@
 /* MOBILE RESPONSIVE PRESETS */
 @media(max-width: 1024px) {
     .hero-bg { 
-        position: fixed; /* Keep fixed for parallax if smooth, or absolute if laggy. Sticking to fixed for premium feel as per request */
-        background-attachment: scroll; /* Fix for some mobile browsers to prevent jitter */
+        position: fixed;
+        background-attachment: scroll;
     }
     
     .content {
         position: relative;
-        left: auto;
-        top: 50%;
-        transform: translateY(-50%);
-        padding: 0 30px;
-        margin-top: 0; /* Centered visually */
+        left: 0;
+        top: 0;
+        transform: none;
+        padding: 140px var(--m-gutter) 60px;
         max-width: 100%;
         z-index: 10;
-        text-align: center; /* Center align for mobile usually looks more premium/balanced */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     
     .meta {
-        font-size: 10px;
-        margin-bottom: 12px;
+        font-size: 0.65rem;
+        letter-spacing: 0.4em;
+        margin-bottom: 20px;
     }
 
     .hero h1 { 
-        font-size: 38px; 
-        line-height: 1.1;
-        margin-bottom: 16px;
+        font-size: clamp(2.4rem, 12vw, 3.2rem); 
+        line-height: 1.15;
+        margin-bottom: 24px;
     }
     
     .hero .sub { 
-        font-size: 15px;
-        margin-bottom: 24px;
-        padding: 0 10px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 40px;
+        padding: 0;
+        max-width: 25ch;
     }
 
     .hero-word {
-        font-size: 60px;
-        right: 50%;
-        transform: translateX(50%);
-        bottom: 80px;
-        opacity: 0.03; /* Subtler on mobile */
-        white-space: nowrap;
+        display: none; /* Remove background distraction for pure mobile focus */
     }
 
-    /* Page 2 overlaps earlier on mobile */
     .page-2 {
-        padding: 60px 24px;
-        height: auto;
-        margin-top: 85vh; /* Push it down so full hero is visible first */
-        border-radius: 32px 32px 0 0;
+        padding: var(--m-stack) var(--m-gutter);
+        margin-top: 10vh; /* Controlled overlap for luxury reveal */
+        border-radius: 40px 40px 0 0;
+        background: var(--ivory);
+        box-shadow: 0 -20px 60px rgba(0,0,0,0.05);
     }
 
     .editorial-note {
-        justify-content: center; /* Center align editorial note */
-        margin-top: 32px;
+        justify-content: center;
+        margin-top: 40px;
     }
-}
-
-@media(max-width: 480px) {
-    .hero h1 { font-size: 32px; }
-    .hero-word { font-size: 40px; bottom: 60px; }
-    .page-2 { margin-top: 80vh; }
 }

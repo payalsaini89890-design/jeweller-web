@@ -39,27 +39,26 @@
 
   <body>
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenu">
-      <div
-        style="
-          position: absolute;
-          top: 30px;
-          right: 30px;
-          cursor: pointer;
-          font-size: 1rem;
-          letter-spacing: 2px;
-        "
-        onclick="toggleMobileMenu()"
-      >
-        CLOSE
-      </div>
-      <a href="../index.html">Home</a>
-      <a href="gold.html">Gold</a>
-      <a href="platinum.html">Platinum</a>
-      <a href="../ai.html">AI Concierge</a>
-      <a href="../contact.html">Visit</a>
-      <a href="../heritage.html">The Heritage</a>
-      <a href="../wishlist.html">Wishlist</a>
+    <div
+      class="mobile-menu-overlay"
+      id="mobileMenuOverlay"
+      onclick="toggleMobileMenu()"
+    ></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-close" onclick="toggleMobileMenu()">✕</div>
+      <nav class="mobile-menu-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="gold.html">Gold Collection</a></li>
+          <li>
+            <a href="platinum.html" class="active">Platinum Collection</a>
+          </li>
+          <li><a href="../ai.html">AI Concierge</a></li>
+          <li><a href="../contact.html">Visit Store</a></li>
+          <li><a href="../heritage.html">The Heritage</a></li>
+          <li><a href="../wishlist.html">Wishlist</a></li>
+        </ul>
+      </nav>
     </div>
 
     <header id="header">
@@ -467,7 +466,9 @@
 
       function toggleMobileMenu() {
         const menu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("mobileMenuOverlay");
         menu.classList.toggle("active");
+        overlay.classList.toggle("active");
         document.body.style.overflow = menu.classList.contains("active")
           ? "hidden"
           : "";

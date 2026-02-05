@@ -405,20 +405,89 @@ body.d-open {
 
 /* Responsive */
 @media (max-width: 1000px) {
+  .dossier-nav {
+    padding: 20px var(--m-gutter);
+  }
+
   .dossier-grid {
     flex-direction: column;
   }
+
   .dossier-media {
-    height: 50vh;
+    height: 70vh; /* High-impact focal point */
     position: relative;
+    padding: 40px;
   }
-  .d-ritual-steps {
+
+  .dossier-main-img {
+    width: 90%;
+    height: 90%;
+  }
+
+  .dossier-info {
+    padding: 60px var(--m-gutter) 160px;
+    border-left: none;
+    border-top: 1px solid rgba(179, 139, 89, 0.1);
+  }
+
+  .d-title {
+    font-size: clamp(2.4rem, 12vw, 3.2rem);
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .d-price {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+
+  .d-prose {
+    text-align: justify;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .d-spec-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
+    background: transparent;
   }
+
+  .d-spec-item {
+    padding: 20px;
+    border: 1px solid rgba(179, 139, 89, 0.1);
+  }
+
+  .d-atelier {
+    padding: 40px 30px;
+    margin-top: 60px;
+  }
+
+  .d-ritual-steps,
   .d-ensemble-grid {
     grid-template-columns: 1fr;
+    gap: 40px;
   }
-  .d-title {
-    font-size: 2.8rem;
+
+  .d-ensemble-item img {
+    height: 450px;
+  }
+
+  .d-actions {
+    inset: auto 0 0 0;
+    right: 0;
+    padding: 20px var(--m-gutter);
+    background: rgba(252, 250, 247, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(179, 139, 89, 0.15);
+    justify-content: center;
+    width: 100%;
+  }
+
+  .d-btn {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 0.6rem;
+    text-align: center;
   }
 }

@@ -1,121 +1,182 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Visit Our Flagship Showroom | The Jewellery Atelier</title>
-    <meta name="description" content="Visit our flagship showroom in the Diamond District. Book a private appointment for a bespoke jewellery experience.">
-    
+    <meta
+      name="description"
+      content="Visit our flagship showroom in the Diamond District. Book a private appointment for a bespoke jewellery experience."
+    />
+
     <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Visit Our Flagship Showroom | The Jewellery Atelier">
-    <meta property="og:description" content="Experience the finest craftsmanship in a space designed for royalty.">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/contact.css">
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Visit Our Flagship Showroom | The Jewellery Atelier"
+    />
+    <meta
+      property="og:description"
+      content="Experience the finest craftsmanship in a space designed for royalty."
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/mobile-menu.css" />
+    <link rel="stylesheet" href="css/contact.css" />
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <!-- Configuration and Supabase -->
     <script src="js/env.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
     <script src="js/ticker.js" defer></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenu">
-        <div style="position:absolute; top:30px; right:30px; cursor:pointer; font-size:1rem; letter-spacing:2px;" onclick="toggleMobileMenu()">CLOSE</div>
-        <a href="index.html">Home</a>
-        <a href="collections/gold.html">Gold</a>
-        <a href="collections/platinum.html">Platinum</a>
-        <a href="ai.html">AI Concierge</a>
-        <a href="contact.html">Visit</a>
-        <a href="heritage.html">The Heritage</a>
-        <a href="wishlist.html">Wishlist</a>
+    <div
+      class="mobile-menu-overlay"
+      id="mobileMenuOverlay"
+      onclick="toggleMobileMenu()"
+    ></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-close" onclick="toggleMobileMenu()">✕</div>
+      <nav class="mobile-menu-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="collections/gold.html">Gold Collection</a></li>
+          <li><a href="collections/platinum.html">Platinum Collection</a></li>
+          <li><a href="ai.html">AI Concierge</a></li>
+          <li><a href="contact.html" class="active">Visit Store</a></li>
+          <li><a href="heritage.html">The Heritage</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+        </ul>
+      </nav>
     </div>
 
     <header id="header">
-        <a href="index.html" class="logo">THE ATELIER</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="collections/gold.html">Gold Collection</a></li>
-                <li><a href="collections/platinum.html">Platinum Collection</a></li>
-                <li><a href="ai.html">AI Concierge</a></li>
-                <li><a href="contact.html" class="active">Visit Store</a></li>
-                <li><a href="heritage.html">The Heritage</a></li>
-                <li><a href="wishlist.html" title="Wishlist" style="position: relative; font-size: 1.2rem;">♥ <span id="wishlist-count" style="display: none;">0</span></a></li>
-            </ul>
-            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
-        </nav>
+      <a href="index.html" class="logo">THE ATELIER</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="collections/gold.html">Gold Collection</a></li>
+          <li><a href="collections/platinum.html">Platinum Collection</a></li>
+          <li><a href="ai.html">AI Concierge</a></li>
+          <li><a href="contact.html" class="active">Visit Store</a></li>
+          <li><a href="heritage.html">The Heritage</a></li>
+          <li>
+            <a
+              href="wishlist.html"
+              title="Wishlist"
+              style="position: relative; font-size: 1.2rem"
+              >♥ <span id="wishlist-count" style="display: none">0</span></a
+            >
+          </li>
+        </ul>
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">MENU</div>
+      </nav>
     </header>
 
     <section class="contact-section">
-        <div class="contact-container">
+      <div class="contact-container">
+        <header class="contact-header reveal">
+          <span class="contact-label">Get In Touch</span>
+          <h1
+            class="contact-heading"
+            style="
+              font-family: var(--serif);
+              font-weight: 400;
+              font-size: 3rem;
+              margin-top: 20px;
+            "
+          >
+            Visit Us or Speak With Our <br />Jewellery Experts
+          </h1>
+          <p class="contact-subheading">
+            Experience personal attention and find the perfect piece for your
+            legacy.
+          </p>
+        </header>
 
-            <header class="contact-header reveal">
-                <span class="contact-label">Get In Touch</span>
-                <h1 class="contact-heading" style="font-family: var(--serif); font-weight: 400; font-size: 3rem; margin-top: 20px;">Visit Us or Speak With Our <br>Jewellery Experts</h1>
-                <p class="contact-subheading">Experience personal attention and find the perfect piece for your legacy.
+        <div class="contact-grid">
+          <div class="contact-details reveal">
+            <span class="logo">THE JEWELLERY ATELIER</span>
+
+            <span class="tag">Showroom</span>
+            <h2>Our Flagship Atelier</h2>
+            <p>
+              Experience the finest Marwari craftsmanship in a space designed
+              for royalty.
+            </p>
+            <div class="contact-methods">
+              <div class="method">
+                <h4>Address</h4>
+                <p>
+                  123 Royale Avenue, Diamond District,<br />Flagship City,
+                  000001
                 </p>
-            </header>
-
-            <div class="contact-grid">
-
-                <div class="contact-details reveal">
-                    <span class="logo">THE JEWELLERY ATELIER</span>
-
-                    <span class="tag">Showroom</span>
-                <h2>Our Flagship Atelier</h2>
-                <p>Experience the finest Marwari craftsmanship in a space designed for royalty.</p>
-                <div class="contact-methods">
-                    <div class="method">
-                        <h4>Address</h4>
-                        <p>123 Royale Avenue, Diamond District,<br>Flagship City, 000001</p>
-                    </div>
-                    <div class="method">
-                        <h4>Conceirge</h4>
-                        <p>+91 00000 00000</p>
-                        <p>contact@jewelleryatelier.com</p>
-                    </div>
-                </div>
-                    <p style="color: var(--warm-grey); font-size: 0.85rem; font-style: italic;">
-                        "We welcome you to experience our craftsmanship in person."
-                    </p>
-                </div>
-
-                <div class="contact-form-wrapper reveal">
-                    <form id="enquiryForm" onsubmit="handleForm(event)">
-                        <div class="form-group">
-                            <input type="text" id="name" class="form-input" placeholder=" " required>
-                            <label class="form-label">Full Name</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="tel" id="phone" class="form-input" placeholder=" " required>
-                            <label class="form-label">Phone Number</label>
-                        </div>
-
-                        <div class="form-group">
-                            <textarea id="message" class="form-input" placeholder=" " rows="1"></textarea>
-                            <label class="form-label">Message (Optional)</label>
-                        </div>
-
-                        <button type="submit" class="submit-btn">Send Enquiry</button>
-                    </form>
-                    <div id="successMsg" class="success-message">
-                        Thank you. Our expert will contact you shortly.
-                    </div>
-                </div>
-
+              </div>
+              <div class="method">
+                <h4>Conceirge</h4>
+                <p>+91 00000 00000</p>
+                <p>contact@jewelleryatelier.com</p>
+              </div>
             </div>
+            <p
+              style="
+                color: var(--warm-grey);
+                font-size: 0.85rem;
+                font-style: italic;
+              "
+            >
+              "We welcome you to experience our craftsmanship in person."
+            </p>
+          </div>
 
-            <div class="map-frame reveal">
-                <span>Showroom Location Map</span>
+          <div class="contact-form-wrapper reveal">
+            <form id="enquiryForm" onsubmit="handleForm(event)">
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="name"
+                  class="form-input"
+                  placeholder=" "
+                  required
+                />
+                <label class="form-label">Full Name</label>
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="tel"
+                  id="phone"
+                  class="form-input"
+                  placeholder=" "
+                  required
+                />
+                <label class="form-label">Phone Number</label>
+              </div>
+
+              <div class="form-group">
+                <textarea
+                  id="message"
+                  class="form-input"
+                  placeholder=" "
+                  rows="1"
+                ></textarea>
+                <label class="form-label">Message (Optional)</label>
+              </div>
+
+              <button type="submit" class="submit-btn">Send Enquiry</button>
+            </form>
+            <div id="successMsg" class="success-message">
+              Thank you. Our expert will contact you shortly.
             </div>
-
+          </div>
         </div>
+
+        <div class="map-frame reveal">
+          <span>Showroom Location Map</span>
+        </div>
+      </div>
     </section>
 
     <!-- Global Scripts -->
@@ -123,62 +184,59 @@
 
     <!-- Page Specific Logic -->
     <script>
-        /* Mobile Menu Logic */
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-            if(menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+      /* Mobile Menu Logic */
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("mobileMenuOverlay");
+        menu.classList.toggle("active");
+        overlay.classList.toggle("active");
+        document.body.style.overflow = menu.classList.contains("active")
+          ? "hidden"
+          : "";
+      }
+
+      // --- Form Management ---
+      async function handleForm(e) {
+        e.preventDefault();
+        const form = document.getElementById("enquiryForm");
+        const success = document.getElementById("successMsg");
+        const submitBtn = form.querySelector(".submit-btn");
+
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const message = document.getElementById("message").value;
+
+        try {
+          submitBtn.innerText = "Sending...";
+          submitBtn.disabled = true;
+
+          const { error } = await window.supabaseText.from("enquiries").insert([
+            {
+              customer_name: name,
+              customer_phone: phone,
+              customer_message: message,
+            },
+          ]);
+
+          if (error) throw error;
+
+          // Subtle transition
+          form.style.display = "none";
+          success.style.display = "block";
+        } catch (err) {
+          console.error("Error sending enquiry:", err);
+          alert("Failed to send enquiry. Please try again.");
+          submitBtn.innerText = "Send Enquiry";
+          submitBtn.disabled = false;
         }
+      }
 
-        // --- Form Management ---
-        async function handleForm(e) {
-            e.preventDefault();
-            const form = document.getElementById('enquiryForm');
-            const success = document.getElementById('successMsg');
-            const submitBtn = form.querySelector('.submit-btn');
-
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
-
-            try {
-                submitBtn.innerText = 'Sending...';
-                submitBtn.disabled = true;
-
-                const { error } = await window.supabaseText
-                    .from('enquiries')
-                    .insert([
-                        {
-                            customer_name: name,
-                            customer_phone: phone,
-                            customer_message: message
-                        }
-                    ]);
-
-                if (error) throw error;
-
-                // Subtle transition
-                form.style.display = 'none';
-                success.style.display = 'block';
-            } catch (err) {
-                console.error('Error sending enquiry:', err);
-                alert("Failed to send enquiry. Please try again.");
-                submitBtn.innerText = 'Send Enquiry';
-                submitBtn.disabled = false;
-            }
-        }
-
-        // --- Dynamic Textarea ---
-        const textarea = document.getElementById('message');
-        textarea.addEventListener('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
+      // --- Dynamic Textarea ---
+      const textarea = document.getElementById("message");
+      textarea.addEventListener("input", function () {
+        this.style.height = "auto";
+        this.style.height = this.scrollHeight + "px";
+      });
     </script>
-</body>
-
+  </body>
 </html>

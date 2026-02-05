@@ -21,6 +21,7 @@
     />
 
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/mobile-menu.css" />
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <style>
       :root {
@@ -284,27 +285,24 @@
 
   <body>
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenu">
-      <div
-        style="
-          position: absolute;
-          top: 30px;
-          right: 30px;
-          cursor: pointer;
-          font-size: 1rem;
-          letter-spacing: 2px;
-        "
-        onclick="toggleMobileMenu()"
-      >
-        CLOSE
-      </div>
-      <a href="index.html">Home</a>
-      <a href="collections/gold.html">Gold Collection</a>
-      <a href="collections/platinum.html">Platinum Collection</a>
-      <a href="ai.html">AI Concierge</a>
-      <a href="contact.html">Visit Store</a>
-      <a href="heritage.html">The Heritage</a>
-      <a href="wishlist.html">Wishlist</a>
+    <div
+      class="mobile-menu-overlay"
+      id="mobileMenuOverlay"
+      onclick="toggleMobileMenu()"
+    ></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-close" onclick="toggleMobileMenu()">✕</div>
+      <nav class="mobile-menu-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="collections/gold.html">Gold Collection</a></li>
+          <li><a href="collections/platinum.html">Platinum Collection</a></li>
+          <li><a href="ai.html" class="active">AI Concierge</a></li>
+          <li><a href="contact.html">Visit Store</a></li>
+          <li><a href="heritage.html">The Heritage</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+        </ul>
+      </nav>
     </div>
 
     <header id="header">
@@ -724,12 +722,12 @@
       /* Mobile Menu Logic */
       function toggleMobileMenu() {
         const menu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("mobileMenuOverlay");
         menu.classList.toggle("active");
-        if (menu.classList.contains("active")) {
-          document.body.style.overflow = "hidden";
-        } else {
-          document.body.style.overflow = "";
-        }
+        overlay.classList.toggle("active");
+        document.body.style.overflow = menu.classList.contains("active")
+          ? "hidden"
+          : "";
       }
     </script>
   </body>

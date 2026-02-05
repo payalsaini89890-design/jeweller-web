@@ -509,30 +509,63 @@
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
+    padding-bottom: 60px;
   }
+
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
+    margin-bottom: 24px;
   }
+
   .hero p {
-    margin: 0 auto 20px;
+    margin: 0 auto 30px;
+    max-width: 30ch;
   }
+
   .ctaRow {
     justify-content: center;
+    gap: 16px;
   }
+
+  /* Remove crowded elements to maintain focal integrity */
   .heroCard {
     display: none;
   }
 
   .jewelry-grid,
-  .trustStrip,
+  .platinum-grid {
+    grid-template-columns: 1fr;
+    gap: var(--m-stack);
+    padding: 0;
+  }
+
+  .collection-container {
+    padding: var(--m-stack) var(--m-gutter);
+  }
+
+  .trustStrip {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px var(--m-gutter);
+    margin: 60px 0;
+  }
+
   .testimonial {
     grid-template-columns: 1fr;
+    margin-bottom: var(--m-stack);
   }
-  .trustStrip {
-    gap: 40px;
+
+  .model {
+    display: none; /* Simplify testimonial for mobile focus */
   }
-  .collection-container {
-    padding: 100px 20px;
+
+  .quote {
+    padding: 40px var(--m-gutter);
+    text-align: center;
+  }
+
+  .quote .name {
+    justify-content: center;
   }
 }
 
@@ -710,9 +743,24 @@
   .jewelry-grid,
   .platinum-grid {
     grid-template-columns: 1fr;
+    gap: var(--m-stack);
+  }
+
+  .product-card,
+  .platinum-card {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .image-container,
+  .img-box {
+    height: 480px; /* Editorial height on mobile */
+    margin-bottom: 24px;
+    border-radius: 4px; /* Subtle refine */
   }
 
   .side-panel {
     width: 100%;
+    padding: 60px var(--m-gutter);
   }
 }
