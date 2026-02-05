@@ -2,21 +2,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap");
 
 :root {
-  --cream-light: #fdfcf9;
-  /* Bone Ivory */
-  --ivory: #fdfcf9;
-  /* Alias for cream-light */
-  --deep-red: #4a0404;
-  /* Royal Crimson */
-  --crimson: #4a0404;
-  /* Alias for deep-red */
-  --gold-muted: #b38b59;
-  --gold: #b38b59;
-  /* Alias for gold-muted */
-  --text-dark: #2d2d2d;
-  --text-grey: #666666;
-  --text-muted: #666666;
-  /* Alias for text-grey */
+  /* New Green/Ivory/Gold Palette */
+  --ivory: #FDFCF9;
+  --sand: #F4EFE7;
+  --green: #1E4D3A;
+  --gold: #C6A45E;
+  --text-dark: #1F1F1F;
+  --text-grey: #6B6158; /* Warm grey */
+  --text-muted: #6B6B6B;
+
+  /* Couture Luxury Additions */
+  --champagne: #F7F3ED;
+  --deep-wine: #6B3030;
+  --antique-gold: #C9A961;
+  --warm-grey: #6B6158;
+  --soft-grey: #E8E4DF;
+  --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Legacy aliases for compatibility */
+  --cream-light: #fbf7f1;
+  --deep-red: #1e4d3a;
+  --crimson: #1e4d3a;
+  --gold-muted: #c6a45e;
+
   --serif: "Cormorant Garamond", serif;
   --sans: "Montserrat", sans-serif;
   --transition-slow: 1.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -34,14 +42,15 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   max-width: 100vw;
   overflow-x: hidden !important;
   position: relative;
 }
 
 body {
-  background-color: var(--cream-light);
+  background-color: var(--ivory);
   color: var(--text-dark);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
@@ -121,30 +130,41 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  width: 100vw; /* Strict viewport width */
+  width: 100vw;
   z-index: 10000;
-  padding: 20px 30px; /* Reduced side padding for mobile safety */
+  padding: 28px 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: var(--transition-slow);
+  transition: all 0.6s var(--ease-luxury);
   background: transparent;
   box-sizing: border-box;
+  border-bottom: 1px solid transparent;
 }
 
 #header.scrolled {
-  padding: 15px 80px;
-  background: rgba(253, 252, 249, 0.95);
-  border-bottom: 1px solid rgba(74, 4, 4, 0.1);
+  padding: 20px 80px;
+  background: rgba(249, 246, 241, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 169, 97, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .logo {
   font-family: var(--serif);
-  font-size: 1.8rem;
-  color: var(--deep-red);
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-size: 28px;
+  color: var(--ivory); /* Initial state on hero */
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  transition: all 0.6s var(--ease-luxury);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#header.scrolled .logo {
+  font-size: 24px;
+  color: var(--deep-wine);
+  text-shadow: none;
 }
 
 nav ul {
@@ -154,18 +174,48 @@ nav ul {
 }
 
 nav ul li a {
-  font-size: 0.65rem;
+  font-size: 11px;
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--text-dark);
+  letter-spacing: 0.22em;
   text-decoration: none;
-  transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  opacity: 0.8;
+  color: var(--ivory); /* Light on hero */
+  transition: color 0.5s var(--ease-luxury);
+  position: relative;
+  padding-bottom: 4px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+#header.scrolled nav ul li a {
+  color: var(--warm-grey);
+  text-shadow: none;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0.5px;
+  background: var(--antique-gold);
+  left: 0;
+  bottom: 0;
+  transition: width 0.5s var(--ease-luxury);
+}
+
+nav ul li a:hover::after {
+  width: 100%;
 }
 
 nav ul li a:hover {
-  color: var(--deep-red);
+  color: var(--antique-gold);
+}
+
+#header.scrolled nav ul li a:hover {
+  color: var(--deep-wine);
+}
+
+nav ul li a.active {
+  color: var(--antique-gold);
 }
 .mobile-menu-toggle {
   display: none;
@@ -187,8 +237,8 @@ nav ul li a:hover {
 
 /* --- Footer --- */
 footer {
-  background: #1a1a1a;
-  color: #dcdcdc;
+  background: #2e4542;
+  color: var(--ivory);
   padding: 100px 10% 40px;
 }
 

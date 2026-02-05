@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Hero Preview — The Jewellery Atelier</title>
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ========================================
+       PREMIUM LUXURY RESET & VARIABLES
+       ======================================== */
+
+      :root {
+        /* Luxury Palette - Refined */
+        --champagne: #f7f3ed;
+        --ivory: #fdfcf9;
+        --antique-gold: #c9a961;
+        --deep-wine: #6b3030;
+        --warm-grey: #6b6158;
+        --soft-grey: #e8e4df;
+
+        /* Typography */
+        --serif: "Cormorant Garamond", serif;
+        --sans: "Montserrat", sans-serif;
+
+        /* Transitions */
+        --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--ivory);
+        color: #2a2622;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* ========================================
+       PREMIUM NAVBAR
+       ======================================== */
+
+      .navbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 28px 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.6s var(--ease-luxury);
+        background: transparent;
+        border-bottom: 1px solid transparent;
+      }
+
+      /* Scrolled state */
+      .navbar.scrolled {
+        position: fixed;
+        padding: 20px 80px;
+        background: rgba(249, 246, 241, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(201, 169, 97, 0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      }
+
+      /* Logo */
+      .navbar-logo {
+        font-family: var(--serif);
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: var(--ivory);
+        text-transform: uppercase;
+        transition: all 0.6s var(--ease-luxury);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .navbar.scrolled .navbar-logo {
+        font-size: 24px;
+        color: var(--deep-wine);
+        text-shadow: none;
+      }
+
+      /* Navigation Links */
+      .navbar-nav {
+        display: flex;
+        gap: 48px;
+        list-style: none;
+        align-items: center;
+      }
+
+      .navbar-nav a {
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ivory);
+        text-decoration: none;
+        position: relative;
+        padding-bottom: 4px;
+        transition: color 0.5s var(--ease-luxury);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .navbar.scrolled .navbar-nav a {
+        color: var(--warm-grey);
+        text-shadow: none;
+      }
+
+      .navbar-nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 0.5px;
+        background: var(--antique-gold);
+        transition: width 0.5s var(--ease-luxury);
+      }
+
+      .navbar-nav a:hover::after {
+        width: 100%;
+      }
+
+      .navbar-nav a:hover {
+        color: var(--antique-gold);
+      }
+
+      .navbar.scrolled .navbar-nav a:hover {
+        color: var(--deep-wine);
+      }
+
+      /* ========================================
+       PREMIUM HERO SECTION
+       ======================================== */
+
+      .hero-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Hero Image (Full, Uncompromised) */
+      .hero-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      /* Subtle Vignette Overlay */
+      .hero-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 30%,
+          rgba(42, 38, 34, 0.06) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Left Gradient for Text Readability - Refined */
+      .hero-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          rgba(247, 243, 237, 0.72) 0%,
+          rgba(247, 243, 237, 0.48) 22%,
+          rgba(247, 243, 237, 0.12) 40%,
+          transparent 55%
+        );
+        pointer-events: none;
+      }
+
+      /* Hero Content */
+      .hero-content {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 80px;
+        max-width: 680px;
+      }
+
+      /* Heritage Line */
+      .heritage-line {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--antique-gold);
+        margin-bottom: 40px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s var(--ease-luxury) 0.3s forwards;
+      }
+
+      /* Main Headline */
+      .hero-headline {
+        font-family: var(--serif);
+        font-size: 68px;
+        font-weight: 400;
+        line-height: 1.15;
+        color: var(--deep-wine);
+        margin-bottom: 36px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s var(--ease-luxury) 0.5s forwards;
+      }
+
+      /* Subheading */
+      .hero-subheading {
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: var(--warm-grey);
+        margin-bottom: 48px;
+        max-width: 520px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s var(--ease-luxury) 0.7s forwards;
+      }
+
+      /* CTA Button - Refined */
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 44px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--ivory);
+        background: var(--deep-wine);
+        border: 1px solid rgba(201, 169, 97, 0.35);
+        text-decoration: none;
+        transition: all 0.6s var(--ease-luxury);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s var(--ease-luxury) 0.9s forwards;
+        width: fit-content;
+      }
+
+      .hero-cta:hover {
+        background: rgba(107, 48, 48, 0.08);
+        color: var(--deep-wine);
+        border-color: var(--antique-gold);
+        box-shadow: 0 4px 16px rgba(107, 48, 48, 0.08);
+      }
+
+      /* Couture Divider */
+      .couture-divider {
+        width: 52px;
+        height: 1px;
+        background: var(--antique-gold);
+        opacity: 0.6;
+        margin-top: 28px;
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: fadeInUp 1s var(--ease-luxury) 1.05s forwards;
+      }
+
+      /* Philosophy Line */
+      .philosophy-line {
+        font-size: 12px;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--warm-grey);
+        opacity: 0.75;
+        max-width: 440px;
+        opacity: 0;
+        transform: translateY(15px);
+        animation: fadeInUp 1s var(--ease-luxury) 1.15s forwards;
+      }
+
+      /* ========================================
+       ANIMATIONS
+       ======================================== */
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ========================================
+       RESPONSIVE REFINEMENTS
+       ======================================== */
+
+      @media (max-width: 1024px) {
+        .navbar {
+          padding: 24px 40px;
+        }
+
+        .navbar.scrolled {
+          padding: 18px 40px;
+        }
+
+        .hero-content {
+          padding: 0 40px;
+          max-width: 600px;
+        }
+
+        .hero-headline {
+          font-size: 56px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 20px 30px;
+        }
+
+        .navbar-logo {
+          font-size: 22px;
+        }
+
+        .navbar.scrolled .navbar-logo {
+          font-size: 20px;
+        }
+
+        .navbar-nav {
+          gap: 28px;
+        }
+
+        .navbar-nav a {
+          font-size: 10px;
+        }
+
+        .hero-content {
+          padding: 0 30px;
+        }
+
+        .hero-headline {
+          font-size: 44px;
+        }
+
+        .hero-subheading {
+          font-size: 15px;
+        }
+
+        .hero-gradient {
+          background: linear-gradient(
+            to right,
+            rgba(249, 246, 241, 0.92) 0%,
+            rgba(249, 246, 241, 0.75) 40%,
+            transparent 70%
+          );
+        }
+      }
+
+      /* ========================================
+       PREVIEW BADGE (Remove in Production)
+       ======================================== */
+
+      .preview-badge {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%) rotate(-90deg);
+        transform-origin: right center;
+        background: var(--antique-gold);
+        color: var(--deep-wine);
+        padding: 8px 20px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        z-index: 10000;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- PREVIEW BADGE (Remove in final version) -->
+    <div class="preview-badge">PREVIEW: HERO SECTION</div>
+
+    <!-- PREMIUM NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="navbar-logo">THE ATELIER</div>
+      <ul class="navbar-nav">
+        <li><a href="#heritage">Heritage</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#atelier">The Atelier</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+    </nav>
+
+    <!-- PREMIUM HERO SECTION -->
+    <section class="hero-container">
+      <!-- Hero Image (Replace with your actual image path) -->
+      <img src="bg.png" alt="Royal Heritage Jewellery" class="hero-image" />
+
+      <!-- Vignette Overlay -->
+      <div class="hero-vignette"></div>
+
+      <!-- Text Gradient Overlay -->
+      <div class="hero-gradient"></div>
+
+      <!-- Hero Content -->
+      <div class="hero-content">
+        <!-- Heritage Line -->
+        <div class="heritage-line">EST. 1980 · JODHPUR</div>
+
+        <!-- Main Headline -->
+        <h1 class="hero-headline">
+          Crafting Regality<br />for the Modern Bride
+        </h1>
+
+        <!-- Subheading -->
+        <p class="hero-subheading">
+          A dialogue between royal heritage and contemporary couture, where
+          every masterpiece is composed with reverence to tradition.
+        </p>
+
+        <!-- CTA Button -->
+        <a href="#collections" class="hero-cta"> EXPLORE MASTERPIECES </a>
+
+        <!-- Couture Divider -->
+        <div class="couture-divider"></div>
+
+        <!-- Philosophy Line -->
+        <p class="philosophy-line">
+          An atelier where each piece is composed, not produced.
+        </p>
+      </div>
+    </section>
+
+    <!-- Navbar Scroll Logic -->
+    <script>
+      const navbar = document.getElementById("navbar");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+    </script>
+  </body>
+</html>

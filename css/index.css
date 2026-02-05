@@ -1,85 +1,161 @@
 /* --- Hero --- */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    padding: 220px 10% 0;
-    margin-top: 0;
+/* --- PREMIUM HERO SECTION --- */
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin-top: 0;
+  padding: 0;
+}
+
+/* User Instruction: Adjust 'object-position' below to zoom/pan the image.
+   top = focuses on top (face)
+   center = centers image
+   20% = specific vertical position
+*/
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* <--- ADJUST THIS for vertical alignment */
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(42, 38, 34, 0.06) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(247, 243, 237, 0.72) 0%,
+    rgba(247, 243, 237, 0.48) 22%,
+    rgba(247, 243, 237, 0.12) 40%,
+    transparent 55%
+  );
+  pointer-events: none;
 }
 
 .hero-content {
-    flex: 1;
-    z-index: 2;
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 80px;
+  max-width: 680px;
 }
 
-.hero-tagline {
-    color: var(--gold-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5em;
-    font-size: 0.8rem;
-    margin-bottom: 25px;
-    display: block;
+.heritage-line {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--antique-gold);
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s var(--ease-luxury) 0.3s forwards;
 }
 
-/* NEW CLASSES */
-.hero-title {
-    font-size: 5.5rem; /* Large size */
-    line-height: 1.1;
-    color: var(--deep-red);
-    margin-bottom: 30px;
+.hero-headline {
+  font-family: var(--serif);
+  font-size: 68px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--deep-wine);
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s var(--ease-luxury) 0.5s forwards;
 }
 
-.hero-desc {
-    max-width: 600px;
-    margin-bottom: 40px;
-    color: var(--text-grey);
-    font-size: 1.6rem;
-    font-weight: 300;
-    letter-spacing: 1px;
+.hero-subheading {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--warm-grey);
+  margin-bottom: 48px;
+  max-width: 520px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s var(--ease-luxury) 0.7s forwards;
 }
 
-.hero-image-box {
-/* Editorial Note Styles */
-.editorial-note {
-    margin-top: 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 44px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  background: var(--deep-wine);
+  border: 1px solid rgba(201, 169, 97, 0.35);
+  text-decoration: none;
+  transition: all 0.6s var(--ease-luxury);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s var(--ease-luxury) 0.9s forwards;
+  width: fit-content;
 }
 
-.editorial-line {
-    width: 64px;
-    height: 1px;
-    background: var(--gold-muted);
-    opacity: 0.7;
+.hero-cta:hover {
+  background: rgba(107, 48, 48, 0.08);
+  color: var(--deep-wine);
+  border-color: var(--antique-gold);
+  box-shadow: 0 4px 16px rgba(107, 48, 48, 0.08);
 }
 
-.editorial-text {
-    font-size: 13px;
-    font-style: italic;
-    color: #6b5f50;
-    line-height: 1.4;
-    max-width: 380px;
+.couture-divider {
+  width: 52px;
+  height: 1px;
+  background: var(--antique-gold);
+  opacity: 0.6;
+  margin-top: 28px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeInUp 1s var(--ease-luxury) 1.05s forwards;
 }
 
-.hero-image-box {
-    flex: 1.2;
-    height: 80vh;
-    position: relative;
-    clip-path: inset(0 0 0 0);
+.philosophy-line {
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--warm-grey);
+  opacity: 0.75;
+  max-width: 440px;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeInUp 1s var(--ease-luxury) 1.15s forwards;
 }
 
-.hero-image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: sepia(20%);
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Collections Grid (Home Specific) --- */
 .section-padding { padding: 120px 10%; }
 .section-title { text-align: center; margin-bottom: 80px; }
-.section-title h2 { font-size: 3.5rem; color: var(--deep-red); }
+.section-title h2 { font-size: 3.5rem; color: var(--green); }
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -110,8 +186,8 @@
 
 /* --- Heritage Banner --- */
 .heritage-banner {
-    background: var(--deep-red);
-    color: var(--cream-light);
+    background: var(--green);
+    color: var(--ivory);
     padding: 150px 20%;
     text-align: center;
 }
@@ -123,32 +199,32 @@
 }
 
 @media (max-width: 900px) {
-    .hero {
-        flex-direction: column;
-        padding: 120px var(--m-gutter) 60px;
-        height: auto;
-        text-align: center;
-        align-items: center;
+    /* Updated Mobile Hero Adjustments */
+    .hero-container {
+        height: 100vh;
+    }
+    
+    .hero-content {
+        padding: 0 30px;
+        align-items: flex-start;
+        text-align: left;
     }
 
-    .hero-title {
-        font-size: clamp(2.8rem, 12vw, 3.8rem);
-        margin-bottom: 24px;
-        line-height: 1.1;
+    .hero-headline {
+        font-size: 44px;
     }
 
-    .hero-desc {
-        font-size: 1.1rem;
-        margin: 0 auto 40px;
-        line-height: 1.6;
-        max-width: 25ch;
+    .hero-subheading {
+        font-size: 15px;
     }
-
-    .hero-image-box {
-        width: 100%;
-        height: 60vh;
-        margin-top: 60px;
-        clip-path: none; /* Full impact on mobile */
+    
+    .hero-gradient {
+          background: linear-gradient(
+            to right,
+            rgba(249, 246, 241, 0.92) 0%,
+            rgba(249, 246, 241, 0.75) 40%,
+            transparent 70%
+          );
     }
 
     .section-padding {
